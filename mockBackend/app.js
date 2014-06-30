@@ -1,5 +1,6 @@
 var express = require('express');
 var fs = require('fs');
+var agiloData = require('./agiloModel');
 
 var app = express();
 
@@ -8,12 +9,14 @@ app.use(function(req, res, next) {
     return next();
 });
 
+// Stories and Tasks
 app.get('/agilo/eorders/report/103', function(req, res){
-    sendStaticFile('103', res);
+    res.send(agiloData.getStoriesAndTasksAsInReport103());
 });
 
+// Sprints
 app.get('/agilo/eorders/report/104', function(req, res){
-    sendStaticFile('104', res);
+    res.send(agiloData.getSprintsAsInReport104());
 });
 
 var server = app.listen(3000, function() {

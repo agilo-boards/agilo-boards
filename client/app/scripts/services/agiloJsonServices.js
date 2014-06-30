@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .service('Agilo', function($q, AgiloUnformatted) {
+    .service('Agilo', function($q, AgiloUnformatted, AGILO_REPORT_STORIES_AND_TASKS) {
     	
     	function transformTSVtoJSON(serviceCall, params, mapToObject) {
             var deferredResult = $q.defer();
@@ -32,21 +32,10 @@ angular.module('agiloBoardsApp')
     		getStoriesBySprint: function(selectedSprint) {
                 var deferredResult = $q.defer();
     			var storiesAndTasks = transformTSVtoJSON(AgiloUnformatted.getStoriesBySprint, { SPRINT: selectedSprint }, function (columns) {
-    				return {
-    					id: columns[0].trim(),
-    					type: columns[1].trim(),
-    					title: columns[2].trim(),
-    					release: columns[3].trim(),
-    					state: columns[4].trim(),
-    					owner: columns[5].trim(),
-    					keywords: columns[6].trim(),
-    					storyPoints: columns[7].trim(),
-    					timeDone: columns[8].trim(),
-    					timeRemaining: columns[9].trim(),
-    					sprint: columns[10].trim(),
-    					project: columns[11].trim(),
-    					parentId: columns[12].trim()
-    				}
+                    var item = {};
+                    angular.forEach(AGILO_REPORT_STORIES_AND_TASKS, function(key, value) {
+                        item[key] = columns[value].trim();
+                    });
     			});
     			storiesAndTasks.then(function(items) {
         			var stories = {};

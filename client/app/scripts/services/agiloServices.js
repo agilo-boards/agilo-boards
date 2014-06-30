@@ -18,7 +18,11 @@ angular.module('agiloBoardsApp')
     		return deferredResult.promise;
     	}
     	return {
-    		getSprints: getHttpResponse.bind(null, '/104?format=tab', 'Unable to load sprints'),
-    		getStoriesBySprint: getHttpResponse.bind(null, '/103?max=500&format=tab', 'Unable to load stories by sprint') 
+    		getSprints: function(params) {
+                return getHttpResponse('/104?format=tab', 'Unable to load sprints', params);
+            },
+    		getStoriesBySprint: function(params) {
+                return getHttpResponse('/103?max=500&format=tab', 'Unable to load stories by sprint', params);
+            }
     	}
     })

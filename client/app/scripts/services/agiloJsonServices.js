@@ -2,7 +2,7 @@
 
 angular.module('agiloBoardsApp')
     .service('Agilo', function($q, AgiloUnformatted, AGILO_REPORT_STORIES_AND_TASKS) {
-    	
+
     	function transformTSVtoJSON(serviceCall, params, mapToObject) {
             var deferredResult = $q.defer();
             serviceCall(params).then(function(result) {
@@ -13,7 +13,7 @@ angular.module('agiloBoardsApp')
                 		return row.trim().length>0
                 	})
             	}
-            	deferredResult.resolve({ 
+            	deferredResult.resolve({
 					data: rows.map(function (row) {
 						var columns = row.split('\t');
 						return mapToObject(columns);
@@ -22,7 +22,7 @@ angular.module('agiloBoardsApp')
 			}, function (error) { deferredResult.reject(error); });
 			return deferredResult.promise;
     	}
-    	
+
     	return {
     		getSprints: function() {
     			return transformTSVtoJSON(AgiloUnformatted.getSprints, {}, function (columns) {
@@ -33,9 +33,13 @@ angular.module('agiloBoardsApp')
                 var deferredResult = $q.defer();
     			var storiesAndTasks = transformTSVtoJSON(AgiloUnformatted.getStoriesBySprint, { SPRINT: selectedSprint }, function (columns) {
                     var item = {};
-                    angular.forEach(AGILO_REPORT_STORIES_AND_TASKS, function(key, value) {
+                    angular.forEach(AGILO_REPORT_STORIES_AND_TASKS, function(value, key) {
+                        if(typeof columns[value] === 'undefined') {
+                            return;
+                        }
                         item[key] = columns[value].trim();
                     });
+                    return item;
     			});
     			storiesAndTasks.then(function(items) {
         			var stories = {};

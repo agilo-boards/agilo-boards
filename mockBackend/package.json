@@ -1,0 +1,9 @@
+{
+    "name": "agiloBoardsMockBackend",
+    "description": "Mock backend for the agilo boards app",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "4.4.5"
+    }
+}

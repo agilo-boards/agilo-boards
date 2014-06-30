@@ -3,6 +3,11 @@ var fs = require('fs');
 
 var app = express();
 
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    return next();
+});
+
 app.get('/agilo/eorders/report/103', function(req, res){
     sendStaticFile('103', res);
 });

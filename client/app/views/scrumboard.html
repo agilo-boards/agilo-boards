@@ -4,7 +4,7 @@
 		<div class="navbar-header">
 			<span class="navbar-brand">eOrders Scrum Board</span>
 		</div>
-		
+
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<form class="navbar-form navbar-left">
 				<div class="form-group" ng-model="sprints">
@@ -35,20 +35,23 @@
 					 	<span style="float: right;"><b>{{story.milestone}}</b></span>
 					</p>
 					<div class="story-center">
-						<p class="story-number centered"> 
-							#{{story.id}} 
-							<a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a> 
+						<p class="story-number centered">
+							#{{story.id}}
+							<a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a>
 							<a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>
 						</p>
 						<p class="story-title centered">{{story.description}}</p>
+
+						<!-- TODO: Add story owner picture, see Trello item
 						<p class="story-owner-image-holder centered">
 							<img src="images/team_120px/{{story.owner || 'unknown'}}.jpg" class="story-owner-image"></img>
 						</p>
+						-->
 					</div>
 					<p>
-						<b> {{story.storyPoints}} SP</b> 
+						<b> {{story.storyPoints}} SP</b>
 						<span style="float: right;">
-							done: <b> {{story.timeDone}} h</b> - 
+							done: <b> {{story.timeDone}} h</b> -
 							remaining: <b> {{story.timeRemaining}} h</b>
 						</span>
 					</p>

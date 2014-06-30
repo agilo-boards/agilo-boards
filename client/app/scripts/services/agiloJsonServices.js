@@ -33,9 +33,14 @@ angular.module('agiloBoardsApp')
                 var deferredResult = $q.defer();
     			var storiesAndTasks = transformTSVtoJSON(AgiloUnformatted.getStoriesBySprint, { SPRINT: selectedSprint }, function (columns) {
                     var item = {};
-                    angular.forEach(AGILO_REPORT_STORIES_AND_TASKS, function(key, value) {
-                        item[key] = columns[value].trim();
+                    angular.forEach(AGILO_REPORT_STORIES_AND_TASKS, function(value, key) {
+                        var value = columns[value];
+                        if (value) {
+                            value = value.trim();
+                        }
+                        item[key] = value;
                     });
+                    return item;
     			});
     			storiesAndTasks.then(function(items) {
         			var stories = {};

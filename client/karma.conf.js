@@ -20,11 +20,7 @@ module.exports = function(config) {
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/data/**/*.js',
-      'test/spec/**/*.js',
-      { pattern:  '../mockBackend/static/*',
-        watched:  true,
-        served:   true,
-        included: false }
+      'test/spec/**/*.js'
     ],
 
     // list of files / patterns to exclude

@@ -29,42 +29,23 @@
 		<div class="col-md-5">
 			<h2>To Do</h2>
 			<span id="col-todo">
-				<div ng-repeat="story in stories | filter:{state:'new'}" class="story-card">
-					<p>
-					 	<b>{{story.title}}</b>
-					 	<span style="float: right;"><b>{{story.milestone}}</b></span>
-					</p>
-					<div class="story-center">
-						<p class="story-number centered">
-							#{{story.id}}
-							<a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a>
-							<a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>
-						</p>
-						<p class="story-title centered">{{story.description}}</p>
-
-						<!-- TODO: Add story owner picture, see Trello item
-						<p class="story-owner-image-holder centered">
-							<img src="images/team_120px/{{story.owner || 'unknown'}}.jpg" class="story-owner-image"></img>
-						</p>
-						-->
-					</div>
-					<p>
-						<b> {{story.storyPoints}} SP</b>
-						<span style="float: right;">
-							done: <b> {{story.timeDone}} h</b> -
-							remaining: <b> {{story.timeRemaining}} h</b>
-						</span>
-					</p>
-				</div>
+				<agilo-story ng-repeat="story in stories | filter:isStoryNew">
+				</agilo-story>
 			</span>
 		</div>
 		<div class="col-md-5">
 			<h2>In Progress</h2>
-			<span id="col-inprogress"></span>
+			<span id="col-inprogress">
+				<agilo-story ng-repeat="story in stories | filter:{state:'assigned'}">
+				</agilo-story>
+            </span>
 		</div>
 		<div class="col-md-2">
 			<h2>Done</h2>
-			<span id="col-done"></span>
+			<span id="col-done">
+				<agilo-story ng-repeat="story in stories | filter:{state:'closed'}">
+				</agilo-story>
+            </span>
 		</div>
 	</div>
 </div>

@@ -25,7 +25,17 @@ angular.module('agiloBoardsApp')
 	  function loadStories(selectedSprint) {
 		  var stories = Agilo.getStoriesBySprint(selectedSprint);
 		  stories.then(function(result) {
-			  $scope.stories = result.stories;
+              // Convert stories to an array
+              function toArray(obj) {
+                var arr=new Array();
+                for( var i in obj ) {
+                    if (obj.hasOwnProperty(i)){
+                        arr.push(obj[i]);
+                    }
+                }
+                return arr;
+              }
+			  $scope.stories = toArray(result.stories);
 		  }, function(error) {
 			  $('#messageContainer').append('<div class="error">'+error+'</div>');
 		  });
@@ -38,4 +48,8 @@ angular.module('agiloBoardsApp')
 	  $scope.getEditTicketUrl = function(id) {
 		  return $scope.getViewTicketUrl(id)+'?pane=edit';
 	  }
+      
+      $scope.isStoryNew = function(story) {
+          return story.state !== 'closed' && story.state !== 'assigned';
+      }
   });

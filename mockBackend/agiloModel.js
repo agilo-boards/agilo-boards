@@ -454,6 +454,12 @@ function getStoriesAndTasksForSprint(sprint) {
     });
 }
 
+function getStoriesForRelease(release) {
+    return storiesAndTasks.filter(function (storyOrTask) {
+        return storyOrTask.milestone === release && storyOrTask.type === TYPE_STORY;
+    });
+}
+
 function getSprintsInRelease2() {
     return sprints.filter(function (sprint) {
         return sprint.milestone === releases[1].name;
@@ -470,4 +476,8 @@ module.exports.getSprintsAsInReport104 = function () {
 
 module.exports.getReleasesAsInReport108 = function () {
     return asTsv(releases, RELEASE_FIELDS);
+};
+
+module.exports.getStoriesAsInReport109 = function (release) {
+    return asTsv(getStoriesForRelease(release), STORY_FIELDS_FOR_BACKLOG);
 };

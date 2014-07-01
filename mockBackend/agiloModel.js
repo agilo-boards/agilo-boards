@@ -82,6 +82,7 @@ var STATUS_REOPENED = 'reopened';
 var DETAIL_STATUS_NEXT_SPRINT = 'Next Sprint';
 var DETAIL_STATUS_READY_TO_IMPLEMENT = 'Ready to Implement';
 var DETAIL_STATUS_DETAIL_ESTIMATION_DONE = 'Detail estimation done';
+var DETAIL_STATUS_READY_FOR_DETAIL_ESTIMATION = 'Ready for rough estimation';
 var DETAIL_STATUS_ROUGH_ESTIMATION_DONE = 'Rough estimation done';
 var DETAIL_STATUS_READY_FOR_ROUGH_ESTIMATION = 'Ready for rough estimation';
 var DETAIL_STATUS_FEASIBILITY = 'Feasibility';
@@ -96,8 +97,20 @@ var SPRINT_1_RELEASE_1 = sprints[0].name;
 var SPRINT_1_RELEASE_2 = sprints[1].name;
 var SPRINT_2_RELEASE_2 = sprints[2].name;
 var SPRINT_3_RELEASE_2 = sprints[3].name;
+var SPRINT_1_RELEASE_3 = sprints[4].name;
 
 var storiesAndTasks = [
+    {
+        id: 1930,
+        type: TYPE_STORY,
+        summary: 'Enable and Disable Optional Slices',
+        milestone: RELEASE_3,
+        status: STATUS_NEW,
+        'Detail Status': DETAIL_STATUS_FEASIBILITY,
+        owner: 'face',
+        keywords: '[testing]',
+        Project: PROJECT_CLIENT_BACKLOG
+    },
     {
         id: 1100,
         type: TYPE_STORY,

@@ -22,6 +22,16 @@ app.get('/agilo/eorders/report/104', function(req, res){
     res.send(agiloData.getSprintsAsInReport104());
 });
 
+// Releases
+app.get('/agilo/eorders/report/108', function(req, res){
+    res.send(agiloData.getReleasesAsInReport108());
+});
+
+// Stories per Release
+app.get('/agilo/eorders/report/109', function(req, res){
+    res.send(agiloData.getReleasesAsInReport109());
+});
+
 var server = app.listen(3000, function() {
     console.log('Listening on port %d', server.address().port);
 });

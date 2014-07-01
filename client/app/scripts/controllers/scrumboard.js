@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-  .controller('ScrumboardCtrl', function ($scope, $location, Agilo) {
+  .controller('ScrumboardCtrl', function ($scope, $location, Agilo, AGILO_URL) {
 	  var sprints = Agilo.getSprints();
 	  $scope.sprints = {
 			  selectedSprint: $location.search()['sprint']
@@ -21,6 +21,10 @@ angular.module('agiloBoardsApp')
 	  }, function(error) {
 		  $('#messageContainer').append('<div class="error">'+error+'</div>');
 	  });
+      
+      $scope.reload = function() {
+		  loadStories($scope.sprints.selectedSprint);
+      }
 	  
 	  function loadStories(selectedSprint) {
 		  var stories = Agilo.getStoriesBySprint(selectedSprint);
@@ -36,13 +40,26 @@ angular.module('agiloBoardsApp')
                 return arr;
               }
 			  $scope.stories = toArray(result.stories);
+              $scope.stories.map(enrichStory);
+              $scope.allTimeDone = sum($scope.stories, function(story) { return story.timeDone; });
+              $scope.allTimeRemaining = sum($scope.stories, function(story) { return story.timeRemaining; });
 		  }, function(error) {
 			  $('#messageContainer').append('<div class="error">'+error+'</div>');
 		  });
 	  }
+      
+      function enrichStory(story) {
+          story.timeRemaining = sum(story.tasks, function(task) { return task.timeRemaining; });
+          story.timeDone = sum(story.tasks, function(task) { return task.timeDone; });
+          return story;
+      }
+	  
+	  $scope.getDashboardUrl = function() {
+		  return AGILO_URL+'/dashboard';
+	  }
 	  
 	  $scope.getViewTicketUrl = function(id) {
-		  return 'https://ci2.samw24.bluewin.ch/agilo/eorders/ticket/' + id;
+		  return AGILO_URL+'/ticket/' + id;
 	  }
 
 	  $scope.getEditTicketUrl = function(id) {
@@ -51,5 +68,16 @@ angular.module('agiloBoardsApp')
       
       $scope.isStoryNew = function(story) {
           return story.state !== 'closed' && story.state !== 'assigned';
+      }
+      
+      function sum(array, method) {
+          var total = 0;
+          angular.forEach(array, function(item) {
+              var num = parseFloat(method(item));
+              if (num && (num >=0 || num < 0)) {
+                total += num;
+              }
+          });
+          return total;
       }
   });

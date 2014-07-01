@@ -66,6 +66,10 @@ angular.module('agiloBoardsApp')
 		  return $scope.getViewTicketUrl(id)+'?pane=edit';
 	  }
       
+      $scope.getNewTaskUrl = function(story) {
+          return AGILO_URL+ '/newticket?src='+story.id+'&amp;project='+encodeURI(story.project)+'&amp;milestone='+encodeURI(story.release)+'&amp;owner=&amp;sprint='+encodeURI(story.sprint)+'&amp;type=task';
+      }
+      
       $scope.isStoryNew = function(story) {
           return story.state !== 'closed' && story.state !== 'assigned';
       }

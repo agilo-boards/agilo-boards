@@ -47,10 +47,9 @@ module.exports = function (config) {
         // - Safari (only Mac)
         // - PhantomJS
         // - IE (only Windows)
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
-        plugins: ['karma-chrome-launcher', 'karma-jasmine'],
-
+        plugins: ['karma-chrome-launcher', 'karma-jasmine', 'karma-phantomjs-launcher'],
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit

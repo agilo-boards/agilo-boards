@@ -34,7 +34,8 @@
         "karma-chrome-launcher": "~0.1",
         "grunt-express-server": "~0.4.17",
         "grunt-protractor-runner": "~1.0.0",
-        "protractor": "~1.0.0-rc1"
+        "protractor": "~1.0.0-rc1",
+        "karma-phantomjs-launcher": "0.1.4"
     },
     "engines": {
         "node": ">=0.10.0"

@@ -423,7 +423,7 @@ module.exports = function (grunt) {
         'karma:unit'
     ]);
 
-    grunt.registerTask('testwatch', [
+    grunt.registerTask('test:unitwatch', [
         'clean:server',
         'concurrent:test',
         'autoprefixer',

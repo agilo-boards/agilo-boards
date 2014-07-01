@@ -31,22 +31,25 @@
 		<div class="col-md-5 swimlane">
 			<h2>To Do</h2>
 			<span id="col-todo">
-				<agilo-story-with-tasks ng-repeat="story in stories | filter:isStoryNew">
+				<agilo-story-with-tasks ng-repeat="story in todoStories = (stories | filter:isStoryNew)">
 				</agilo-story-with-tasks>
+                <div ng-show="todoStories.length == 0">No stories.</div>
 			</span>
 		</div>
 		<div class="col-md-5 swimlane">
 			<h2>In Progress</h2>
 			<span id="col-inprogress">
-                <agilo-story-with-tasks ng-repeat="story in stories | filter:{state:'assigned'}">
+                <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{state:'assigned'})">
                 </agilo-story-with-tasks>
+                <div ng-show="inprogressStories.length == 0">No stories.</div>
             </span>
 		</div>
 		<div class="col-md-2 swimlane">
 			<h2>Done</h2>
 			<span id="col-done">
-				<agilo-story ng-repeat="story in stories | filter:{state:'closed'}">
+				<agilo-story ng-repeat="story in doneStories = (stories | filter:{state:'closed'})">
 				</agilo-story>
+                <div ng-show="doneStories.length == 0">No stories.</div>
             </span>
 		</div>
 	</div>

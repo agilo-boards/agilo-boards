@@ -1,5 +1,6 @@
 var express = require('express');
 var fs = require('fs');
+var url = require('url');
 var agiloData = require('./agiloModel');
 
 var app = express();
@@ -11,7 +12,9 @@ app.use(function(req, res, next) {
 
 // Stories and Tasks
 app.get('/agilo/eorders/report/103', function(req, res){
-    res.send(agiloData.getStoriesAndTasksAsInReport103());
+    var url_parts = url.parse(req.url, true);
+    var query = url_parts.query;
+    res.send(agiloData.getStoriesAndTasksAsInReport103(query.SPRINT));
 });
 
 // Sprints

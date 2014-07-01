@@ -36,8 +36,10 @@
 		<div class="col-md-5">
 			<h2>In Progress</h2>
 			<span id="col-inprogress">
-				<agilo-story ng-repeat="story in stories | filter:{state:'assigned'}">
-				</agilo-story>
+                <div ng-repeat="story in stories | filter:{state:'assigned'}">
+				    <agilo-story></agilo-story>
+                    <agilo-task ng-repeat="task in story.tasks"></agilo-task>
+                </div>
             </span>
 		</div>
 		<div class="col-md-2">

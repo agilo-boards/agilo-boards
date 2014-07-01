@@ -344,9 +344,20 @@ module.exports = function (grunt) {
         singleRun: false,
         autoWatch: true
       }
+    },
+    express: {
+      options: {
+          // Override defaults here
+      },
+      dev: {
+          options: {
+              script: '../mockBackend/app.js'
+          }
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-express-server');
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
@@ -354,6 +365,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'express:dev',
       'clean:server',
       'bowerInstall',
       'concurrent:server',
@@ -375,7 +387,7 @@ module.exports = function (grunt) {
     'connect:test',
     'karma:unit'
   ]);
-    
+
   grunt.registerTask('testwatch', [
     'clean:server',
     'concurrent:test',

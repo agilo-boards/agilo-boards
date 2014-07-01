@@ -1,3 +1,5 @@
+'use strict';
+
 var RELEASE_FIELDS = ['name', 'due', 'completed', 'description'];
 
 var releases = [
@@ -192,7 +194,7 @@ var storiesAndTasks = [
     {
         id: 1005,
         type: TYPE_STORY,
-        summary: 'Update time remaining' ,
+        summary: 'Update time remaining',
         milestone: RELEASE_2,
         status: STATUS_NEW,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -205,7 +207,7 @@ var storiesAndTasks = [
     {
         id: 1006,
         type: TYPE_STORY,
-        summary: 'Drag and drop for Scrum Board' ,
+        summary: 'Drag and drop for Scrum Board',
         milestone: RELEASE_2,
         status: STATUS_REOPENED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -217,7 +219,7 @@ var storiesAndTasks = [
     {
         id: 1007,
         type: TYPE_STORY,
-        summary: 'Get All releases' ,
+        summary: 'Get All releases',
         milestone: RELEASE_2,
         status: STATUS_NEW,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -462,7 +464,7 @@ function getSprintsInRelease2() {
 
 module.exports.getStoriesAndTasksAsInReport103 = function (sprint) {
     return asTsv(getStoriesAndTasksForSprint(sprint), STORY_AND_TASK_FIELDS);
-}
+};
 
 module.exports.getSprintsAsInReport104 = function () {
     return asTsv(getSprintsInRelease2(), SPRINT_FIELDS);
@@ -470,4 +472,8 @@ module.exports.getSprintsAsInReport104 = function () {
 
 module.exports.getReleasesAsInReport108 = function () {
     return asTsv(releases, RELEASE_FIELDS);
+};
+
+module.exports.updateTicket = function (ticketNumber, requestBody) {
+    console.log(ticketNumber + ' ' + requestBody);
 };

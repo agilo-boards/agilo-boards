@@ -22,6 +22,18 @@ angular.module('agiloBoardsApp')
 			}, function (error) { deferredResult.reject(error); });
 			return deferredResult.promise;
     	}
+        function createConversionMethod(conversionMap) {
+            return function (columns) {
+                var item = {};
+                angular.forEach(conversionMap, function(value, key) {
+                    if(typeof columns[value] === 'undefined') {
+                        return;
+                    }
+                    item[key] = columns[value].trim();
+                });
+                return item;
+            }
+        }
 
     	return {
     		getSprints: function() {
@@ -31,16 +43,7 @@ angular.module('agiloBoardsApp')
     		},
     		getStoriesBySprint: function(selectedSprint) {
                 var deferredResult = $q.defer();
-    			var storiesAndTasks = transformTSVtoJSON(AgiloUnformatted.getStoriesBySprint, { SPRINT: selectedSprint }, function (columns) {
-                    var item = {};
-                    angular.forEach(AGILO_REPORT_STORIES_AND_TASKS, function(value, key) {
-                        if(typeof columns[value] === 'undefined') {
-                            return;
-                        }
-                        item[key] = columns[value].trim();
-                    });
-                    return item;
-    			});
+    			var storiesAndTasks = transformTSVtoJSON(AgiloUnformatted.getStoriesBySprint, { SPRINT: selectedSprint }, createConversionMethod(AGILO_REPORT_STORIES_AND_TASKS));
     			storiesAndTasks.then(function(items) {
         			var stories = {};
         			var tasks = {};
@@ -57,6 +60,26 @@ angular.module('agiloBoardsApp')
         			});
     			}, function (error) { deferredResult.reject(error); });
     			return deferredResult.promise;
-    		}
+    		},
+            getReleases: function() {
+                return transformTSVtoJSON(AgiloUnformatted.getReleases, {}, createConversionMethod(AGILO_REPORT_RELEASES));
+            },
+            getStoriesByRelease: function(selectedRelease){
+                var deferredResult = $q.defer();
+                var stories = transformTSVtoJSON(AgiloUnformatted.getStoriesByRelease, { MILESTONE: selectedRelease }, createConversionMethod(AGILO_REPORT_STORIES_BY_RELEASE));
+                stories.then(function(items) {
+                    var projects = {};
+                    items.data.forEach(function(item) {
+                        if (!projects.hasOwnProperty(item.project)){
+                            projects[item.project] = [];
+                        }
+                        projects[item.project].push(item);
+                    });
+                    deferredResult.resolve({
+                        projects: projects
+                    });
+                }, function (error) { deferredResult.reject(error); });
+                return deferredResult.promise;
+            }
     	}
     });

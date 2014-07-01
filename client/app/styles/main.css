@@ -1,7 +1,17 @@
 /* Space out content a bit */
 body {
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 20px;
+}
+a {
+    cursor: pointer
+}
+a:hover {
+    text-decoration: none
+}
+
+#board {
+    margin: 10px;
 }
 div.error {
     margin: 20px;
@@ -61,4 +71,11 @@ div.error {
 
 .space-bottom {
 	margin-bottom: 1em;
+}
+
+.block {
+    width: 49%;
+    margin: 0px;
+    display: inline-block;
+    vertical-align: top;
 }

@@ -1,7 +1,7 @@
 <div class="story-card">
     <p>
-        <b>{{story.title}}</b>
-        <span style="float: right;"><b>{{story.milestone}}</b></span>
+        <b>{{story.project}}</b>
+        <span style="float: right;"><b>{{story.release}}</b></span>
     </p>
     <div class="story-center">
         <p class="story-number centered">
@@ -9,7 +9,7 @@
             <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a>
             <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>
         </p>
-        <p class="story-title centered">{{story.description}}</p>
+        <p class="story-title centered">{{story.title}}</p>
 
         <!-- TODO: Add story owner picture, see Trello item
         <p class="story-owner-image-holder centered">

@@ -11,35 +11,33 @@
 					<select id="sprints" class="form-control" ng-model="sprints.selectedSprint" ng-options="sprint for sprint in sprints.allSprints">
 					</select>
 					&nbsp;&nbsp;
-					done (with admin): {{total.done}} h
+                    <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
 					&nbsp;&nbsp;
-					remaining: {{total.none}} h
+					done (with admin): {{allTimeDone}} h
 					&nbsp;&nbsp;
-					<a href="https://ci2.samw24.bluewin.ch/agilo/eorders/dashboard" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
+					remaining: {{allTimeRemaining}} h
+					&nbsp;&nbsp;
+					<a href="{{getDashboardUrl()}}" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
 				</div>
 			</form>
 		</div>
 	</div>
 </nav>
 
-<div class="container-fluid">
-	<p></p>
-
-	<div class="row" id="board" ng-model="stories">
+<div class="container-fluid" id="board">
+	<div class="row" ng-model="stories">
 		<div class="col-md-5">
 			<h2>To Do</h2>
 			<span id="col-todo">
-				<agilo-story ng-repeat="story in stories | filter:isStoryNew">
-				</agilo-story>
+				<agilo-story-with-tasks ng-repeat="story in stories | filter:isStoryNew">
+				</agilo-story-with-tasks>
 			</span>
 		</div>
 		<div class="col-md-5">
 			<h2>In Progress</h2>
 			<span id="col-inprogress">
-                <div ng-repeat="story in stories | filter:{state:'assigned'}">
-				    <agilo-story></agilo-story>
-                    <agilo-task ng-repeat="task in story.tasks"></agilo-task>
-                </div>
+                <agilo-story-with-tasks ng-repeat="story in stories | filter:{state:'assigned'}">
+                </agilo-story-with-tasks>
             </span>
 		</div>
 		<div class="col-md-2">

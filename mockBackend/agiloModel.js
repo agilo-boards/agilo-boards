@@ -476,6 +476,24 @@ function getSprintsInRelease2() {
     });
 }
 
+function getTicketByNumber(ticketNumber) {
+    var foundTicket = storiesAndTasks.filter(function(ticket) {
+        return ticket.id === ticketNumber;
+    });
+
+    if(foundTicket.length === 1) {
+        return foundTicket;
+    }
+}
+
+function getPropertyToChange(requestBody) {
+    for(var property in requestBody) {
+        if(property !== 'id' && property !== 'ts' && property !== 'time_of_last_change') {
+            return property;
+        }
+    }
+}
+
 module.exports.getStoriesAndTasksAsInReport103 = function (sprint) {
     return asTsv(getStoriesAndTasksForSprint(sprint), STORY_AND_TASK_FIELDS);
 };
@@ -494,4 +512,25 @@ module.exports.getStoriesAsInReport109 = function (release) {
 
 module.exports.updateTicket = function (ticketNumber, requestBody) {
     console.log(ticketNumber + ' ' + requestBody);
+
+    if(ticketNumber !== requestBody.id) {
+        console.log(ticketNumber + ' !== ' + requestBody.id);
+        return;
+    }
+
+    var ticket = getTicketByNumber(ticketNumber);
+    if(typeof ticket === 'undefined') {
+        console.log('ticket ' + ticketNumber + 'not found');
+        return;
+    }
+
+    var propertyToChange = getPropertyToChange(requestBody);
+    if(typeof propertyToChange === 'undefined') {
+        console.log('no property found to be changed');
+        return;
+    }
+
+    ticket[propertyToChange] = requestBody[propertyToChange];
+
+    return '';
 };

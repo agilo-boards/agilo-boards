@@ -3,13 +3,20 @@
 var express = require('express');
 var url = require('url');
 var agiloData = require('./agiloModel');
+var bodyParser = require('body-parser');
 
 var app = express();
 
+// Allow cross origin requests. This is ok, as we only use it for testing.
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     return next();
 });
+
+// Needed to read payload of POST requests
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use( bodyParser.json({type: 'application/json;charset=UTF-8'}) );       // to support JSON-encoded bodies
 
 // Stories and Tasks
 app.get('/agilo/eorders/report/103', function (req, res) {

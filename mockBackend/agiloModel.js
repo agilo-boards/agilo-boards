@@ -1,24 +1,44 @@
 'use strict';
 
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(date.getDate() + days);
+    return result;
+}
+
+function getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
+}
+
+var BEGIN_SPRINT_1_RELEASE_1 = addDays(getMonday(new Date()), -42);
+var BEGIN_SPRINT_1_RELEASE_2 = addDays(BEGIN_SPRINT_1_RELEASE_1, 21);
+var BEGIN_SPRINT_2_RELEASE_2 = addDays(BEGIN_SPRINT_1_RELEASE_2, 21);
+var BEGIN_SPRINT_3_RELEASE_2 = addDays(BEGIN_SPRINT_2_RELEASE_2, 21);
+var BEGIN_SPRINT_1_RELEASE_3 = addDays(BEGIN_SPRINT_3_RELEASE_2, 21);
+var BEGIN_SPRINT_2_RELEASE_3 = addDays(BEGIN_SPRINT_1_RELEASE_3, 21);
+
 var RELEASE_FIELDS = ['name', 'due', 'completed', 'description'];
 
 var releases = [
     {
         name: 'Release 3',
-        due: 1400515200000000,
+        due: BEGIN_SPRINT_1_RELEASE_3.getTime() * 1000,
         completed: null,
         description: 'Software Delivery Date: 18.04.2014 (Fr) \\Release Date: 16.05.2014 (Fr)'
     },
     {
         name: 'Release 2',
-        due: 1393174800000000,
-        completed: 1393851609000000,
+        due: BEGIN_SPRINT_1_RELEASE_2.getTime() * 1000,
+        completed: BEGIN_SPRINT_1_RELEASE_3.getTime() * 1000,
         description: 'Software Delivery: 24.01.2014[[BR]]  Release-Termin: 23.02.2014'
     },
     {
         name: 'Release 1',
-        due: 1393174800000000,
-        completed: 1393851609000000,
+        due: BEGIN_SPRINT_1_RELEASE_1.getTime() * 1000,
+        completed: BEGIN_SPRINT_1_RELEASE_2.getTime() * 1000,
         description: 'Software Delivery: 24.01.2014[[BR]]  Release-Termin: 23.02.2014'
     }
 ];
@@ -28,53 +48,45 @@ var SPRINT_FIELDS = ['description', 'sprint_end', 'milestone', 'name', 'start', 
 var sprints = [
     {
         description: 'First Sprint',
-        sprint_end: 1405677600,
+        sprint_end: BEGIN_SPRINT_1_RELEASE_2.getTime() / 1000,
         milestone: releases[0].name,
         name: 'Sprint 1',
-        start: 1402005600,
+        start: BEGIN_SPRINT_1_RELEASE_1.getTime() / 1000,
         team: 'A-Team'
     },
     {
         description: 'First Sprint',
-        sprint_end: 1405677600,
+        sprint_end: BEGIN_SPRINT_2_RELEASE_2.getTime() / 1000,
         milestone: releases[1].name,
         name: 'Sprint 1',
-        start: 1402005600,
+        start: BEGIN_SPRINT_1_RELEASE_2.getTime() / 1000,
         team: 'A-Team'
     },
     {
         description: 'Second Sprint',
-        sprint_end: 1403820000,
+        sprint_end: BEGIN_SPRINT_3_RELEASE_2.getTime() / 1000,
         milestone: releases[1].name,
         name: 'Sprint 2',
-        start: BEGINN_SPRINT_2_RELEASE_2,
+        start: BEGIN_SPRINT_2_RELEASE_2.getTime() / 1000,
         team: 'A-Team'
     },
     {
         description: 'Third Sprint',
-        sprint_end: 1405634400,
+        sprint_end: BEGIN_SPRINT_1_RELEASE_3.getTime() / 1000,
         milestone: releases[1].name,
         name: 'Sprint 3',
-        start: 1402005600,
+        start: BEGIN_SPRINT_3_RELEASE_2.getTime() / 1000,
         team: 'A-Team'
     },
     {
         description: 'First Sprint',
-        sprint_end: 1405634400,
+        sprint_end: BEGIN_SPRINT_2_RELEASE_3.getTime() / 1000,
         milestone: releases[2].name,
         name: 'Sprint 1',
-        start: 1402005600,
+        start: BEGIN_SPRINT_1_RELEASE_3.getTime() / 1000,
         team: 'A-Team'
     }
 ];
-
-var BEGINN_SPRINT_2_RELEASE_2 = 1403820000;
-//function getMondayThisWeekAsTimestamp() {
-//    return new Date();
-//    return sprints.filter(function (sprint) {
-//        return sprint.milestone === releases[1].name;
-//    });
-//}
 
 var STORY_FIELDS_FOR_BACKLOG = ['id', 'summary', 'milestone', 'status', 'Detail Status', 'keywords', 'Story Points', 'Sprint', 'Project'];
 

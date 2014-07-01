@@ -45,7 +45,7 @@ var sprints = [
         sprint_end: 1403820000,
         milestone: releases[1].name,
         name: 'Sprint 2',
-        start: 1402005600,
+        start: BEGINN_SPRINT_2_RELEASE_2,
         team: 'A-Team'
     },
     {
@@ -65,6 +65,14 @@ var sprints = [
         team: 'A-Team'
     }
 ];
+
+var BEGINN_SPRINT_2_RELEASE_2 = 1403820000;
+//function getMondayThisWeekAsTimestamp() {
+//    return new Date();
+//    return sprints.filter(function (sprint) {
+//        return sprint.milestone === releases[1].name;
+//    });
+//}
 
 var STORY_FIELDS_FOR_BACKLOG = ['id', 'summary', 'milestone', 'status', 'Detail Status', 'keywords', 'Story Points', 'Sprint', 'Project'];
 

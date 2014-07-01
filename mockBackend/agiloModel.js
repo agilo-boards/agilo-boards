@@ -194,7 +194,7 @@ var storiesAndTasks = [
     {
         id: 1005,
         type: TYPE_STORY,
-        summary: 'Update time remaining',
+        summary: 'Update time remaining' ,
         milestone: RELEASE_2,
         status: STATUS_NEW,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -207,7 +207,7 @@ var storiesAndTasks = [
     {
         id: 1006,
         type: TYPE_STORY,
-        summary: 'Drag and drop for Scrum Board',
+        summary: 'Drag and drop for Scrum Board' ,
         milestone: RELEASE_2,
         status: STATUS_REOPENED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -219,7 +219,7 @@ var storiesAndTasks = [
     {
         id: 1007,
         type: TYPE_STORY,
-        summary: 'Get All releases',
+        summary: 'Get All releases' ,
         milestone: RELEASE_2,
         status: STATUS_NEW,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -456,6 +456,12 @@ function getStoriesAndTasksForSprint(sprint) {
     });
 }
 
+function getStoriesForRelease(release) {
+    return storiesAndTasks.filter(function (storyOrTask) {
+        return storyOrTask.milestone === release && storyOrTask.type === TYPE_STORY;
+    });
+}
+
 function getSprintsInRelease2() {
     return sprints.filter(function (sprint) {
         return sprint.milestone === releases[1].name;
@@ -472,6 +478,10 @@ module.exports.getSprintsAsInReport104 = function () {
 
 module.exports.getReleasesAsInReport108 = function () {
     return asTsv(releases, RELEASE_FIELDS);
+};
+
+module.exports.getStoriesAsInReport109 = function (release) {
+    return asTsv(getStoriesForRelease(release), STORY_FIELDS_FOR_BACKLOG);
 };
 
 module.exports.updateTicket = function (ticketNumber, requestBody) {

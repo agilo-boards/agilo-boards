@@ -13,6 +13,9 @@ a:hover {
 #board {
     margin: 10px;
 }
+#board .row {
+    margin-right: 0px;
+}
 div.error {
     margin: 20px;
     padding: 10px;

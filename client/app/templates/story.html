@@ -1,27 +1,28 @@
 
 <div class="story-card" ng-click="openTicket(story, $event)">
-    <p ng-hide="compactMode">
+    <div ng-hide="compactMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>
-    </p>
-    <div class="story-center">
-        <p class="story-number centered">
-            #{{story.id}}
-            <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></span></a>
-            <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a>
-        </p>
-        <p class="story-title centered">{{story.title}}</p>
-
-        <!-- TODO: Add story owner picture, see Trello item
-        <p class="story-owner-image-holder centered">
-            <img src="images/team_120px/{{story.owner || 'unknown'}}.jpg" class="story-owner-image"></img>
-        </p>
-        -->
     </div>
-    <p ng-hide="compactMode">
+    <div class="story-center">
+        <div class="story-owner-image" ng-show="story.owner">
+            <object data="images/team/unknown.jpg" type="image/jpg">
+                <img src="images/team/{{story.owner || 'unknown'}}.jpg" class="story-owner-image"/>
+            </object>
+        </div>
+        <div class="centered">
+            <span class="story-number">
+                #{{story.id}}
+                <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></span></a>
+                <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a><br/>
+            </span>
+            <span class="story-title">{{story.title}}</span>
+        </div>
+    </div>
+    <div ng-hide="compactMode" class="footer">
         {{story.storyPoints}} SP
         <span style="float: right;">
             done {{story.timeDone}}h
         </span>
-    </p>
+    </div>
 </div>

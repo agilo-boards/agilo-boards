@@ -1,5 +1,6 @@
 'use strict';
 
-angular.module('agiloBoardsApp')
-  .controller('BacklogboardCtrl', function ($scope) {
-  });
+angular.module('agiloBoardsApp').controller('BacklogboardCtrl', function ($scope) {
+
+    // TODO
+});

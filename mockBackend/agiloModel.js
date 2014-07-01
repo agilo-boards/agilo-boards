@@ -27,7 +27,7 @@ var sprints = [
     {
         description: 'First Sprint',
         sprint_end: 1405677600,
-        milestone: releases[0],
+        milestone: releases[0].name,
         name: 'Sprint 1',
         start: 1402005600,
         team: 'A-Team'
@@ -35,7 +35,7 @@ var sprints = [
     {
         description: 'First Sprint',
         sprint_end: 1405677600,
-        milestone: releases[1],
+        milestone: releases[1].name,
         name: 'Sprint 1',
         start: 1402005600,
         team: 'A-Team'
@@ -43,7 +43,7 @@ var sprints = [
     {
         description: 'Second Sprint',
         sprint_end: 1403820000,
-        milestone: releases[1],
+        milestone: releases[1].name,
         name: 'Sprint 2',
         start: 1402005600,
         team: 'A-Team'
@@ -51,7 +51,7 @@ var sprints = [
     {
         description: 'Third Sprint',
         sprint_end: 1405634400,
-        milestone: releases[1],
+        milestone: releases[1].name,
         name: 'Sprint 3',
         start: 1402005600,
         team: 'A-Team'
@@ -59,7 +59,7 @@ var sprints = [
     {
         description: 'First Sprint',
         sprint_end: 1405634400,
-        milestone: releases[2],
+        milestone: releases[2].name,
         name: 'Sprint 1',
         start: 1402005600,
         team: 'A-Team'
@@ -67,6 +67,8 @@ var sprints = [
 ];
 
 var STORY_FIELDS_FOR_BACKLOG = ['id', 'summary', 'milestone', 'status', 'Detail Status', 'keywords', 'Story Points', 'Sprint', 'Project'];
+
+var STORY_AND_TASK_FIELDS = ['id', 'type', 'summary', 'milestone', 'status', 'owner', 'keywords', 'Story Points', 'Work done', 'Remaining time', 'Sprint', 'Project', 'Story ID'];
 
 var TYPE_STORY = 'story';
 var TYPE_TASK = 'task';
@@ -83,10 +85,6 @@ var DETAIL_STATUS_DETAIL_ESTIMATION_DONE = 'Detail estimation done';
 var DETAIL_STATUS_ROUGH_ESTIMATION_DONE = 'Rough estimation done';
 var DETAIL_STATUS_READY_FOR_ROUGH_ESTIMATION = 'Ready for rough estimation';
 var DETAIL_STATUS_FEASIBILITY = 'Feasibility';
-var STORY_AND_TASK_FIELDS = ['id', 'type', 'summary', 'milestone', 'status', 'owner', 'keywords', 'Story Points', 'Work done', 'Remaining time', 'Sprint', 'Project', 'Story ID'];
-var SPRINT_1 = sprints[0].name;
-var SPRINT_2 = sprints[1].name;
-var SPRINT_3 = sprints[2].name;
 var PROJECT_SETUP = 'Setup';
 var PROJECT_CREATE_AGILO_REPORTS = 'Create Agilo Reports';
 var PROJECT_CLIENT_INFRASTRUCTURE = 'Client Infrastructure';
@@ -94,6 +92,10 @@ var PROJECT_CLIENT_SCRUMBOARD = 'Client Scrumboard';
 var PROJECT_CLIENT_BACKLOG = 'Client Backlog';
 var PROJECT_READ_BOOKS = 'Read Books';
 var PROJECT_PREPARE_TESTDATA = 'Prepare Test Data';
+var SPRINT_1_RELEASE_1 = sprints[0].name;
+var SPRINT_1_RELEASE_2 = sprints[1].name;
+var SPRINT_2_RELEASE_2 = sprints[2].name;
+var SPRINT_3_RELEASE_2 = sprints[3].name;
 
 var storiesAndTasks = [
     {
@@ -106,7 +108,7 @@ var storiesAndTasks = [
         owner: 'amy',
         keywords: '[testing]',
         'Story Points': 3,
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_2,
         Project: PROJECT_PREPARE_TESTDATA
     },
     {
@@ -119,59 +121,59 @@ var storiesAndTasks = [
         owner: 'face',
         keywords: '[testing]',
         'Story Points': 2,
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_2,
         Project: PROJECT_PREPARE_TESTDATA
     },
     {
         id: 1001,
         type: TYPE_STORY,
-        summary: 'Set up AngularJS project' ,
+        summary: 'Set up AngularJS project',
         milestone: RELEASE_2,
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'amy',
         keywords: '[before camp]',
         'Story Points': 2,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_CLIENT_INFRASTRUCTURE
     },
     {
         id: 1002,
         type: TYPE_STORY,
-        summary: 'Convert existing jQuery code to AngularJS' ,
+        summary: 'Convert existing jQuery code to AngularJS',
         milestone: RELEASE_2,
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'amy',
         keywords: '[before camp]',
         'Story Points': 2,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_CLIENT_INFRASTRUCTURE
     },
     {
         id: 1003,
         type: TYPE_STORY,
-        summary: 'Add testwatch target' ,
+        summary: 'Add testwatch target',
         milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'amy',
         keywords: '[infrastructure]',
         'Story Points': 1,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_PREPARE_TESTDATA
     },
     {
         id: 1004,
         type: TYPE_STORY,
-        summary: 'Read JavaScript book' ,
+        summary: 'Read JavaScript book',
         milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'ba',
         keywords: '[education]',
         'Story Points': 2,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_READ_BOOKS
     },
     {
@@ -184,7 +186,7 @@ var storiesAndTasks = [
         owner: 'face',
         keywords: '[important]',
         'Story Points': 3,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_PREPARE_TESTDATA
     },
     {
@@ -196,7 +198,7 @@ var storiesAndTasks = [
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         keywords: '[usability]',
         'Story Points': 1,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_CLIENT_SCRUMBOARD
     },
     {
@@ -209,94 +211,112 @@ var storiesAndTasks = [
         owner: 'face',
         keywords: '[important]',
         'Story Points': 3,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_CREATE_AGILO_REPORTS
     },
     {
         id: 2000,
         type: TYPE_TASK,
-        summary: 'Serve static agilo reports' ,
+        summary: 'Serve static agilo reports',
         milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
-        'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'face',
         keywords: '[testing]',
         'Work done': 2.5,
         'Remaining time': 1,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_CREATE_AGILO_REPORTS,
         'Story ID': 1000
     },
     {
         id: 2001,
         type: TYPE_TASK,
-        summary: 'Mock update time remaining' ,
+        summary: 'Mock update time remaining',
         milestone: RELEASE_2,
         status: STATUS_NEW,
-        'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'face',
         keywords: '[testing]',
         'Work done': 0,
         'Remaining time': 2.5,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_PREPARE_TESTDATA,
         'Story ID': 1000
     },
     {
         id: 2002,
         type: TYPE_TASK,
-        summary: 'Read intro' ,
+        summary: 'Read intro',
         milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
-        'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'ba',
         keywords: '[education]',
         'Remaining time': 5,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_READ_BOOKS,
         'Story ID': 1004
     },
     {
         id: 2003,
         type: TYPE_TASK,
-        summary: 'Read chapter 1' ,
+        summary: 'Read chapter 1',
         milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
-        'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'ba',
         keywords: '[testing]',
         'Work done': 2,
         'Remaining time': 10,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_READ_BOOKS,
         'Story ID': 1004
     },
     {
         id: 2004,
         type: TYPE_TASK,
-        summary: 'Read chapter 2' ,
+        summary: 'Read chapter 2',
         milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'ba',
         keywords: '[education]',
         'Remaining time': 8,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_READ_BOOKS,
         'Story ID': 1004
     },
     {
         id: 2005,
         type: TYPE_TASK,
-        summary: 'Create new AngularJS project using Yeoman' ,
+        summary: 'Create new AngularJS project using Yeoman',
         milestone: RELEASE_2,
         status: STATUS_CLOSED,
         owner: 'amy',
         keywords: '[testing]',
         'Work done': 2,
-        Sprint: SPRINT_2,
+        Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_CLIENT_INFRASTRUCTURE,
         'Story ID': 1001
+    },
+    {
+        id: 3002,
+        type: TYPE_STORY,
+        summary: 'Edit Story status by shifting Story',
+        milestone: RELEASE_2,
+        status: STATUS_NEW,
+        'Detail Status': DETAIL_STATUS_READY_FOR_ROUGH_ESTIMATION,
+        keywords: '[story mapping]',
+        'Story Points': 5,
+        Project: PROJECT_CLIENT_SCRUMBOARD
+    },
+    {
+        id: 3003,
+        type: TYPE_STORY,
+        summary: 'Edit Story detail status by shifting Story',
+        milestone: RELEASE_2,
+        status: STATUS_NEW,
+        'Detail Status': DETAIL_STATUS_READY_FOR_DETAIL_ESTIMATION,
+        keywords: '[story mapping]',
+        'Story Points': 3,
+        Project: PROJECT_CLIENT_BACKLOG
     },
     {
         id: 3000,
@@ -338,7 +358,7 @@ var storiesAndTasks = [
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         keywords: '[story mapping]',
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_1,
         'Story Points': 3,
         Project: PROJECT_SETUP
     },
@@ -350,7 +370,7 @@ var storiesAndTasks = [
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         keywords: '[story mapping]',
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_1,
         'Story Points': 2,
         Project: PROJECT_SETUP
     },
@@ -360,7 +380,7 @@ var storiesAndTasks = [
         summary: 'Ask Roger',
         milestone: RELEASE_1,
         status: STATUS_CLOSED,
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_1,
         'Work done': 3,
         Project: PROJECT_SETUP,
         'Story ID': 1102
@@ -371,7 +391,7 @@ var storiesAndTasks = [
         summary: 'Ask Wolfgang',
         milestone: RELEASE_1,
         status: STATUS_CLOSED,
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_1,
         'Work done': 2,
         Project: PROJECT_SETUP,
         'Story ID': 1102
@@ -384,7 +404,7 @@ var storiesAndTasks = [
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         keywords: '[story mapping]',
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_1,
         'Story Points': 1,
         Project: PROJECT_SETUP
     },
@@ -396,7 +416,7 @@ var storiesAndTasks = [
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         keywords: '[story mapping]',
-        Sprint: SPRINT_1,
+        Sprint: SPRINT_1_RELEASE_1,
         'Story Points': 2,
         Project: PROJECT_SETUP
     }
@@ -417,7 +437,13 @@ function asTsv(data, fields) {
 
 function getStoriesAndTasksForSprint(sprint) {
     return storiesAndTasks.filter(function (storyOrTask) {
-        return  storyOrTask.Sprint === sprint;
+        return storyOrTask.Sprint === sprint;
+    });
+}
+
+function getSprintsInRelease2() {
+    return sprints.filter(function (sprint) {
+        return sprint.milestone === releases[1].name;
     });
 }
 
@@ -426,7 +452,7 @@ module.exports.getStoriesAndTasksAsInReport103 = function (sprint) {
 }
 
 module.exports.getSprintsAsInReport104 = function () {
-    return asTsv(sprints, SPRINT_FIELDS);
+    return asTsv(getSprintsInRelease2(), SPRINT_FIELDS);
 };
 
 module.exports.getReleasesAsInReport108 = function () {

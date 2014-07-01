@@ -32,7 +32,9 @@
     "grunt-karma": "~0.8.2",
     "karma-jasmine": "~0.1.5",
     "karma-chrome-launcher": "~0.1",
-    "grunt-express-server": "~0.4.17"
+    "grunt-express-server": "~0.4.17",
+    "grunt-protractor-runner": "~1.0.0",
+    "protractor": "~1.0.0-rc1"
   },
   "engines": {
     "node": ">=0.10.0"

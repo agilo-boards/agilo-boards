@@ -7,6 +7,12 @@ angular.module('agiloBoardsApp')
             templateUrl: 'templates/story.html'
         };
       })
+    .directive('agiloStoryWithTasks', function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'templates/storyWithTasks.html'
+        };
+      })
     .directive('agiloTask', function() {
         return {
             restrict: 'E',

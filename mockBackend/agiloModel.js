@@ -83,9 +83,9 @@ var STATUS_NEW = 'new';
 var STATUS_REOPENED = 'reopened';
 var DETAIL_STATUS_NEXT_SPRINT = 'Next Sprint';
 var DETAIL_STATUS_READY_TO_IMPLEMENT = 'Ready to Implement';
-var DETAIL_STATUS_DETAIL_ESTIMATION_DONE = 'Detail estimation done';
+//var DETAIL_STATUS_DETAIL_ESTIMATION_DONE = 'Detail estimation done';
 var DETAIL_STATUS_READY_FOR_DETAIL_ESTIMATION = 'Ready for rough estimation';
-var DETAIL_STATUS_ROUGH_ESTIMATION_DONE = 'Rough estimation done';
+//var DETAIL_STATUS_ROUGH_ESTIMATION_DONE = 'Rough estimation done';
 var DETAIL_STATUS_READY_FOR_ROUGH_ESTIMATION = 'Ready for rough estimation';
 var DETAIL_STATUS_FEASIBILITY = 'Feasibility';
 var PROJECT_SETUP = 'Setup';
@@ -98,8 +98,8 @@ var PROJECT_PREPARE_TESTDATA = 'Prepare Test Data';
 var SPRINT_1_RELEASE_1 = sprints[0].name;
 var SPRINT_1_RELEASE_2 = sprints[1].name;
 var SPRINT_2_RELEASE_2 = sprints[2].name;
-var SPRINT_3_RELEASE_2 = sprints[3].name;
-var SPRINT_1_RELEASE_3 = sprints[4].name;
+//var SPRINT_3_RELEASE_2 = sprints[3].name;
+//var SPRINT_1_RELEASE_3 = sprints[4].name;
 
 var storiesAndTasks = [
     {
@@ -442,7 +442,7 @@ function getRow(sprint, fields) {
     return fields.map(function (field) {
         return sprint[field];
     }).join('\t');
-};
+}
 
 function asTsv(data, fields) {
     return fields.join('\t') + '\n' + data.map(function (row) {

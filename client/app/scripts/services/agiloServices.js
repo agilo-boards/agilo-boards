@@ -2,26 +2,26 @@
 
 angular.module('agiloBoardsApp')
     .factory('AgiloUnformatted', function($q, $http, REST_API_URL) {
-    	function getHttpResponse(url, errorMsg, params) {
+        function getHttpResponse(url, errorMsg, params) {
             var deferredResult = $q.defer();
             $http({
-            	method: 'GET', 
-            	url: REST_API_URL+url,
-            	params: params
+                method: 'GET',
+                url: REST_API_URL+url,
+                params: params
             })
-            .success(function(data, status, headers, config) {
-            	deferredResult.resolve({ data: data }); 
+            .success(function(data) {
+                deferredResult.resolve({ data: data });
             })
-            .error(function(data, status, headers, config) {
-            	deferredResult.reject(errorMsg + ' (status: '+status+')');
+            .error(function(data, status) {
+                deferredResult.reject(errorMsg + ' (status: '+status+')');
             });
-    		return deferredResult.promise;
-    	}
-    	return {
-    		getSprints: function(params) {
+            return deferredResult.promise;
+        }
+        return {
+            getSprints: function(params) {
                 return getHttpResponse('/104?format=tab', 'Unable to load sprints', params);
             },
-    		getStoriesBySprint: function(params) {
+            getStoriesBySprint: function(params) {
                 return getHttpResponse('/103?max=500&format=tab', 'Unable to load stories by sprint', params);
             },
             getReleases: function(params) {
@@ -30,5 +30,5 @@ angular.module('agiloBoardsApp')
             getStoriesFromRelease: function(params) {
                 return getHttpResponse('/105?format=tab', 'Unable to load Stories from release', params);
             }
-    	}
-    })
+        };
+    });

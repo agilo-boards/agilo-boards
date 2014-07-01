@@ -1,10 +1,41 @@
+var RELEASE_FIELDS = ['name', 'due', 'completed', 'description'];
+
+var releases = [
+    {
+        name: 'Release 3',
+        due: 1400515200000000,
+        completed: null,
+        description: 'Software Delivery Date: 18.04.2014 (Fr) \\Release Date: 16.05.2014 (Fr)'
+    },
+    {
+        name: 'Release 2',
+        due: 1393174800000000,
+        completed: 1393851609000000,
+        description: 'Software Delivery: 24.01.2014[[BR]]  Release-Termin: 23.02.2014'
+    },
+    {
+        name: 'Release 1',
+        due: 1393174800000000,
+        completed: 1393851609000000,
+        description: 'Software Delivery: 24.01.2014[[BR]]  Release-Termin: 23.02.2014'
+    }
+];
+
 var SPRINT_FIELDS = ['description', 'sprint_end', 'milestone', 'name', 'start', 'team'];
 
 var sprints = [
     {
         description: 'First Sprint',
         sprint_end: 1405677600,
-        milestone: 'Release 1.3',
+        milestone: releases[0],
+        name: 'Sprint 1',
+        start: 1402005600,
+        team: 'A-Team'
+    },
+    {
+        description: 'First Sprint',
+        sprint_end: 1405677600,
+        milestone: releases[1],
         name: 'Sprint 1',
         start: 1402005600,
         team: 'A-Team'
@@ -12,7 +43,7 @@ var sprints = [
     {
         description: 'Second Sprint',
         sprint_end: 1403820000,
-        milestone: 'Release 1.3',
+        milestone: releases[1],
         name: 'Sprint 2',
         start: 1402005600,
         team: 'A-Team'
@@ -20,8 +51,16 @@ var sprints = [
     {
         description: 'Third Sprint',
         sprint_end: 1405634400,
-        milestone: 'Release 1.3',
+        milestone: releases[1],
         name: 'Sprint 3',
+        start: 1402005600,
+        team: 'A-Team'
+    },
+    {
+        description: 'First Sprint',
+        sprint_end: 1405634400,
+        milestone: releases[2],
+        name: 'Sprint 1',
         start: 1402005600,
         team: 'A-Team'
     }
@@ -29,7 +68,7 @@ var sprints = [
 
 var TYPE_STORY = 'story';
 var TYPE_TASK = 'task';
-var MILESTONE_1 = 'Release 1';
+var RELEASE_2 = releases[1];
 var STATUS_ASSIGNED = 'assigned';
 var STATUS_CLOSED = 'closed';
 var STATUS_NEW = 'new';
@@ -42,7 +81,7 @@ var storiesAndTasks = [
         id:1000,
         type: TYPE_STORY,
         summary: 'Implement dummy backend' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'face',
         keywords: '[testing]',
@@ -54,7 +93,7 @@ var storiesAndTasks = [
         id:1001,
         type: TYPE_STORY,
         summary: 'Set up AngularJS project' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_CLOSED,
         owner: 'amy',
         keywords: '[before camp]',
@@ -66,7 +105,7 @@ var storiesAndTasks = [
         id:1002,
         type: TYPE_STORY,
         summary: 'Convert existing jQuery code to AngularJS' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_CLOSED,
         owner: 'amy',
         keywords: '[before camp]',
@@ -78,7 +117,7 @@ var storiesAndTasks = [
         id:1003,
         type: TYPE_STORY,
         summary: 'Add testwatch target' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'amy',
         keywords: '[infrastructure]',
@@ -90,7 +129,7 @@ var storiesAndTasks = [
         id:1004,
         type: TYPE_STORY,
         summary: 'Read JavaScript book' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'ba',
         keywords: '[education]',
@@ -102,7 +141,7 @@ var storiesAndTasks = [
         id:1005,
         type: TYPE_STORY,
         summary: 'Update time remaining' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_NEW,
         owner: 'face',
         keywords: '[important]',
@@ -114,7 +153,7 @@ var storiesAndTasks = [
         id:1006,
         type: TYPE_STORY,
         summary: 'Drag and drop' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_REOPENED,
         keywords: '[usability]',
         'Story Points': 1,
@@ -125,7 +164,7 @@ var storiesAndTasks = [
         id:1007,
         type: TYPE_STORY,
         summary: 'Focus on a person during daily' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_NEW,
         owner: 'face',
         keywords: '[important]',
@@ -137,7 +176,7 @@ var storiesAndTasks = [
         id:2000,
         type: TYPE_TASK,
         summary: 'Serve static agilo reports' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'face',
         keywords: '[testing]',
@@ -152,7 +191,7 @@ var storiesAndTasks = [
         id:2001,
         type: TYPE_TASK,
         summary: 'Mock update time remaining' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_NEW,
         owner: 'face',
         keywords: '[testing]',
@@ -167,7 +206,7 @@ var storiesAndTasks = [
         id:2002,
         type: TYPE_TASK,
         summary: 'Read intro' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'ba',
         keywords: '[education]',
@@ -181,7 +220,7 @@ var storiesAndTasks = [
         id:2003,
         type: TYPE_TASK,
         summary: 'Read chapter 1' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'ba',
         keywords: '[testing]',
@@ -196,7 +235,7 @@ var storiesAndTasks = [
         id:2004,
         type: TYPE_TASK,
         summary: 'Read chapter 2' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'ba',
         keywords: '[education]',
@@ -210,7 +249,7 @@ var storiesAndTasks = [
         id:2005,
         type: TYPE_TASK,
         summary: 'Create new AngularJS project using Yeoman' ,
-        milestone: MILESTONE_1,
+        milestone: RELEASE_2,
         status: STATUS_CLOSED,
         owner: 'amy',
         keywords: '[testing]',

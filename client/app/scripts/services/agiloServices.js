@@ -23,6 +23,12 @@ angular.module('agiloBoardsApp')
             },
     		getStoriesBySprint: function(params) {
                 return getHttpResponse('/103?max=500&format=tab', 'Unable to load stories by sprint', params);
+            },
+            getReleases: function(params) {
+                return getHttpResponse('/105?format=tab', 'Unable to load releases', params);
+            },
+            getStoriesFromRelease: function(params) {
+                return getHttpResponse('/105?format=tab', 'Unable to load Stories from release', params);
             }
     	}
     })

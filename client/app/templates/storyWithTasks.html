@@ -1,8 +1,12 @@
 <div>
-    <div class="block"><agilo-story></agilo-story></div>
-    <div class="block" style="padding-left: 10px">
+    <div class="block">
+        <agilo-story></agilo-story>
+    </div>
+    <div class="block" style="padding: 0px 10px 10px 10px">
         <agilo-task ng-repeat="task in story.tasks"></agilo-task>
-        <div ng-show="story.tasks.length == 0">There are currently no tasks.</div>
-        <a href="{{getNewTaskUrl(story)}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> Add task</a>
+        <div ng-show="story.tasks.length == 0 && !compactMode">There are currently no tasks.</div>
+        <div ng-show="story.tasks.length > 0 && !compactMode">
+            Total: {{story.timeDone}}h done / {{story.timeRemaining}}h remaining</div>
+        <a ng-show="!compactMode" href="{{getNewTaskUrl(story)}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> Add task</a>
     </div>
 </div>

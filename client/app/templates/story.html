@@ -1,13 +1,14 @@
-<div class="story-card">
-    <p>
-        <b>{{story.project}}</b>
-        <span style="float: right;"><b>{{story.release}}</b></span>
+
+<div class="story-card" ng-click="openTicket(story, $event)">
+    <p ng-hide="compactMode">
+        {{story.project}}
+        <span style="float: right;">{{story.release}}</span>
     </p>
     <div class="story-center">
         <p class="story-number centered">
             #{{story.id}}
-            <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a>
-            <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></span></a>
+            <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a>
         </p>
         <p class="story-title centered">{{story.title}}</p>
 
@@ -17,11 +18,10 @@
         </p>
         -->
     </div>
-    <p>
-        <b> {{story.storyPoints}} SP</b>
+    <p ng-hide="compactMode">
+        {{story.storyPoints}} SP
         <span style="float: right;">
-            done: <b> {{story.timeDone}} h</b> -
-            remaining: <b> {{story.timeRemaining}} h</b>
+            done {{story.timeDone}}h
         </span>
     </p>
 </div>

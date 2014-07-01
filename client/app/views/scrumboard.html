@@ -18,6 +18,8 @@
 					remaining: {{allTimeRemaining}} h
 					&nbsp;&nbsp;
 					<a href="{{getDashboardUrl()}}" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
+					&nbsp;&nbsp;
+                    <input type="checkbox" ng-model="compactMode"> Compact Mode</input>
 				</div>
 			</form>
 		</div>
@@ -26,21 +28,21 @@
 
 <div class="container-fluid" id="board">
 	<div class="row" ng-model="stories">
-		<div class="col-md-5">
+		<div class="col-md-5 swimlane">
 			<h2>To Do</h2>
 			<span id="col-todo">
 				<agilo-story-with-tasks ng-repeat="story in stories | filter:isStoryNew">
 				</agilo-story-with-tasks>
 			</span>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-5 swimlane">
 			<h2>In Progress</h2>
 			<span id="col-inprogress">
                 <agilo-story-with-tasks ng-repeat="story in stories | filter:{state:'assigned'}">
                 </agilo-story-with-tasks>
             </span>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-2 swimlane">
 			<h2>Done</h2>
 			<span id="col-done">
 				<agilo-story ng-repeat="story in stories | filter:{state:'closed'}">

@@ -33,6 +33,13 @@ div.error {
 	margin-bottom: 10px;
 }
 
+.story-card:hover {
+	background-color: #FFFFCC;
+	border: solid 3px #b5b59f; 
+	padding: 2px 4px 2px 4px;
+    cursor: pointer
+}
+
 .task-card {
 	background-color: #E0E0F8;
 	-moz-border-radius: 4px;
@@ -42,8 +49,11 @@ div.error {
 	margin-bottom: 10px;
 }
 
-.story-center {
-	background-color: #FFFFCC;
+.task-card:hover {
+	background-color: #d4d4ef;
+	border: solid 3px #9292a7; 
+	padding: 2px 4px 2px 4px;
+    cursor: pointer
 }
 
 .centered {
@@ -77,8 +87,20 @@ div.error {
 }
 
 .block {
-    width: 49%;
+    width: 100%;
     margin: 0px;
     display: inline-block;
     vertical-align: top;
+}
+
+@media (min-width: 1500px and max-width: 900px) {
+    .swimlane {
+        width: 33%;
+    }
+}   
+
+@media (min-width: 1500px) {
+    .block {
+        width: 49%;
+    }
 }

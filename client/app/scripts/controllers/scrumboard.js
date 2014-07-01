@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-  .controller('ScrumboardCtrl', function ($scope, $location, Agilo, AGILO_URL) {
+  .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL) {
 	  var sprints = Agilo.getSprints();
 	  $scope.sprints = {
 			  selectedSprint: $location.search()['sprint']
@@ -72,6 +72,14 @@ angular.module('agiloBoardsApp')
       
       $scope.isStoryNew = function(story) {
           return story.state !== 'closed' && story.state !== 'assigned';
+      }
+      
+      $scope.openTicket = function(ticket, event) {
+          var url = $scope.getViewTicketUrl(ticket.id);
+          if (event.altKey) {
+              url = $scope.getEditTicketUrl(ticket.id);
+          }
+          $window.open(url);
       }
       
       function sum(array, method) {

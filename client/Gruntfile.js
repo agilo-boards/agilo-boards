@@ -345,6 +345,25 @@ module.exports = function (grunt) {
         autoWatch: true
       }
     },
+
+    protractor: {
+      options: {
+          configFile: 'node_modules/protractor/referenceConf.js', // Default config file
+          keepAlive: false, // If false, the grunt process stops when the test fails.
+          noColor: false, // If true, protractor will not use colors in its output.
+          debug: false,
+          args: {
+              // Arguments passed to the command
+          }
+      },
+      e2e: {
+          configFile: 'protractor.conf.js',
+          options: {
+                args: {
+            } // Target-specific arguments
+          }
+      }
+    },
     express: {
       options: {
           // Override defaults here
@@ -358,6 +377,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-protractor-runner');
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
@@ -394,6 +414,10 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma:unitwatch'
+  ]);
+    
+  grunt.registerTask('test:e2e', [
+     'protractor:e2e'
   ]);
 
   grunt.registerTask('build', [

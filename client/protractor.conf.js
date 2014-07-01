@@ -1,8 +1,14 @@
 // An example configuration file.
 exports.config = {
-  // The address of a running selenium server.
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+  // The location of the selenium standalone server .jar file.
+  seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.42.2.jar',
+  // find its own unused port.
+  seleniumPort: null,
+  chromeDriver: './/node_modules/protractor/selenium/chromedriver',
+  seleniumArgs: [],
 
+  allScriptsTimeout: 11000,
+    
   // Capabilities to be passed to the webdriver instance.
   capabilities: {
     'browserName': 'chrome'
@@ -17,4 +23,5 @@ exports.config = {
     showColors: true,
     defaultTimeoutInterval: 30000
   }
+
 };

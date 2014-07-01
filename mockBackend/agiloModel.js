@@ -284,7 +284,6 @@ function getStoriesAndTasksForSprint(sprint) {
 }
 
 module.exports.getStoriesAndTasksAsInReport103 = function (sprint) {
-    console.log(sprint);
     return asTsv(getStoriesAndTasksForSprint(sprint), STORY_AND_TASK_FIELDS);
 }
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var RELEASE_FIELDS = ['name', 'due', 'completed', 'description'];
 
 var releases = [
@@ -89,9 +91,9 @@ var STATUS_NEW = 'new';
 var STATUS_REOPENED = 'reopened';
 var DETAIL_STATUS_NEXT_SPRINT = 'Next Sprint';
 var DETAIL_STATUS_READY_TO_IMPLEMENT = 'Ready to Implement';
-var DETAIL_STATUS_DETAIL_ESTIMATION_DONE = 'Detail estimation done';
+//var DETAIL_STATUS_DETAIL_ESTIMATION_DONE = 'Detail estimation done';
 var DETAIL_STATUS_READY_FOR_DETAIL_ESTIMATION = 'Ready for rough estimation';
-var DETAIL_STATUS_ROUGH_ESTIMATION_DONE = 'Rough estimation done';
+//var DETAIL_STATUS_ROUGH_ESTIMATION_DONE = 'Rough estimation done';
 var DETAIL_STATUS_READY_FOR_ROUGH_ESTIMATION = 'Ready for rough estimation';
 var DETAIL_STATUS_FEASIBILITY = 'Feasibility';
 var PROJECT_SETUP = 'Setup';
@@ -104,8 +106,8 @@ var PROJECT_PREPARE_TESTDATA = 'Prepare Test Data';
 var SPRINT_1_RELEASE_1 = sprints[0].name;
 var SPRINT_1_RELEASE_2 = sprints[1].name;
 var SPRINT_2_RELEASE_2 = sprints[2].name;
-var SPRINT_3_RELEASE_2 = sprints[3].name;
-var SPRINT_1_RELEASE_3 = sprints[4].name;
+//var SPRINT_3_RELEASE_2 = sprints[3].name;
+//var SPRINT_1_RELEASE_3 = sprints[4].name;
 
 var storiesAndTasks = [
     {
@@ -448,7 +450,7 @@ function getRow(sprint, fields) {
     return fields.map(function (field) {
         return sprint[field];
     }).join('\t');
-};
+}
 
 function asTsv(data, fields) {
     return fields.join('\t') + '\n' + data.map(function (row) {
@@ -476,7 +478,7 @@ function getSprintsInRelease2() {
 
 module.exports.getStoriesAndTasksAsInReport103 = function (sprint) {
     return asTsv(getStoriesAndTasksForSprint(sprint), STORY_AND_TASK_FIELDS);
-}
+};
 
 module.exports.getSprintsAsInReport104 = function () {
     return asTsv(getSprintsInRelease2(), SPRINT_FIELDS);
@@ -488,4 +490,8 @@ module.exports.getReleasesAsInReport108 = function () {
 
 module.exports.getStoriesAsInReport109 = function (release) {
     return asTsv(getStoriesForRelease(release), STORY_FIELDS_FOR_BACKLOG);
+};
+
+module.exports.updateTicket = function (ticketNumber, requestBody) {
+    console.log(ticketNumber + ' ' + requestBody);
 };

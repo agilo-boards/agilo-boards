@@ -20,7 +20,7 @@ module.exports = function(config) {
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/data/**/*.js',
-      'test/spec/**/*.js'
+      'test/spec/!(end2End)/**/*.js'
     ],
 
     // list of files / patterns to exclude

@@ -4,4 +4,5 @@ node_js:
 before_script:
   - 'cd client'
   - 'npm install -g bower grunt-cli'
+  - 'npm install'
   - 'bower install'

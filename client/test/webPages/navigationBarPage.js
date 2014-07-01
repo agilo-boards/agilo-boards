@@ -9,7 +9,7 @@ function NavigationBarPage(overridePath) {
         BaseWebPage.call(this, '/');
     }
 
-    this.sprintsSelect = element(By.xpath('//select[@id="sprints"]'));
+    this.sprintsSelect = element(by.xpath('//select[@id="sprints"]'));
     this.reloadButton = element(by.id('reloadButton'));
     this.timeDone = element(by.binding('allTimeDone'));
     this.timeRemaining = element(by.binding('allTimeRemaining'));
@@ -19,14 +19,14 @@ util.inherits(NavigationBarPage, BaseWebPage);
 
 NavigationBarPage.prototype.chooseSprintBranch = function(sprintName) {
     // Open menu first, otherwise we cannot click
-    element(by.model('sprints')).element(By.xpath('//option[text() =\''+sprintName+'\']')).click();
+    element(by.model('sprints')).element(by.xpath('//option[text() =\''+sprintName+'\']')).click();
 };
 
 NavigationBarPage.prototype.assertNumberOfSprints = function(listOfSprints) {
     var len = listOfSprints.length;
     for (var i=0; i<len; i++) {
         if (i in listOfSprints) {
-            expect(element(By.xpath('//select[@id="sprints"]/option['+ (1+i) +']')).getText()).toEqual(listOfSprints[i]);
+            expect(element(by.xpath('//select[@id="sprints"]/option['+ (1+i) +']')).getText()).toEqual(listOfSprints[i]);
         }
     }
 };

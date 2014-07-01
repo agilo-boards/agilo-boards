@@ -400,7 +400,7 @@ module.exports = function (grunt) {
     grunt.task.run(['serve:' + target]);
   });
 
-  grunt.registerTask('test', [
+  grunt.registerTask('test:unit', [
     'clean:server',
     'concurrent:test',
     'autoprefixer',

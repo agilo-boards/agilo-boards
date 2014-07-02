@@ -5,6 +5,10 @@
                 <li><a href="#/scrumboard">Scrumboard</a></li>
                 <li class="active"><a href="#">Backlog</a></li>
             </ul>
+            <div class="navbar-form navbar-left form-group" ng-model="sprints">
+                <select id="releases" ng-model="releases.selectedReleases" ng-options="release.name for release in releases.allReleases">
+                </select>
+            </div>
         </div>
     </div>
 </nav>

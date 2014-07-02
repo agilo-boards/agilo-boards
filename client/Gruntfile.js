@@ -419,6 +419,7 @@ module.exports = function (grunt) {
         'clean:server',
         'concurrent:test',
         'autoprefixer',
+        'jshint',
         'connect:test',
         'karma:unit'
     ]);
@@ -427,6 +428,7 @@ module.exports = function (grunt) {
         'clean:server',
         'concurrent:test',
         'autoprefixer',
+        'jshint',
         'connect:test',
         'karma:unitwatch'
     ]);

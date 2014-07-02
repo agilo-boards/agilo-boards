@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL) {
-         var releasePromise = Agilo.getReleases();
+    .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo) {
+        var releasePromise = Agilo.getReleases();
         $scope.releases = {
             selectedRelease: $location.search()['release']
         };
@@ -21,7 +21,7 @@ angular.module('agiloBoardsApp')
         }, function (error) {
             $('#messageContainer').append('<div class="error">' + error + '</div>');
         });
-        
+
         function loadReleases(selectedRelease) {
             var storiesPromise = Agilo.getStoriesByRelease(selectedRelease);
             storiesPromise.then(function (result) {
@@ -36,8 +36,12 @@ angular.module('agiloBoardsApp')
                     return arr;
                 }
 
+                function sum() {
+                    // TODO
+                }
+
                 $scope.stories = toArray(result.stories);
-                $scope.stories.map(enrichStory);
+                // $scope.stories.map(enrichStory);
                 $scope.allTimeDone = sum($scope.stories, function (story) {
                     return story.timeDone;
                 });
@@ -48,6 +52,5 @@ angular.module('agiloBoardsApp')
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
         }
-        
-       
+
     });

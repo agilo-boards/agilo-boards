@@ -2,7 +2,7 @@
 
 angular.module('agiloBoardsApp')
     .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, UpdateTicketService) {
-        var sprints = Agilo.getSprints();
+        var sprintNames = Agilo.getSprintNames();
         $scope.sprints = {
             selectedSprint: $location.search()['sprint']
         };
@@ -11,7 +11,7 @@ angular.module('agiloBoardsApp')
                 $location.search('sprint', newValue);
             }
         });
-        sprints.then(function (sprints) {
+        sprintNames.then(function (sprints) {
             if (!$scope.sprints.selectedSprint && sprints.data[0]) {
                 $scope.sprints.selectedSprint = sprints.data[0];
             }

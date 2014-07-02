@@ -19,7 +19,7 @@ describe('Service: Agilo Service', function () {
 
     describe('Get all sprints', function () {
         it('should ignore the title line', function () {
-            agilo.getSprints().then(function (result) {
+            agilo.getSprintNames().then(function (result) {
                 expect(result.data.length).toBe(3);
                 expect(result.data[0]).toBe('Sprint 1');
             });

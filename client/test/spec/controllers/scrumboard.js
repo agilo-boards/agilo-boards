@@ -14,7 +14,7 @@ describe('Controller: ScrumboardCtrl', function () {
         MainCtrl = $controller('ScrumboardCtrl', {
             $scope: scope
         });
-  }));
+    }));
 
     describe('isStoryClosable', function () {
         it('should work', function () {

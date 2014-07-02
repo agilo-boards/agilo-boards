@@ -1,5 +1,5 @@
 
-<div class="story-card" ng-click="openTicket(story, $event)">
+<div class="story-card">
     <div ng-hide="compactMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>
@@ -24,5 +24,8 @@
         <span style="float: right;">
             done {{story.timeDone}}h
         </span>
+    </div>
+    <div ng-hide="compactMode" class="footer">
+        <span class="btn btn-default" ng-click="closeTicket(story)">close story</span>
     </div>
 </div>

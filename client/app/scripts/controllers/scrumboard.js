@@ -91,6 +91,10 @@ angular.module('agiloBoardsApp')
             $window.open(url);
         };
 
+        $scope.isStoryClosable = function(story) {
+            return story.state === 'assigned';
+        };
+
         $scope.closeTicket = function(ticket) {
             UpdateTicketService.closeTicket(ticket);
         };

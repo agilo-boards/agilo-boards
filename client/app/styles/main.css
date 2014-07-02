@@ -20,7 +20,7 @@ div.error {
     margin: 20px;
     padding: 10px;
     border: 1px solid #9f0404;
-    background-color: #e5a7a7;    
+    background-color: #e5a7a7;
     border-radius: 5px;
 }
 
@@ -29,7 +29,7 @@ div.error {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	padding: 4px 6px 4px 6px;
-	border: solid 1px #E6E6B8; 
+	border: solid 1px #E6E6B8;
 	margin-bottom: 10px;
     display: block;
 }
@@ -38,15 +38,14 @@ div.error {
     content: "";
     display: block;
 }
-.story-card div.footer, .story-card div.header {    
+.story-card div.footer, .story-card div.header {
     text-align: left;
 }
 
 .story-card:hover {
 	background-color: #FFFFCC;
-	border: solid 3px #b5b59f; 
+	border: solid 3px #b5b59f;
 	padding: 2px 4px 2px 4px;
-    cursor: pointer
 }
 
 .task-card {
@@ -54,13 +53,13 @@ div.error {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	padding: 4px 6px 4px 6px;
-	border: solid 1px #A9A9F5; 
+	border: solid 1px #A9A9F5;
 	margin-bottom: 10px;
 }
 
 .task-card:hover {
 	background-color: #d4d4ef;
-	border: solid 3px #9292a7; 
+	border: solid 3px #9292a7;
 	padding: 2px 4px 2px 4px;
     cursor: pointer
 }
@@ -107,11 +106,16 @@ div.error {
     vertical-align: top;
 }
 
+.link {
+    cursor: pointer;
+    color: #428bca;
+}
+
 @media (max-width: 1500px) and (min-width: 992px) {
     .swimlane {
         width: 33%;
     }
-}   
+}
 
 @media (min-width: 1500px) {
     .block {

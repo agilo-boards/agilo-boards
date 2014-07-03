@@ -141,18 +141,18 @@ angular.module('agiloBoardsApp')
             return total;
         }
 
-        $scope.matchesSelectedOwner = function(story) {
+        $scope.doesNotMatchesSelectedOwner = function(story) {
             if (!$scope.ownerMode) {
-                return true;
+                return false;
             }
-            return story.owner === $scope.selectedOwner;
+            return story.owner !== $scope.selectedOwner;
         };
         
         $scope.orderBySelectedOwner = function(story) {
-            if ($scope.matchesSelectedOwner(story)) {
-                return 0;
-            } else {
+            if ($scope.doesNotMatchesSelectedOwner(story)) {
                 return 1;
+            } else {
+                return 0;
             }
         };
     });

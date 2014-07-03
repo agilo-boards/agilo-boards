@@ -40,7 +40,7 @@
 			<span id="col-todo">
 				<agilo-story-with-tasks ng-repeat="story in todoStories = (stories | filter:isStoryNew | orderBy:orderBySelectedOwner)" story="story">
 				</agilo-story-with-tasks>
-                <div ng-show="todoStories.length == 0">No stories.</div>
+                <div class="information-text" ng-show="todoStories.length == 0">No stories</div>
 			</span>
         </div>
         <div class="col-md-5 swimlane">
@@ -48,7 +48,7 @@
 			<span id="col-inprogress">
                 <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{status:'assigned'} | orderBy:orderBySelectedOwner)" story="story">
                 </agilo-story-with-tasks>
-                <div ng-show="inprogressStories.length == 0">No stories.</div>
+                <div class="information-text" ng-show="inprogressStories.length == 0">No stories</div>
             </span>
         </div>
         <div class="col-md-2 swimlane">
@@ -58,7 +58,7 @@
                     <agilo-story story="story">
                     </agilo-story>
                 </div>
-                <div ng-show="doneStories.length == 0">No stories.</div>
+                <div class="information-text" ng-show="doneStories.length == 0">No stories</div>
             </span>
         </div>
     </div>

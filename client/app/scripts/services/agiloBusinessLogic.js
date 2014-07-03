@@ -48,10 +48,10 @@ angular.module('agiloBoardsApp')
                 return transformTSVtoJSON(AgiloUnformatted.getSprints, {}, function (columns) {
                     return {
                         description: columns[0].trim(),
-                        end: columns[1].trim(),
+                        end: (columns[1].trim()) ? new Date(columns[1].trim() * 1000) : null,
                         milestone: columns[2].trim(),
                         name: columns[3].trim(),
-                        start: new Date(columns[4].trim() * 1000),
+                        start: (columns[4].trim()) ? new Date(columns[4].trim() * 1000) : null,
                         team: columns[5].trim()
                     };
                 });

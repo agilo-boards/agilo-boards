@@ -2,9 +2,18 @@
 
 var debug = require('debug')('mock-backend');
 
+var moment = require('moment');
+moment().format('dd.MM.YYYY');
+
 function addDays(date, days) {
     var result = new Date(date);
     result.setDate(date.getDate() + days);
+    return result;
+}
+
+function addWeeks(date, weeks) {
+    var result = new Date(date);
+    result.setDate(date.getDate() + 7 * weeks);
     return result;
 }
 
@@ -15,33 +24,45 @@ function getMonday(d) {
     return new Date(d.setDate(diff));
 }
 
-var BEGIN_SPRINT_1_RELEASE_1 = addDays(getMonday(new Date()), -42);
-var BEGIN_SPRINT_1_RELEASE_2 = addDays(BEGIN_SPRINT_1_RELEASE_1, 21);
-var BEGIN_SPRINT_2_RELEASE_2 = addDays(BEGIN_SPRINT_1_RELEASE_2, 21);
-var BEGIN_SPRINT_3_RELEASE_2 = addDays(BEGIN_SPRINT_2_RELEASE_2, 21);
-var BEGIN_SPRINT_1_RELEASE_3 = addDays(BEGIN_SPRINT_3_RELEASE_2, 21);
-var BEGIN_SPRINT_2_RELEASE_3 = addDays(BEGIN_SPRINT_1_RELEASE_3, 21);
+var BEGIN_SPRINT_1_RELEASE_1 = addWeeks(getMonday(new Date()), -6);
+var BEGIN_SPRINT_1_RELEASE_2 = addWeeks(BEGIN_SPRINT_1_RELEASE_1, 3);
+var BEGIN_SPRINT_2_RELEASE_2 = addWeeks(BEGIN_SPRINT_1_RELEASE_2, 3);
+var BEGIN_SPRINT_3_RELEASE_2 = addWeeks(BEGIN_SPRINT_2_RELEASE_2, 3);
+var BEGIN_SPRINT_1_RELEASE_3 = addWeeks(BEGIN_SPRINT_3_RELEASE_2, 3);
+var BEGIN_SPRINT_2_RELEASE_3 = addWeeks(BEGIN_SPRINT_1_RELEASE_3, 3);
+
+var COMPLETED_DATE_RELEASE_3 = addWeeks(BEGIN_SPRINT_2_RELEASE_3, 6);
+var DUE_DATE_RELEASE_3 = addWeeks(COMPLETED_DATE_RELEASE_3, -2);
+var DELIVERY_DATE_RELEASE_3 = addWeeks(addDays(DUE_DATE_RELEASE_3, 4), -5);
+
+var COMPLETED_DATE_RELEASE_2 = BEGIN_SPRINT_1_RELEASE_3;
+var DUE_DATE_RELEASE_2 = addWeeks(COMPLETED_DATE_RELEASE_2, -2);
+var DELIVERY_DATE_RELEASE_2 = addWeeks(addDays(DUE_DATE_RELEASE_2, 4), -5);
+
+var COMPLETED_DATE_RELEASE_1 = BEGIN_SPRINT_1_RELEASE_2;
+var DUE_DATE_RELEASE_1 = addWeeks(COMPLETED_DATE_RELEASE_1, -2);
+var DELIVERY_DATE_RELEASE_1 = addWeeks(addDays(DUE_DATE_RELEASE_1, 4), -5);
 
 var RELEASE_FIELDS = ['name', 'due', 'completed', 'description'];
 
 var releases = [
     {
         name: 'Release 3',
-        due: BEGIN_SPRINT_1_RELEASE_3.getTime() * 1000,
+        due: DUE_DATE_RELEASE_3.getTime() * 1000,
         completed: null,
-        description: 'Software Delivery Date: 18.04.2014 (Fr) \\Release Date: 16.05.2014 (Fr)'
+        description: 'Software Delivery Date: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 2',
-        due: BEGIN_SPRINT_1_RELEASE_2.getTime() * 1000,
-        completed: BEGIN_SPRINT_1_RELEASE_3.getTime() * 1000,
-        description: 'Software Delivery: 24.01.2014[[BR]]  Release-Termin: 23.02.2014'
+        due: DUE_DATE_RELEASE_2.getTime() * 1000,
+        completed: COMPLETED_DATE_RELEASE_2.getTime() * 1000,
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_2).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 1',
-        due: BEGIN_SPRINT_1_RELEASE_1.getTime() * 1000,
-        completed: BEGIN_SPRINT_1_RELEASE_2.getTime() * 1000,
-        description: 'Software Delivery: 24.01.2014[[BR]]  Release-Termin: 23.02.2014'
+        due: DUE_DATE_RELEASE_1.getTime() * 1000,
+        completed: COMPLETED_DATE_RELEASE_1.getTime() * 1000,
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_1).format('dd DD.MM.YYYY')
     }
 ];
 
@@ -138,7 +159,7 @@ var storiesAndTasks = [
     {
         id: 1100,
         type: TYPE_STORY,
-        summary: 'Write unit tests',
+        summary: 'Write unit tests: This story has got a very long title to test display <depends on other systems : xxx>',
         milestone: RELEASE_2,
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -547,6 +568,7 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
     debug('updateTicket: ticketNumber = ' + ticketNumber);
     debug('updateTicket: requestBody = ');
     debug(requestBody);
+
 
     if (parseInt(ticketNumber, 10) !== parseInt(requestBody.id)) {
         debug(parseInt(ticketNumber, 10) + ' != ' + parseInt(requestBody.id, 10));

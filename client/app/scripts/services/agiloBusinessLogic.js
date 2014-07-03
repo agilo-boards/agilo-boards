@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .service('Agilo', function ($q, AgiloUnformatted, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_RELEASES, AGILO_REPORT_STORIES_BY_RELEASE) {
+    .service('Agilo', function ($q, AgiloUnformatted, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_STORIES_BY_RELEASE) {
 
         function transformTSVtoJSON(serviceCall, params, mapToObject) {
             var deferredResult = $q.defer();
@@ -48,10 +48,10 @@ angular.module('agiloBoardsApp')
                 return transformTSVtoJSON(AgiloUnformatted.getSprints, {}, function (columns) {
                     return {
                         description: columns[0].trim(),
-                        end: columns[1].trim(),
+                        end: (columns[1].trim()) ? new Date(columns[1].trim() * 1000) : null,
                         milestone: columns[2].trim(),
                         name: columns[3].trim(),
-                        start: new Date(columns[4].trim() * 1000),
+                        start: (columns[4].trim()) ? new Date(columns[4].trim() * 1000) : null,
                         team: columns[5].trim()
                     };
                 });
@@ -78,7 +78,14 @@ angular.module('agiloBoardsApp')
                 return deferredResult.promise;
             },
             getReleases: function () {
-                return transformTSVtoJSON(AgiloUnformatted.getReleases, {}, createConversionMethod(AGILO_REPORT_RELEASES));
+                return transformTSVtoJSON(AgiloUnformatted.getReleases, {}, function (columns) {
+                    return {
+                        name: columns[0].trim(),
+                        dueDate: (columns[1].trim()) ? new Date(columns[1].trim() / 1000) : null,
+                        completedDate: (columns[2].trim()) ? new Date(columns[2].trim() / 1000) : null,
+                        description: columns[3].trim()
+                    };
+                });
             },
             getStoriesByRelease: function (selectedRelease) {
                 var deferredResult = $q.defer();

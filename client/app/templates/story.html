@@ -14,8 +14,10 @@
             <span class="story-number">
                 #{{story.id}}
                 <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></span></a>
-                <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a><br/>
+                <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a>
+                <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && isStoryClosable(story)" ng-click="closeTicket(story)"></span>
             </span>
+            <br/>
             <span class="story-title">{{story.title}}</span>
         </div>
     </div>

@@ -16,7 +16,6 @@ app.use(function (req, res, next) {
 
 // Needed to read payload of POST requests
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use( bodyParser.json({type: 'application/json;charset=UTF-8'}) );       // to support JSON-encoded bodies
 
 // Stories and Tasks
 app.get('/agilo/eorders/report/103', function (req, res) {
@@ -44,7 +43,7 @@ app.get('/agilo/eorders/report/109', function (req, res){
 
 // Update ticket (story, task) fields
 app.post('/agilo/eorders/json/tickets/:ticketNumber', function(req, res) {
-    res.send(agiloData.updateTicket(req.ticketNumber), req.body);
+    res.send(agiloData.updateTicket(req.ticketNumber, req.body));
 });
 
 app.param('ticketNumber', function(req, res, next, ticketNumber) {
@@ -56,7 +55,6 @@ app.param('ticketNumber', function(req, res, next, ticketNumber) {
     req.ticketNumber = ticketNumber;
     next();
 });
-
 
 var server = app.listen(3000, function () {
     console.log('Listening on port %d', server.address().port);

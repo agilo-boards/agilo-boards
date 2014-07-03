@@ -87,6 +87,7 @@ div.error {
     float: left;
     vertical-align: middle;
     display: inline-block;
+    text-align: center;
 }
 
 .story-owner-image img, .story-owner-image object {

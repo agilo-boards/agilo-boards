@@ -1,5 +1,7 @@
 'use strict';
 
+var debug = require('debug')('mock-backend');
+
 function addDays(date, days) {
     var result = new Date(date);
     result.setDate(date.getDate() + days);
@@ -494,7 +496,7 @@ function getTicketByNumber(ticketNumber) {
     });
 
     if(foundTicket.length === 1) {
-        return foundTicket;
+        return foundTicket[0];
     }
 }
 
@@ -523,25 +525,30 @@ module.exports.getStoriesAsInReport109 = function (release) {
 };
 
 module.exports.updateTicket = function (ticketNumber, requestBody) {
-    console.log(ticketNumber + ' ' + requestBody);
+    debug('updateTicket: ticketNumber = ' + ticketNumber);
+    debug('updateTicket: requestBody = ');
+    debug(requestBody);
 
-    if(ticketNumber !== requestBody.id) {
-        console.log(ticketNumber + ' !== ' + requestBody.id);
+
+    if(parseInt(ticketNumber, 10) !== parseInt(requestBody.id)) {
+        debug(parseInt(ticketNumber, 10) + ' != ' + parseInt(requestBody.id, 10));
         return;
     }
 
+    ticketNumber = parseInt(1003, 10);
     var ticket = getTicketByNumber(ticketNumber);
     if(typeof ticket === 'undefined') {
-        console.log('ticket ' + ticketNumber + 'not found');
+        debug('ticket ' + ticketNumber + ' not found');
         return;
     }
 
     var propertyToChange = getPropertyToChange(requestBody);
     if(typeof propertyToChange === 'undefined') {
-        console.log('no property found to be changed');
+        debug('no property found to be changed');
         return;
     }
 
+    debug('setting property ' + propertyToChange + ' of ticket ' + ticketNumber + ' to ' + requestBody[propertyToChange] + ' (old value: ' + ticket[propertyToChange] + ')');
     ticket[propertyToChange] = requestBody[propertyToChange];
 
     return '';

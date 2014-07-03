@@ -6,13 +6,16 @@ describe('Controller: ScrumboardCtrl', function () {
     beforeEach(module('agiloBoardsApp'));
 
     var ScrumboardCtrl,
-        $scope;
+        $scope,
+        UpdateTicketService;
 
     // Initialize the controller and a mock $scope
-    beforeEach(inject(function ($controller, $rootScope) {
+    beforeEach(inject(function ($controller, $rootScope, _UpdateTicketService_) {
         $scope = $rootScope.$new();
+        UpdateTicketService = _UpdateTicketService_;
         ScrumboardCtrl = $controller('ScrumboardCtrl', {
-            $scope: $scope
+            $scope: $scope,
+            UpdateTicketService: UpdateTicketService
         });
     }));
 
@@ -25,6 +28,15 @@ describe('Controller: ScrumboardCtrl', function () {
             expect($scope.isStoryClosable({state: 'closed'})).toBeFalsy();
             expect($scope.isStoryClosable({state: 'new'})).toBeFalsy();
             expect($scope.isStoryClosable({state: 'reopened'})).toBeFalsy();
+        });
+    });
+
+    describe('closeTicket', function () {
+        it('calls the UpdateTicketService', function () {
+            var ticket = {id: '1234'};
+            spyOn(UpdateTicketService, 'closeTicket');
+            $scope.closeTicket(ticket);
+            expect(UpdateTicketService.closeTicket).toHaveBeenCalledWith(ticket);
         });
     });
 

@@ -27,7 +27,7 @@ angular.module('agiloBoardsApp')
             getReleases: function(params) {
                 return getHttpResponse('/108?format=tab', 'Unable to load releases', params);
             },
-            getStoriesFromRelease: function(params) {
+            getStoriesByRelease: function(params) {
                 return getHttpResponse('/109?format=tab', 'Unable to load Stories from release', params);
             }
         };

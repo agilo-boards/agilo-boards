@@ -7,6 +7,8 @@ angular.module('agiloBoardsApp')
             templateUrl: 'templates/story.html',
             scope: {
                 backlogMode: '@',
+                compactMode: '@',
+                ownerMode: '@',
                 story: '='
             }
         };
@@ -14,10 +16,7 @@ angular.module('agiloBoardsApp')
     .directive('agiloStoryWithTasks', function () {
         return {
             restrict: 'E',
-            templateUrl: 'templates/storyWithTasks.html',
-            scope: {
-                story: '='
-            }
+            templateUrl: 'templates/storyWithTasks.html'
         };
     })
     .directive('agiloTask', function () {

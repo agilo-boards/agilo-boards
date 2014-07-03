@@ -84,6 +84,10 @@ angular.module('agiloBoardsApp')
         $scope.getEditTicketUrl = function (id) {
             return $scope.getViewTicketUrl(id) + '?pane=edit';
         };
+        
+        $scope.getImagePath = function(owner) {
+            return 'images/team/'+owner+'.jpg';
+        };
 
         $scope.getNewTaskUrl = function (story) {
             return AGILO_URL + '/newticket?src=' + story.id + '&amp;project=' + encodeURI(story.project) + '&amp;milestone=' + encodeURI(story.release) + '&amp;owner=&amp;sprint=' + encodeURI(story.sprint) + '&amp;type=task';

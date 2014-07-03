@@ -33,12 +33,12 @@
     </div>
 </nav>
 
-<div class="container-fluid" id="board">
+<div class="container-fluid board">
     <div class="row" ng-model="stories">
         <div class="col-md-5 swimlane">
             <h2>To Do</h2>
 			<span id="col-todo">
-				<agilo-story-with-tasks ng-repeat="story in todoStories = (stories | filter:isStoryNew | orderBy:orderBySelectedOwner)" story="story">
+				<agilo-story-with-tasks ng-repeat="story in todoStories = (stories | filter:isStoryNew | orderBy:orderBySelectedOwner)">
 				</agilo-story-with-tasks>
                 <div class="information-text" ng-show="todoStories.length == 0">No stories</div>
 			</span>
@@ -46,7 +46,7 @@
         <div class="col-md-5 swimlane">
             <h2>In Progress</h2>
 			<span id="col-inprogress">
-                <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{status:'assigned'} | orderBy:orderBySelectedOwner)" story="story">
+                <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{status:'assigned'} | orderBy:orderBySelectedOwner)">
                 </agilo-story-with-tasks>
                 <div class="information-text" ng-show="inprogressStories.length == 0">No stories</div>
             </span>
@@ -54,8 +54,8 @@
         <div class="col-md-2 swimlane">
             <h2>Done</h2>
 			<span id="col-done">
-                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{status:'closed'} | orderBy:orderBySelectedOwner)">
-                    <agilo-story story="story">
+                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{status:'closed'} | orderBy:orderBySelectedOwner)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}">
+                    <agilo-story story="story" compact-mode="{{compactMode}}">
                     </agilo-story>
                 </div>
                 <div class="information-text" ng-show="doneStories.length == 0">No stories</div>

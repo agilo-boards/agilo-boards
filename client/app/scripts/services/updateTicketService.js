@@ -16,7 +16,7 @@ angular.module('agiloBoardsApp')
         }
 
         function closeTicket(ticket) {
-            UpdateTicketResource.get({ticketNumber: ticket.id}).then(sendCloseTicket);
+            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(sendCloseTicket);
         }
 
         // service interface

@@ -588,8 +588,8 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
         return;
     }
 
-    if (ticket.ts !== parseInt(requestBody.ts, 10)) {
-        debug('ts does not match');
+    if (ticket.ts.toString() !== requestBody.ts.toString()) {
+        debug('ts ' + ticket.ts + ' does not match ' + requestBody.ts);
         return {
             errors: [
                 'TracError: ts ' + requestBody.ts + ' does not match'
@@ -598,7 +598,7 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
         };
     }
 
-    if (ticket.time_of_last_change !== requestBody.time_of_last_change) {
+    if (ticket.time_of_last_change !== parseInt(requestBody.time_of_last_change, 10)) {
         debug('time_of_last_change does not match');
         return {
             errors: [
@@ -618,5 +618,5 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
     ticket.ts = '2014-07-03 09:28:16.701189+00:00';
     ticket.time_of_last_change = Math.floor(new Date().getTime() / 1000);
 
-    return '';
+    return ticket;
 };

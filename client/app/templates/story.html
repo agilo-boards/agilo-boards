@@ -12,7 +12,7 @@
             </picture>
         </div>
         <div class="centered">
-            <span class="story-number">
+            <span class="story-number" ng-click="$event.stopPropagation()">
                 #{{story.id}}
                 <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></span></a>
                 <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a>

@@ -52,7 +52,7 @@ angular.module('agiloBoardsApp')
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
         }
-        
+
         function collectOwners(stories) {
             var owners = {};
             angular.forEach(stories, function(story) {
@@ -73,7 +73,7 @@ angular.module('agiloBoardsApp')
             story.postits = parseKeywords(story.keywords);
             return story;
         }
-        
+
         function parseKeywords(keywordsStr) {
             if ((keywordsStr.indexOf('[') === 0) && (keywordsStr.lastIndexOf(']') === keywordsStr.length-1)) {
                 keywordsStr = keywordsStr.substring(1, keywordsStr.length-1);
@@ -141,18 +141,18 @@ angular.module('agiloBoardsApp')
             return total;
         }
 
-        $scope.matchesSelectedOwner = function(story) {
+        $scope.doesNotMatchesSelectedOwner = function(story) {
             if (!$scope.ownerMode) {
-                return true;
+                return false;
             }
-            return story.owner === $scope.selectedOwner;
+            return story.owner !== $scope.selectedOwner;
         };
-        
+
         $scope.orderBySelectedOwner = function(story) {
-            if ($scope.matchesSelectedOwner(story)) {
-                return 0;
-            } else {
+            if ($scope.doesNotMatchesSelectedOwner(story)) {
                 return 1;
+            } else {
+                return 0;
             }
         };
     });

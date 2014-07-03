@@ -15,7 +15,7 @@ app.use(function (req, res, next) {
 });
 
 // Needed to read payload of POST requests
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.json());       // to support JSON-encoded bodies
 
 // Stories and Tasks
 app.get('/agilo/eorders/report/103', function (req, res) {
@@ -35,19 +35,23 @@ app.get('/agilo/eorders/report/108', function (req, res) {
 });
 
 // Stories per Release
-app.get('/agilo/eorders/report/109', function (req, res){
+app.get('/agilo/eorders/report/109', function (req, res) {
     var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
     res.send(agiloData.getStoriesAsInReport109(query.MILESTONE));
 });
 
 // Update ticket (story, task) fields
-app.post('/agilo/eorders/json/tickets/:ticketNumber', function(req, res) {
-    res.send(agiloData.updateTicket(req.ticketNumber, req.body));
-});
+app.route('/agilo/eorders/json/tickets/:ticketNumber')
+    .get(function (req, res) {
+        res.send(agiloData.getTicket(req.ticketNumber));
+    })
+    .post(function (req, res) {
+        res.send(agiloData.updateTicket(req.ticketNumber, req.body));
+    });
 
-app.param('ticketNumber', function(req, res, next, ticketNumber) {
-    if(typeof ticketNumber === 'undefined') {
+app.param('ticketNumber', function (req, res, next, ticketNumber) {
+    if (typeof ticketNumber === 'undefined') {
         next(new Error('ticketNumber is undefined'));
         return;
     }

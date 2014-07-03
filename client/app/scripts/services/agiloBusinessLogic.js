@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .service('Agilo', function ($q, AgiloUnformatted, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_RELEASES, AGILO_REPORT_STORIES_BY_RELEASE) {
+    .service('Agilo', function ($q, AgiloUnformatted, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_STORIES_BY_RELEASE) {
 
         function transformTSVtoJSON(serviceCall, params, mapToObject) {
             var deferredResult = $q.defer();
@@ -78,7 +78,14 @@ angular.module('agiloBoardsApp')
                 return deferredResult.promise;
             },
             getReleases: function () {
-                return transformTSVtoJSON(AgiloUnformatted.getReleases, {}, createConversionMethod(AGILO_REPORT_RELEASES));
+                return transformTSVtoJSON(AgiloUnformatted.getReleases, {}, function (columns) {
+                    return {
+                        name: columns[0].trim(),
+                        dueDate: new Date(columns[1].trim() / 1000),
+                        completedDate: new Date(columns[2].trim() / 1000),
+                        description: columns[3].trim()
+                    };
+                });
             },
             getStoriesByRelease: function (selectedRelease) {
                 var deferredResult = $q.defer();

@@ -18,9 +18,11 @@
     </div>
 </nav>
 
-<div class="container-fluid" id="backlogboard">
+
+
+<div class="" id="backlogboard">
     <div class="row">
-        <span id="row-done">
+        <span id="row-next-sprint">
         <h2>Next sprint</h2>
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
@@ -34,7 +36,7 @@
         </span>
 	</div>
     <div class="row">
-        <span id="row-done">
+        <span id="row-ready-to-implement">
         <h2>Ready to implement</h2>
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
@@ -48,11 +50,10 @@
         </span>
 	</div>
     <div class="row">
-        <span id="row-done">
+        <span id="row-remaining">
         <h2>Remaining</h2>
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
-                      {{numberOfProjects}}
                     {{project}}
                     <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:isRemainingStory)">
                     </agilo-story>

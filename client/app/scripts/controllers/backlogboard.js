@@ -3,7 +3,7 @@
 angular.module('agiloBoardsApp')
     .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo) {
         var releasePromise = Agilo.getReleases();
-        
+        $scope.backlogMode = true;
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 $location.search('release', newValue.name);
@@ -35,7 +35,6 @@ angular.module('agiloBoardsApp')
             var storiesPromise = Agilo.getStoriesByRelease(selectedRelease.name);
             storiesPromise.then(function (result) {
                 $scope.projects = result.projects;
-                $scope.numberOfProjects = Object.keys($scope.projects).length;
             }, function (error) {
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });

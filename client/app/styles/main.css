@@ -15,7 +15,7 @@ a:hover {
     cursor: default;
 }
 .board {
-    margin: 10px;
+    margin-top: 20px;
 }
 div.error {
     margin: 20px;
@@ -90,7 +90,7 @@ div.error {
 }
 
 .story-owner-image {
-	padding: 0.8em 0em 0.8em 0.8em;
+	margin: 0.8em 0.8em 0.8em 0.8em;
 	width: 80px;
     min-height: 80px;
     float: left;
@@ -125,7 +125,6 @@ div.error {
     cursor: pointer;
     color: #428bca;
 }
-
 @media (max-width: 1500px) and (min-width: 992px) {
     .swimlane {
         width: 33%;
@@ -150,7 +149,7 @@ div.error {
     top: -20px;
 }
 .compact-mode .postits {
-    left: 90px;
+    left: 110px;
 }
 .postit {
     border-radius: 2px;
@@ -168,4 +167,13 @@ div.error {
     float: left;
     box-shadow: 5px 5px 2px #888888;
     margin-right: 10px;
+}
+.row {
+    margin: 0px;
+}
+.slice {
+    margin: 5px;
+    padding: 0px 5px 0px 5px;
+    border-radius: 15px;
+    border: solid 1px #d6d6d6;
 }

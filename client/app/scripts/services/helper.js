@@ -66,19 +66,24 @@ angular.module('agiloBoardsApp')
         parse: function(keywordsStr) {
             var keywords = [];
             while (keywordsStr.length > 0) {
-                var endIndex = keywordsStr.length-1;
+                var endIndex = keywordsStr.length;
                 var startIndex = 0;
+                var str = '';
                 if (keywordsStr.indexOf('[')===0) {
                     startIndex = 1;
                     if (keywordsStr.indexOf(']')>=0) {
                         endIndex = keywordsStr.indexOf(']');
+                        str = keywordsStr.substr(startIndex, endIndex-1);
                     }
                 } else {
-                    if (keywordsStr.indexOf(' ')) {
-                        endIndex = keywordsStr+1;
+                    if (keywordsStr.indexOf(' ')>=0) {
+                        endIndex = keywordsStr.indexOf(' ');
                     }
                 }
-                keywords.push(keywordsStr.substr(startIndex, endIndex));
+                if (!str) {
+                    str = keywordsStr.substr(startIndex, endIndex);
+                }
+                keywords.push(str);
                 keywordsStr = keywordsStr.substr(endIndex+1);
             }
             function keywordNotEmpty(keyword) {

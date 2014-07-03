@@ -20,8 +20,8 @@
 
 
 
-<div class="" id="backlogboard">
-    <div class="row">
+<div class="board" id="backlogboard">
+    <div class="row slice">
         <span id="row-next-sprint">
         <h2>Next sprint</h2>
             <div ng-repeat="(project, stories) in projects">
@@ -34,7 +34,7 @@
             </div>
         </span>
 	</div>
-    <div class="row">
+    <div class="row slice">
         <span id="row-ready-to-implement">
         <h2>Ready to implement</h2>
             <div ng-repeat="(project, stories) in projects">
@@ -48,7 +48,7 @@
             </div>
         </span>
 	</div>
-    <div class="row">
+    <div class="row slice">
         <span id="row-remaining">
         <h2>Remaining</h2>
             <div ng-repeat="(project, stories) in projects">

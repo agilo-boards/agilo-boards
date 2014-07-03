@@ -53,3 +53,29 @@ describe('Service: TSVtoJSONConverter', function () {
         expect(jsonArray.data[2]).toEqual({ param1: 'value2.2123', param2: 'value2.3456' });
     });
 });
+
+describe('Service: KeywordParser', function () {
+
+    beforeEach(module('agiloBoardsApp'));
+
+    var keywordParser;
+    beforeEach(inject(function (_KeywordParser_) {
+        keywordParser = _KeywordParser_;
+    }));
+
+    it('should convert a list of words into an array', function () {
+        expect(keywordParser.parse('this is something')).toEqual(['this', 'is', 'something']);
+    });
+    
+    it('should not split multiple words within brackets', function () {
+        expect(keywordParser.parse('[this is something]')).toEqual(['this is something']);
+    });
+    
+    it('should be able to support brackets and spaces mixed', function () {
+        expect(keywordParser.parse('[this is] something')).toEqual(['this is', 'something']);
+    });
+    
+    it('should be able to support brackets and spaces mixed another way', function () {
+        expect(keywordParser.parse('[this is] [something]')).toEqual(['this is', 'something']);
+    });
+});

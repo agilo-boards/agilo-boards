@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .directive('agiloStory', function () {
+    .directive('agiloStory', function (UpdateTicketService) {
         return {
             restrict: 'E',
             templateUrl: 'templates/story.html',
@@ -9,6 +9,15 @@ angular.module('agiloBoardsApp')
                 backlogMode: '@',
                 compactMode: '=',
                 story: '='
+            },
+            link: function(scope) {
+                scope.isStoryClosable = function (story) {
+                    return story.status === 'assigned';
+                };
+
+                scope.closeTicket = function (ticket) {
+                    UpdateTicketService.closeTicket(ticket);
+                };
             }
         };
     })

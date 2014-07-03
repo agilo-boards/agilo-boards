@@ -76,14 +76,6 @@ angular.module('agiloBoardsApp')
         $scope.getDashboardUrl = function () {
             return AGILO_URL + '/dashboard';
         };
-
-        $scope.getViewTicketUrl = function (id) {
-            return AGILO_URL + '/ticket/' + id;
-        };
-
-        $scope.getEditTicketUrl = function (id) {
-            return $scope.getViewTicketUrl(id) + '?pane=edit';
-        };
         
         $scope.getImagePath = function(owner) {
             return 'images/team/'+owner+'.jpg';
@@ -103,14 +95,6 @@ angular.module('agiloBoardsApp')
                 url = $scope.getEditTicketUrl(ticket.id);
             }
             $window.open(url);
-        };
-
-        $scope.isStoryClosable = function (story) {
-            return story.status === 'assigned';
-        };
-
-        $scope.closeTicket = function (ticket) {
-            UpdateTicketService.closeTicket(ticket);
         };
 
         function sum(array, method) {

@@ -1,56 +1,57 @@
-
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container-fluid">
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Scrumboard</a></li>
                 <li><a href="#/backlog">Backlog</a></li>
             </ul>
-			<form class="navbar-form navbar-left">
-				<div class="form-group" ng-model="sprints">
-					<select id="sprints" class="form-control" ng-model="sprints.selectedSprint" ng-options="sprint for sprint in sprints.allSprints">
-					</select>
-					&nbsp;&nbsp;
+            <form class="navbar-form navbar-left">
+                <div class="form-group" ng-model="sprints">
+                    <select id="sprints" class="form-control" ng-model="sprints.selectedSprint"
+                            ng-options="sprint.name for sprint in sprints.allSprints" />
+                    &nbsp;&nbsp;
                     <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
-					&nbsp;&nbsp;
-					done (with admin): {{allTimeDone}} h
-					&nbsp;&nbsp;
-					remaining: {{allTimeRemaining}} h
-					&nbsp;&nbsp;
-					<a href="{{getDashboardUrl()}}" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
-					&nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    start Date: {{sprints.selectedSprint.start | date:'yyyy-MM-dd'}}
+                    &nbsp;&nbsp;
+                    done (with admin): {{allTimeDone}} h
+                    &nbsp;&nbsp;
+                    remaining: {{allTimeRemaining}} h
+                    &nbsp;&nbsp;
+                    <a href="{{getDashboardUrl()}}" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
+                    &nbsp;&nbsp;
                     <input type="checkbox" ng-model="compactMode"> Compact Mode</input>
-				</div>
-			</form>
-		</div>
-	</div>
+                </div>
+            </form>
+        </div>
+    </div>
 </nav>
 
 <div class="container-fluid" id="board">
-	<div class="row" ng-model="stories">
-		<div class="col-md-5 swimlane">
-			<h2>To Do</h2>
+    <div class="row" ng-model="stories">
+        <div class="col-md-5 swimlane">
+            <h2>To Do</h2>
 			<span id="col-todo">
 				<agilo-story-with-tasks ng-repeat="story in todoStories = (stories | filter:isStoryNew)">
-				</agilo-story-with-tasks>
+                </agilo-story-with-tasks>
                 <div ng-show="todoStories.length == 0">No stories.</div>
 			</span>
-		</div>
-		<div class="col-md-5 swimlane">
-			<h2>In Progress</h2>
+        </div>
+        <div class="col-md-5 swimlane">
+            <h2>In Progress</h2>
 			<span id="col-inprogress">
                 <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{state:'assigned'})">
                 </agilo-story-with-tasks>
                 <div ng-show="inprogressStories.length == 0">No stories.</div>
             </span>
-		</div>
-		<div class="col-md-2 swimlane">
-			<h2>Done</h2>
+        </div>
+        <div class="col-md-2 swimlane">
+            <h2>Done</h2>
 			<span id="col-done">
 				<agilo-story ng-repeat="story in doneStories = (stories | filter:{state:'closed'})">
-				</agilo-story>
+                </agilo-story>
                 <div ng-show="doneStories.length == 0">No stories.</div>
             </span>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>

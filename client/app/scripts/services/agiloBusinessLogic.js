@@ -5,7 +5,7 @@ angular.module('agiloBoardsApp')
         function parseKeywords(keywords) {
             // TODO
             //return KeywordParser.parse(keywords);
-            return keywords;
+            return [keywords];
         }
         
         function parseDate(date) {
@@ -57,7 +57,9 @@ angular.module('agiloBoardsApp')
             },
             getStoriesByRelease: function (selectedRelease) {
                 var deferredResult = $q.defer();
-                var stories = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_STORIES_BY_RELEASE);
+                var stories = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_STORIES_BY_RELEASE, {
+                    keywords: parseKeywords
+                });
                 stories.then(function (items) {
                     var projects = {};
                     items.data.forEach(function (item) {

@@ -7,23 +7,26 @@ angular.module('agiloBoardsApp')
             //return KeywordParser.parse(keywords);
             return [keywords];
         }
-        
-        function parseDate(date) {
-            return new Date(date*1000);
-        }
-        
-        function parseDateMs(date) {
-            if (!date || date===0) {
-                return 0;
+
+        function parseDateFromUnixTimestamp(date) {
+            if (!date) {
+                return null;
             }
-            return new Date(date/1000);
+            return new Date(date * 1000);
+        }
+
+        function parseDateFromUnixTimestampInMicroseconds(date) {
+            if (!date) {
+                return null;
+            }
+            return new Date(date / 1000);
         }
 
         return {
             getSprints: function () {
                 return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getSprints({}), AGILO_REPORT_SPRINTS, {
-                    start: parseDate,
-                    end: parseDate
+                    start: parseDateFromUnixTimestamp,
+                    end: parseDateFromUnixTimestamp
                 });
             },
             getStoriesBySprint: function (selectedSprint) {
@@ -51,8 +54,8 @@ angular.module('agiloBoardsApp')
             },
             getReleases: function () {
                 return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getReleases({}), AGILO_REPORT_RELEASES, {
-                    dueDate: parseDateMs,
-                    completedDate: parseDateMs
+                    dueDate: parseDateFromUnixTimestampInMicroseconds,
+                    completedDate: parseDateFromUnixTimestampInMicroseconds
                 });
             },
             getStoriesByRelease: function (selectedRelease) {

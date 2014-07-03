@@ -608,15 +608,12 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
         };
     }
 
-    if (ticket.ts !== parseInt(requestBody.ts)) {
-        debug('ts does not match');
-        return;
-    }
-
     debug('setting property ' + propertyToChange + ' of ticket ' + ticketNumber + ' to ' + requestBody[propertyToChange] + ' (old value: ' + ticket[propertyToChange] + ')');
+    // TODO Set all supplied properties
     ticket[propertyToChange] = requestBody[propertyToChange];
-    ticket.ts = '2014-07-03 09:28:16.701189+00:00';
-    ticket.time_of_last_change = Math.floor(new Date().getTime() / 1000);
+    var now = new Date();
+    ticket.ts = moment(now).format('YYYY-MM-DD HH:mm:ss.SSSSSSZ');
+    ticket.time_of_last_change = Math.floor(now.getTime() / 1000);
 
     return ticket;
 };

@@ -82,6 +82,13 @@ div.error {
 	margin-bottom: 0.8em;
 }
 
+.information-text {
+	font-style: italic;
+    color: grey;
+	margin-top: 0.3em;
+	margin-bottom: 0.8em;
+}
+
 .story-owner-image {
 	padding: 0.8em 0em 0.8em 0.8em;
 	width: 80px;

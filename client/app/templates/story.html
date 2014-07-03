@@ -1,15 +1,16 @@
 
-<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story), 'story-with-postits': story.postits.length>0}">
+<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story), 'story-with-postits': story.postits.length>0, 'compact-mode': compactMode}">
     <div ng-hide="compactMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>
     </div>
     <div class="story-center">
-        <div class="story-owner-image" ng-show="story.owner">
-            <object data="images/team/unknown.jpg" type="image/jpg">
-                <img src="images/team/{{story.owner || 'unknown'}}.jpg" class="story-owner-image"/>
-            </object>
-            {{story.owner}}
+        <div class="story-owner-image" ng-show="story.owner" data-toggle="tooltip" data-placement="top" title="{{story.owner}}">
+            <picture alt="{{story.owner}}">
+               <source src="images/team/{{story.owner}}.jpg">
+               <source src="images/team/unknown.jpg">
+               <img src="images/team/{{story.owner}}.jpg" alt="{{story.owner}}">
+            </picture>
         </div>
         <div class="centered">
             <span class="story-number">
@@ -29,6 +30,6 @@
         </span>
     </div>
     <div class="postits">
-        <div class="postit" ng-repeat="postit in story.postits">{{postit}}</div>
+        <div class="postit" ng-repeat="postit in story.keywords">{{postit}}</div>
     </div>
 </div>

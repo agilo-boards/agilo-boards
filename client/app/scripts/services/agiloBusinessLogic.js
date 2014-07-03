@@ -1,64 +1,43 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .service('Agilo', function ($q, AgiloUnformatted, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_RELEASES, AGILO_REPORT_STORIES_BY_RELEASE) {
+    .service('Agilo', function ($q, AgiloUnformatted, TSVtoJSONConverter, AGILO_REPORT_SPRINTS, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_RELEASES, AGILO_REPORT_STORIES_BY_RELEASE) {
 
-        function transformTSVtoJSON(serviceCall, params, mapToObject) {
-            var deferredResult = $q.defer();
-            serviceCall(params).then(function (result) {
-                var rows = result.data.split('\n');
-                if (rows && rows[0]) {
-                    rows.splice(0, 1);
-                    rows = rows.filter(function (row) {
-                        return row.trim().length > 0;
-                    });
+        function parseKeywords(keywordsStr) {
+            if ((keywordsStr.indexOf('[') === 0) && (keywordsStr.lastIndexOf(']') === keywordsStr.length-1)) {
+                keywordsStr = keywordsStr.substring(1, keywordsStr.length-1);
+            }
+            var keywords = keywordsStr.split(',');
+            function keywordNotEmpty(keyword) {
+                return keyword.length > 0;
+            }
+            function trimKeyword(keyword) {
+                return keyword.trim();
+            }
+            function shortenKeyword(keyword) {
+                if (keyword.length > 9) {
+                    return keyword.substr(0, 8)+'..';
                 }
-                deferredResult.resolve({
-                    data: rows.map(function (row) {
-                        var columns = row.split('\t');
-                        return mapToObject(columns);
-                    })
-                });
-            }, function (error) {
-                deferredResult.reject(error);
-            });
-            return deferredResult.promise;
+                return keyword;
+            }
+            return keywords.map(shortenKeyword).map(trimKeyword).filter(keywordNotEmpty);
         }
-
-        function createConversionMethod(conversionMap) {
-            return function (columns) {
-                var item = {};
-                angular.forEach(conversionMap, function (value, key) {
-                    if (typeof columns[value] === 'undefined') {
-                        return;
-                    }
-                    item[key] = columns[value].trim();
-                });
-                return item;
-            };
+        
+        function parseDate(date) {
+            return new Date(date*1000);
         }
 
         return {
-            getSprintNames: function () {
-                return transformTSVtoJSON(AgiloUnformatted.getSprints, {}, function (columns) {
-                    return columns[3].trim();
-                });
-            },
             getSprints: function () {
-                return transformTSVtoJSON(AgiloUnformatted.getSprints, {}, function (columns) {
-                    return {
-                        description: columns[0].trim(),
-                        end: columns[1].trim(),
-                        milestone: columns[2].trim(),
-                        name: columns[3].trim(),
-                        start: new Date(columns[4].trim() * 1000),
-                        team: columns[5].trim()
-                    };
+                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getSprints({}), AGILO_REPORT_SPRINTS, {
+                    start: parseDate
                 });
             },
             getStoriesBySprint: function (selectedSprint) {
                 var deferredResult = $q.defer();
-                var storiesAndTasks = transformTSVtoJSON(AgiloUnformatted.getStoriesBySprint, { SPRINT: selectedSprint }, createConversionMethod(AGILO_REPORT_STORIES_AND_TASKS));
+                var storiesAndTasks = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_STORIES_AND_TASKS, {
+                    keywords: parseKeywords
+                });
                 storiesAndTasks.then(function (items) {
                     var stories = {};
                     items.data.forEach(function (item) {
@@ -70,7 +49,7 @@ angular.module('agiloBoardsApp')
                         }
                     });
                     deferredResult.resolve({
-                        stories: stories
+                        data: stories
                     });
                 }, function (error) {
                     deferredResult.reject(error);
@@ -78,11 +57,11 @@ angular.module('agiloBoardsApp')
                 return deferredResult.promise;
             },
             getReleases: function () {
-                return transformTSVtoJSON(AgiloUnformatted.getReleases, {}, createConversionMethod(AGILO_REPORT_RELEASES));
+                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getReleases({}), AGILO_REPORT_RELEASES);
             },
             getStoriesByRelease: function (selectedRelease) {
                 var deferredResult = $q.defer();
-                var stories = transformTSVtoJSON(AgiloUnformatted.getStoriesByRelease, { MILESTONE: selectedRelease }, createConversionMethod(AGILO_REPORT_STORIES_BY_RELEASE));
+                var stories = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_STORIES_BY_RELEASE);
                 stories.then(function (items) {
                     var projects = {};
                     items.data.forEach(function (item) {

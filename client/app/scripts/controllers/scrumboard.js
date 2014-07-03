@@ -39,7 +39,7 @@ angular.module('agiloBoardsApp')
         function loadStories(selectedSprint) {
             var stories = Agilo.getStoriesBySprint(selectedSprint.name);
             stories.then(function (result) {
-                $scope.stories = ObjToArrayConverter.convert(result.stories);
+                $scope.stories = ObjToArrayConverter.convert(result.data);
                 $scope.stories.map(enrichStory);
                 $scope.allTimeDone = sum($scope.stories, function (story) {
                     return story.timeDone;
@@ -70,28 +70,7 @@ angular.module('agiloBoardsApp')
             story.timeDone = sum(story.tasks, function (task) {
                 return task.timeDone;
             });
-            story.postits = parseKeywords(story.keywords);
             return story;
-        }
-        
-        function parseKeywords(keywordsStr) {
-            if ((keywordsStr.indexOf('[') === 0) && (keywordsStr.lastIndexOf(']') === keywordsStr.length-1)) {
-                keywordsStr = keywordsStr.substring(1, keywordsStr.length-1);
-            }
-            var keywords = keywordsStr.split(',');
-            function keywordNotEmpty(keyword) {
-                return keyword.length > 0;
-            }
-            function trimKeyword(keyword) {
-                return keyword.trim();
-            }
-            function shortenKeyword(keyword) {
-                if (keyword.length > 9) {
-                    return keyword.substr(0, 8)+'..';
-                }
-                return keyword;
-            }
-            return keywords.map(shortenKeyword).map(trimKeyword).filter(keywordNotEmpty);
         }
 
         $scope.getDashboardUrl = function () {

@@ -18,7 +18,6 @@ angular.module('agiloBoardsApp')
                         endIndex = keywordsStr+1;
                     }
                 }
-                console.log(keywordsStr.substr(startIndex, endIndex));
                 keywords.push(keywordsStr.substr(startIndex, endIndex));
                 keywordsStr = keywordsStr.substr(endIndex+1);
             }
@@ -34,11 +33,19 @@ angular.module('agiloBoardsApp')
         function parseDate(date) {
             return new Date(date*1000);
         }
+        
+        function parseDateMs(date) {
+            if (!date || date===0) {
+                return 0;
+            }
+            return new Date(date/1000);
+        }
 
         return {
             getSprints: function () {
                 return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getSprints({}), AGILO_REPORT_SPRINTS, {
-                    start: parseDate
+                    start: parseDate,
+                    end: parseDate
                 });
             },
             getStoriesBySprint: function (selectedSprint) {
@@ -65,7 +72,10 @@ angular.module('agiloBoardsApp')
                 return deferredResult.promise;
             },
             getReleases: function () {
-                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getReleases({}), AGILO_REPORT_RELEASES);
+                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getReleases({}), AGILO_REPORT_RELEASES, {
+                    dueDate: parseDateMs,
+                    completedDate: parseDateMs
+                });
             },
             getStoriesByRelease: function (selectedRelease) {
                 var deferredResult = $q.defer();

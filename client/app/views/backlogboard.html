@@ -6,21 +6,28 @@
                 <li class="active"><a href="#">Backlog</a></li>
             </ul>
             <div class="navbar-form navbar-left form-group" ng-model="sprints">
-                <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases">
-                </select>
+                <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
+                &nbsp;&nbsp;
+                {{selectedRelease.description}}
+                &nbsp;&nbsp;
+                due Date: {{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}
+                &nbsp;&nbsp;
+                completed Date: {{selectedRelease.completedDate | date:'EEE yyyy-MM-dd'}}
             </div>
         </div>
     </div>
 </nav>
 
-<div class="container-fluid" id="backlogboard">
+
+
+<div class="" id="backlogboard">
     <div class="row">
-        <span id="row-done">
+        <span id="row-next-sprint">
         <h2>Next sprint</h2>
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
                     {{project}}
-                    <agilo-story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})" story="story">
+                    <agilo-story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})" story="story" backlog-mode="true">
                     </agilo-story>
                     <div ng-show="nextSprintStories.length == 0">No stories.</div>
                 </div>
@@ -29,12 +36,12 @@
         </span>
 	</div>
     <div class="row">
-        <span id="row-done">
+        <span id="row-ready-to-implement">
         <h2>Ready to implement</h2>
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
                     {{project}}
-                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:{detailStatus:'Ready to Implement'})" story="story">
+                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:{detailStatus:'Ready to Implement'})" story="story" backlog-mode="true">
                     </agilo-story>
                     <div ng-show="readyToImplementStories.length == 0">No stories.</div>
                 </div>
@@ -43,13 +50,12 @@
         </span>
 	</div>
     <div class="row">
-        <span id="row-done">
+        <span id="row-remaining">
         <h2>Remaining</h2>
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
-                      {{numberOfProjects}}
                     {{project}}
-                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:isRemainingStory)" story="story">
+                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:isRemainingStory)" story="story" backlog-mode="true">
                     </agilo-story>
                     <div ng-show="readyToImplementStories.length == 0">No stories.</div>
                 </div>

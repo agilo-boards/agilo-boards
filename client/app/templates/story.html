@@ -1,6 +1,5 @@
-{{backlogMode}}
 <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story), 'story-with-postits': story.postits.length>0, 'compact-mode': compactMode}">
-    <div ng-hide="compactMode" class="header">
+    <div ng-hide="compactMode || backlogMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>
     </div>
@@ -25,7 +24,7 @@
     </div>
     <div ng-hide="compactMode" class="footer">
         {{story.storyPoints}} SP
-        <span style="float: right;">
+        <span ng-hide="backlogMode" style="float: right;">
             done {{story.timeDone}}h
         </span>
     </div>

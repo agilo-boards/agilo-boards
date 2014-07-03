@@ -52,7 +52,7 @@ angular.module('agiloBoardsApp')
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
         }
-        
+
         function collectOwners(stories) {
             var owners = {};
             angular.forEach(stories, function(story) {
@@ -90,7 +90,7 @@ angular.module('agiloBoardsApp')
         };
 
         $scope.isStoryNew = function (story) {
-            return story.state !== 'closed' && story.state !== 'assigned';
+            return story.status !== 'closed' && story.status !== 'assigned';
         };
 
         $scope.openTicket = function (ticket, event) {
@@ -102,7 +102,7 @@ angular.module('agiloBoardsApp')
         };
 
         $scope.isStoryClosable = function (story) {
-            return story.state === 'assigned';
+            return story.status === 'assigned';
         };
 
         $scope.closeTicket = function (ticket) {
@@ -126,7 +126,7 @@ angular.module('agiloBoardsApp')
             }
             return story.owner !== $scope.selectedOwner;
         };
-        
+
         $scope.orderBySelectedOwner = function(story) {
             if ($scope.doesNotMatchesSelectedOwner(story)) {
                 return 1;

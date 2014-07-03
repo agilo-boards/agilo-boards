@@ -30,6 +30,14 @@ NavigationBarPage.prototype.assertNumberOfSprints = function(listOfSprints) {
         }
     }
 };
+NavigationBarPage.prototype.assertNumberOfReleases = function(listOfReleases) {
+    var len = listOfReleases.length;
+    for (var i=0; i<len; i++) {
+        if (i in listOfReleases) {
+            expect(element(by.xpath('//select[@id="release"]/option['+ (1+i) +']')).getText()).toEqual(listOfReleases[i]);
+        }
+    }
+};
 
 NavigationBarPage.prototype.reload = function() {
     this.reloadButton.click();

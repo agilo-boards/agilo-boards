@@ -1,5 +1,5 @@
 
-<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'fade-out': !matchesSelectedOwner(story), 'story-with-postits': story.postits.length>0}">
+<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story), 'story-with-postits': story.postits.length>0}">
     <div ng-hide="compactMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>

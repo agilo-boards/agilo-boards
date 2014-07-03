@@ -19,9 +19,9 @@ describe('Service: Agilo Service', function () {
 
     describe('Get all sprints', function () {
         it('should ignore the title line', function () {
-            agilo.getSprintNames().then(function (result) {
+            agilo.getSprints().then(function (result) {
                 expect(result.data.length).toBe(3);
-                expect(result.data[0]).toBe('Sprint 1');
+                expect(result.data[0].name).toBe('Sprint 1');
             });
             httpBackend.flush();
         });
@@ -30,9 +30,9 @@ describe('Service: Agilo Service', function () {
     describe('Get all stories and tasks', function () {
         it('should map the stories correctly', function () {
             agilo.getStoriesBySprint('Sprint 2').then(function (result) {
-                expect(result.stories[1000]).toBeDefined();
-                expect(result.stories[1004].tasks.length).toBe(3);
-                expect(result.stories[1007]).toBeDefined();
+                expect(result.data[1000]).toBeDefined();
+                expect(result.data[1004].tasks.length).toBe(3);
+                expect(result.data[1007]).toBeDefined();
             });
             httpBackend.flush();
         });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo, ObjToArrayConverter) {
+    .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo) {
         var releasePromise = Agilo.getReleases();
         
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
@@ -34,10 +34,18 @@ angular.module('agiloBoardsApp')
         function loadStories(selectedRelease) {
             var storiesPromise = Agilo.getStoriesByRelease(selectedRelease.name);
             storiesPromise.then(function (result) {
-                $scope.stories = ObjToArrayConverter.convert(result.projects);
+                $scope.projects = result.projects;
+                $scope.numberOfProjects = Object.keys($scope.projects).length;
             }, function (error) {
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
         }
+        
+        $scope.isRemainingStory = function(story) {
+            if ('Ready to Implement' === story.detailStatus || 'Next Sprint' === story.detailStatus) {
+                return false;
+            }
+            return true;
+        };
 
     });

@@ -11,7 +11,7 @@ angular.module('agiloBoardsApp')
 
             STORIES_AND_TASKS_SPRINT_2: 'id	type	summary	milestone	status	owner	keywords	Story Points	Work done	Remaining time	Sprint	Project	Story ID'+
                 '\n1000	story	Implement dummy backend	Release 1.3	assigned	face	[testing]	2			Sprint 2	agiloBoards  ' +
-                '\n1001	story	Set up AngularJS project	Release 1.3	closed	amy	[before camp]	2			Sprint 2	agiloBoards    ' +
+                '\n1001	story	Set up AngularJS project	Release 1.3	closed	amy	test [before camp] [testing]	2			Sprint 2	agiloBoards    ' +
                 '\n1002	story	Convert existing jQuery code to AngularJS	Release 1.3	closed	amy	[before camp]	2			Sprint 2	agiloBoards   ' +
                 '\n1003	story	Add testwatch target	Release 1.3	assigned	amy	[infrastructure]	1			Sprint 2	agiloBoards   ' +
                 '\n1004	story	Read JavaScript book	Release 1.3	assigned	ba		2			Sprint 2	education  '+

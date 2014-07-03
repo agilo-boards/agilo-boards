@@ -27,7 +27,7 @@
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
                     {{project}}
-                    <agilo-story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})">
+                    <agilo-story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})" story="story" backlog-mode="true">
                     </agilo-story>
                     <div ng-show="nextSprintStories.length == 0">No stories.</div>
                 </div>
@@ -41,7 +41,7 @@
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
                     {{project}}
-                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:{detailStatus:'Ready to Implement'})">
+                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:{detailStatus:'Ready to Implement'})" story="story" backlog-mode="true">
                     </agilo-story>
                     <div ng-show="readyToImplementStories.length == 0">No stories.</div>
                 </div>
@@ -55,7 +55,7 @@
             <div ng-repeat="(project, stories) in projects">
                 <div class="col-md-2">
                     {{project}}
-                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:isRemainingStory)">
+                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:isRemainingStory)" story="story" backlog-mode="true">
                     </agilo-story>
                     <div ng-show="readyToImplementStories.length == 0">No stories.</div>
                 </div>

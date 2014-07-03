@@ -134,13 +134,19 @@ div.error {
     }
 }
 
-.story-with-postit {
+.story-with-postits {
+    margin-bottom: 25px;
+}
+.story-with-postits.compact-mode .centered {
     margin-bottom: 25px;
 }
 .postits {
     position: relative;
     left: 50px;
     top: -20px;
+}
+.compact-mode .postits {
+    left: 90px;
 }
 .postit {
     border-radius: 2px;
@@ -158,5 +164,4 @@ div.error {
     float: left;
     box-shadow: 5px 5px 2px #888888;
     margin-right: 10px;
-}
 }

@@ -3,7 +3,6 @@
 angular.module('agiloBoardsApp')
     .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo) {
         var releasePromise = Agilo.getReleases();
-        $scope.backlogMode = true;
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 $location.search('release', newValue.name);

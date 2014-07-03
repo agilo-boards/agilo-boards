@@ -21,13 +21,13 @@ describe('Controller: ScrumboardCtrl', function () {
 
     describe('isStoryClosable', function () {
         it('returns true for stories that have sate "assigned"', function () {
-            expect($scope.isStoryClosable({state: 'assigned'})).toBeTruthy();
+            expect($scope.isStoryClosable({status: 'assigned'})).toBeTruthy();
         });
 
         it('returns false for stories that have any other state', function () {
-            expect($scope.isStoryClosable({state: 'closed'})).toBeFalsy();
-            expect($scope.isStoryClosable({state: 'new'})).toBeFalsy();
-            expect($scope.isStoryClosable({state: 'reopened'})).toBeFalsy();
+            expect($scope.isStoryClosable({status: 'closed'})).toBeFalsy();
+            expect($scope.isStoryClosable({status: 'new'})).toBeFalsy();
+            expect($scope.isStoryClosable({status: 'reopened'})).toBeFalsy();
         });
     });
 

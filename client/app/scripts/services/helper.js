@@ -60,4 +60,34 @@ angular.module('agiloBoardsApp')
             return { data: mappedObjects };
         }
     };
+})
+.service('KeywordParser', function() {
+    return {
+        parse: function(keywordsStr) {
+            var keywords = [];
+            while (keywordsStr.length > 0) {
+                var endIndex = keywordsStr.length-1;
+                var startIndex = 0;
+                if (keywordsStr.indexOf('[')===0) {
+                    startIndex = 1;
+                    if (keywordsStr.indexOf(']')>=0) {
+                        endIndex = keywordsStr.indexOf(']');
+                    }
+                } else {
+                    if (keywordsStr.indexOf(' ')) {
+                        endIndex = keywordsStr+1;
+                    }
+                }
+                keywords.push(keywordsStr.substr(startIndex, endIndex));
+                keywordsStr = keywordsStr.substr(endIndex+1);
+            }
+            function keywordNotEmpty(keyword) {
+                return keyword.length > 0;
+            }
+            function trimKeyword(keyword) {
+                return keyword.trim();
+            }
+            return keywords.map(trimKeyword).filter(keywordNotEmpty);
+        }
+    };
 });

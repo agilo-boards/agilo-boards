@@ -82,7 +82,7 @@ angular.module('agiloBoardsApp')
                     return {
                         name: columns[0].trim(),
                         dueDate: new Date(columns[1].trim() / 1000),
-                        completedDate: columns[2].trim(),
+                        completedDate: new Date(columns[2].trim() / 1000),
                         description: columns[3].trim()
                     };
                 });

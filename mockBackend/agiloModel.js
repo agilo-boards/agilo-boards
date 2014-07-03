@@ -50,19 +50,19 @@ var releases = [
         name: 'Release 3',
         due: DUE_DATE_RELEASE_3.getTime() * 1000,
         completed: null,
-        description: 'Software Delivery Date: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd.MM.YYYY')
+        description: 'Software Delivery Date: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 2',
         due: DUE_DATE_RELEASE_2.getTime() * 1000,
         completed: COMPLETED_DATE_RELEASE_2.getTime() * 1000,
-        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_2).format('dd.MM.YYYY')
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_2).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 1',
         due: DUE_DATE_RELEASE_1.getTime() * 1000,
         completed: COMPLETED_DATE_RELEASE_1.getTime() * 1000,
-        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_1).format('dd.MM.YYYY')
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_1).format('dd DD.MM.YYYY')
     }
 ];
 

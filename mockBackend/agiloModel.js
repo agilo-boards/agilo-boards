@@ -11,7 +11,7 @@ function addDays(date, days) {
 function getMonday(d) {
     d = new Date(d);
     var day = d.getDay(),
-        diff = d.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
+        diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
 }
 
@@ -216,7 +216,7 @@ var storiesAndTasks = [
     {
         id: 1005,
         type: TYPE_STORY,
-        summary: 'Update time remaining' ,
+        summary: 'Update time remaining',
         milestone: RELEASE_2,
         status: STATUS_NEW,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -229,7 +229,7 @@ var storiesAndTasks = [
     {
         id: 1006,
         type: TYPE_STORY,
-        summary: 'Drag and drop for Scrum Board' ,
+        summary: 'Drag and drop for Scrum Board',
         milestone: RELEASE_2,
         status: STATUS_REOPENED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -241,7 +241,7 @@ var storiesAndTasks = [
     {
         id: 1007,
         type: TYPE_STORY,
-        summary: 'Get All releases' ,
+        summary: 'Get All releases',
         milestone: RELEASE_2,
         status: STATUS_NEW,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -459,6 +459,11 @@ var storiesAndTasks = [
     }
 ];
 
+for (var i = 0; i < storiesAndTasks.length; i++) {
+    var ticket = storiesAndTasks[i];
+    ticket.ts = '2014-05-01 10:00:00.000000+00:00';
+    ticket.time_of_last_change = 1398938400;
+}
 
 function getRow(sprint, fields) {
     return fields.map(function (field) {
@@ -491,18 +496,18 @@ function getSprintsInRelease2() {
 }
 
 function getTicketByNumber(ticketNumber) {
-    var foundTicket = storiesAndTasks.filter(function(ticket) {
+    var foundTicket = storiesAndTasks.filter(function (ticket) {
         return ticket.id === ticketNumber;
     });
 
-    if(foundTicket.length === 1) {
+    if (foundTicket.length === 1) {
         return foundTicket[0];
     }
 }
 
 function getPropertyToChange(requestBody) {
-    for(var property in requestBody) {
-        if(property !== 'id' && property !== 'ts' && property !== 'time_of_last_change') {
+    for (var property in requestBody) {
+        if (property !== 'id' && property !== 'ts' && property !== 'time_of_last_change') {
             return property;
         }
     }
@@ -524,32 +529,72 @@ module.exports.getStoriesAsInReport109 = function (release) {
     return asTsv(getStoriesForRelease(release), STORY_FIELDS_FOR_BACKLOG);
 };
 
+
+module.exports.getTicket = function (ticketNumber) {
+    debug('getTicket: ticketNumber = ' + ticketNumber);
+
+    ticketNumber = parseInt(ticketNumber, 10);
+    var ticket = getTicketByNumber(ticketNumber);
+    if (typeof ticket === 'undefined') {
+        debug('ticket ' + ticketNumber + ' not found');
+        return;
+    }
+
+    return ticket;
+};
+
 module.exports.updateTicket = function (ticketNumber, requestBody) {
     debug('updateTicket: ticketNumber = ' + ticketNumber);
     debug('updateTicket: requestBody = ');
     debug(requestBody);
 
-
-    if(parseInt(ticketNumber, 10) !== parseInt(requestBody.id)) {
+    if (parseInt(ticketNumber, 10) !== parseInt(requestBody.id)) {
         debug(parseInt(ticketNumber, 10) + ' != ' + parseInt(requestBody.id, 10));
         return;
     }
 
-    ticketNumber = parseInt(1003, 10);
+    ticketNumber = parseInt(ticketNumber, 10);
     var ticket = getTicketByNumber(ticketNumber);
-    if(typeof ticket === 'undefined') {
+    if (typeof ticket === 'undefined') {
         debug('ticket ' + ticketNumber + ' not found');
         return;
     }
 
     var propertyToChange = getPropertyToChange(requestBody);
-    if(typeof propertyToChange === 'undefined') {
+    if (typeof propertyToChange === 'undefined') {
         debug('no property found to be changed');
+        return;
+    }
+
+    if (ticket.ts !== parseInt(requestBody.ts, 10)) {
+        debug('ts does not match');
+        return {
+            errors: [
+                'TracError: ts ' + requestBody.ts + ' does not match'
+            ],
+            current_data: ticket
+        };
+    }
+
+    if (ticket.time_of_last_change !== requestBody.time_of_last_change) {
+        debug('time_of_last_change does not match');
+        return {
+            errors: [
+                'TracError: time_of_last_change ' + requestBody.time_of_last_change + ' does not match'
+            ],
+            current_data: ticket
+        };
+    }
+
+    if (ticket.ts !== parseInt(requestBody.ts)) {
+        debug('ts does not match');
         return;
     }
 
     debug('setting property ' + propertyToChange + ' of ticket ' + ticketNumber + ' to ' + requestBody[propertyToChange] + ' (old value: ' + ticket[propertyToChange] + ')');
     ticket[propertyToChange] = requestBody[propertyToChange];
+    ticket.ts = '2014-07-03 09:28:16.701189+00:00';
+    ticket.time_of_last_change = Math.floor(new Date().getTime() / 1000);
 
     return '';
 };

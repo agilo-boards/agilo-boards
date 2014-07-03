@@ -31,6 +31,7 @@ describe('Service: Agilo Service', function () {
         it('should map the stories correctly', function () {
             agilo.getStoriesBySprint('Sprint 2').then(function (result) {
                 expect(result.data[1000]).toBeDefined();
+                expect(result.data[1001].keywords).toEqual(['before camp', 'testing']);
                 expect(result.data[1004].tasks.length).toBe(3);
                 expect(result.data[1007]).toBeDefined();
             });

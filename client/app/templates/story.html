@@ -1,4 +1,4 @@
-
+{{backlogMode}}
 <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story), 'story-with-postits': story.postits.length>0, 'compact-mode': compactMode}">
     <div ng-hide="compactMode" class="header">
         {{story.project}}

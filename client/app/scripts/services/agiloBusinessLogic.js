@@ -4,23 +4,31 @@ angular.module('agiloBoardsApp')
     .service('Agilo', function ($q, AgiloUnformatted, TSVtoJSONConverter, AGILO_REPORT_SPRINTS, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_RELEASES, AGILO_REPORT_STORIES_BY_RELEASE) {
 
         function parseKeywords(keywordsStr) {
-            if ((keywordsStr.indexOf('[') === 0) && (keywordsStr.lastIndexOf(']') === keywordsStr.length-1)) {
-                keywordsStr = keywordsStr.substring(1, keywordsStr.length-1);
+            var keywords = [];
+            while (keywordsStr.length > 0) {
+                var endIndex = keywordsStr.length-1;
+                var startIndex = 0;
+                if (keywordsStr.indexOf('[')===0) {
+                    startIndex = 1;
+                    if (keywordsStr.indexOf(']')>=0) {
+                        endIndex = keywordsStr.indexOf(']');
+                    }
+                } else {
+                    if (keywordsStr.indexOf(' ')) {
+                        endIndex = keywordsStr+1;
+                    }
+                }
+                console.log(keywordsStr.substr(startIndex, endIndex));
+                keywords.push(keywordsStr.substr(startIndex, endIndex));
+                keywordsStr = keywordsStr.substr(endIndex+1);
             }
-            var keywords = keywordsStr.split(',');
             function keywordNotEmpty(keyword) {
                 return keyword.length > 0;
             }
             function trimKeyword(keyword) {
                 return keyword.trim();
             }
-            function shortenKeyword(keyword) {
-                if (keyword.length > 9) {
-                    return keyword.substr(0, 8)+'..';
-                }
-                return keyword;
-            }
-            return keywords.map(shortenKeyword).map(trimKeyword).filter(keywordNotEmpty);
+            return keywords.map(trimKeyword).filter(keywordNotEmpty);
         }
         
         function parseDate(date) {

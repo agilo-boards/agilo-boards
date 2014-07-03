@@ -9,8 +9,7 @@
         <div class="centered">
             <span class="story-number" ng-click="$event.stopPropagation()">
                 #{{story.id}}
-                <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></span></a>
-                <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a>
+                <agilo-links id="story.id" compact-mode="compactMode"></agilo-links>
                 <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && isStoryClosable(story)" ng-click="closeTicket(story)"></span>
             </span>
             <br/>
@@ -24,6 +23,6 @@
         </span>
     </div>
     <div class="postits">
-        <div class="postit" ng-repeat="postit in story.keywords">{{postit}}</div>
+        <div class="postit" ng-repeat="postit in story.keywords" scale-to-fit="{{postit}}"></div>
     </div>
 </div>

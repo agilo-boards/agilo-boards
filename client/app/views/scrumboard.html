@@ -55,7 +55,7 @@
             <h2>Done</h2>
 			<span id="col-done">
                 <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{status:'closed'} | orderBy:orderBySelectedOwner)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}">
-                    <agilo-story story="story" compact-mode="{{compactMode}}">
+                    <agilo-story story="story" compact-mode="compactMode">
                     </agilo-story>
                 </div>
                 <div class="information-text" ng-show="doneStories.length == 0">No stories</div>

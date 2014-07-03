@@ -231,7 +231,7 @@ var storiesAndTasks = [
         milestone: RELEASE_2,
         status: STATUS_REOPENED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
-        keywords: '[usability]',
+        keywords: '[usability, important]',
         'Story Points': 1,
         Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_CLIENT_SCRUMBOARD
@@ -256,7 +256,7 @@ var storiesAndTasks = [
         milestone: RELEASE_2,
         status: STATUS_ASSIGNED,
         owner: 'face',
-        keywords: '[testing]',
+        keywords: '[testing',
         'Work done': 2.5,
         'Remaining time': 1,
         Sprint: SPRINT_2_RELEASE_2,

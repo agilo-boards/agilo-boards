@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL) {
+    .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, ObjToArrayConverter) {
         var sprints = Agilo.getSprints();
         $scope.sprints = {
             selectedSprint: $location.search()['sprint']
@@ -29,18 +29,7 @@ angular.module('agiloBoardsApp')
         function loadStories(selectedSprint) {
             var stories = Agilo.getStoriesBySprint(selectedSprint);
             stories.then(function (result) {
-                // Convert stories to an array
-                function toArray(obj) {
-                    var arr = [];
-                    for (var i in obj) {
-                        if (obj.hasOwnProperty(i)) {
-                            arr.push(obj[i]);
-                        }
-                    }
-                    return arr;
-                }
-
-                $scope.stories = toArray(result.stories);
+                $scope.stories = ObjToArrayConverter.convert(result.stories);
                 $scope.stories.map(enrichStory);
                 $scope.allTimeDone = sum($scope.stories, function (story) {
                     return story.timeDone;
@@ -48,9 +37,20 @@ angular.module('agiloBoardsApp')
                 $scope.allTimeRemaining = sum($scope.stories, function (story) {
                     return story.timeRemaining;
                 });
+                $scope.owners = ObjToArrayConverter.convert(collectOwners($scope.stories));
             }, function (error) {
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
+        }
+        
+        function collectOwners(stories) {
+            var owners = {};
+            angular.forEach(stories, function(story) {
+                if (story.owner) {
+                    owners[story.owner] = story.owner;
+                }
+            });
+            return owners;
         }
 
         function enrichStory(story) {
@@ -60,7 +60,28 @@ angular.module('agiloBoardsApp')
             story.timeDone = sum(story.tasks, function (task) {
                 return task.timeDone;
             });
+            story.postits = parseKeywords(story.keywords);
             return story;
+        }
+        
+        function parseKeywords(keywordsStr) {
+            if ((keywordsStr.indexOf('[') === 0) && (keywordsStr.lastIndexOf(']') === keywordsStr.length-1)) {
+                keywordsStr = keywordsStr.substring(1, keywordsStr.length-1);
+            }
+            var keywords = keywordsStr.split(',');
+            function keywordNotEmpty(keyword) {
+                return keyword.length > 0;
+            }
+            function trimKeyword(keyword) {
+                return keyword.trim();
+            }
+            function shortenKeyword(keyword) {
+                if (keyword.length > 9) {
+                    return keyword.substr(0, 8)+'..';
+                }
+                return keyword;
+            }
+            return keywords.map(shortenKeyword).map(trimKeyword).filter(keywordNotEmpty);
         }
 
         $scope.getDashboardUrl = function () {
@@ -101,4 +122,19 @@ angular.module('agiloBoardsApp')
             });
             return total;
         }
+
+        $scope.matchesSelectedOwner = function(story) {
+            if (!$scope.ownerMode) {
+                return true;
+            }
+            return story.owner === $scope.selectedOwner;
+        };
+        
+        $scope.orderBySelectedOwner = function(story) {
+            if ($scope.matchesSelectedOwner(story)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        };
     });

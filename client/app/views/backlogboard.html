@@ -5,7 +5,6 @@
                 <li><a href="#/scrumboard">Scrumboard</a></li>
                 <li class="active"><a href="#">Backlog</a></li>
             </ul>
-        
             <div class="navbar-form navbar-left form-group" ng-model="sprints">
                 <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases">
                 </select>
@@ -15,30 +14,60 @@
 </nav>
 
 <div class="container-fluid" id="backlogboard">
-	<div class="row" ng-model="stories">
-		<div class="row-md-5 swimlane">
-			<h2>Next sprint</h2>
-			<span id="row-todo">
-				<agilo-story ng-repeat="story in todoStories = (stories | filter:{'Detail Status':'Next sprint'})">
-				</agilo-story>
-                <div ng-show="todoStories.length == 0">No stories.</div>
-			</span>
-		</div>
-		<div class="row-md-5 swimlane">
-			<h2>Ready to Implement</h2>
-			<span id="row-inprogress">
-                <agilo-story ng-repeat="story in inprogressStories = (stories | filter:{'Detail Status':'Ready to Implement'})">
-                </agilo-story>
-                <div ng-show="inprogressStories.length == 0">No stories.</div>
-            </span>
-		</div>
-		<div class="row-md-2 swimlane">
-			<h2>Done</h2>
-			<span id="row-done">
-				<agilo-story ng-repeat="story in stories">
-				</agilo-story>
-                <div ng-show="stories.length == 0">No stories.</div>
-            </span>
-		</div>
+    <div class="row">
+        <span id="row-done">
+        <h2>Next sprint</h2>
+            <div ng-repeat="(project, stories) in projects">
+                <div class="col-md-2">
+                    {{project}}
+                    <agilo-story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})">
+                    </agilo-story>
+                    <div ng-show="nextSprintStories.length == 0">No stories.</div>
+                </div>
+                
+            </div>
+        </span>
+	</div>
+    <div class="row">
+        <span id="row-done">
+        <h2>Ready to implement</h2>
+            <div ng-repeat="(project, stories) in projects">
+                <div class="col-md-2">
+                    {{project}}
+                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:{detailStatus:'Ready to Implement'})">
+                    </agilo-story>
+                    <div ng-show="readyToImplementStories.length == 0">No stories.</div>
+                </div>
+                
+            </div>
+        </span>
+	</div>
+    <div class="row">
+        <span id="row-done">
+        <h2>Ready to implement</h2>
+            <div ng-repeat="(project, stories) in projects">
+                <div class="col-md-2">
+                    {{project}}
+                    <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:filter:isBigSpender)">
+                    </agilo-story>
+                    <div ng-show="readyToImplementStories.length == 0">No stories.</div>
+                </div>
+                
+            </div>
+        </span>
+	</div>
+    <div class="row">
+        <span id="row-done">
+        <h2>Remaining</h2>
+            <div ng-repeat="(project, stories) in projects">
+                <div class="col-md-2">
+                    {{numberOfProjects}}
+                    {{project}}
+                    <agilo-story ng-repeat="story in stories">
+                    </agilo-story>
+                    <div ng-show="stories.length == 0">No stories.</div>
+                </div>
+            </div>
+        </span>
 	</div>
 </div>

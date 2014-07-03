@@ -35,7 +35,7 @@ var COMPLETED_DATE_RELEASE_3 = addWeeks(BEGIN_SPRINT_2_RELEASE_3, 6);
 var DUE_DATE_RELEASE_3 = addWeeks(COMPLETED_DATE_RELEASE_3, -2);
 var DELIVERY_DATE_RELEASE_3 = addWeeks(addDays(DUE_DATE_RELEASE_3, 4), -5);
 
-var COMPLETED_DATE_RELEASE_2 =BEGIN_SPRINT_1_RELEASE_3;
+var COMPLETED_DATE_RELEASE_2 = BEGIN_SPRINT_1_RELEASE_3;
 var DUE_DATE_RELEASE_2 = addWeeks(COMPLETED_DATE_RELEASE_2, -2);
 var DELIVERY_DATE_RELEASE_2 = addWeeks(addDays(DUE_DATE_RELEASE_2, 4), -5);
 
@@ -238,7 +238,6 @@ var storiesAndTasks = [
         id: 1005,
         type: TYPE_STORY,
         summary: 'Update time remaining',
-        summary: 'Update time remaining',
         milestone: RELEASE_2,
         status: STATUS_NEW,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -252,7 +251,6 @@ var storiesAndTasks = [
         id: 1006,
         type: TYPE_STORY,
         summary: 'Drag and drop for Scrum Board',
-        summary: 'Drag and drop for Scrum Board',
         milestone: RELEASE_2,
         status: STATUS_REOPENED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
@@ -264,7 +262,6 @@ var storiesAndTasks = [
     {
         id: 1007,
         type: TYPE_STORY,
-        summary: 'Get All releases',
         summary: 'Get All releases',
         milestone: RELEASE_2,
         status: STATUS_NEW,
@@ -520,7 +517,7 @@ function getSprintsInRelease2() {
 }
 
 function getTicketByNumber(ticketNumber) {
-    var foundTicket = storiesAndTasks.filter(function(ticket) {
+    var foundTicket = storiesAndTasks.filter(function (ticket) {
         return ticket.id === ticketNumber;
     });
 
@@ -530,8 +527,8 @@ function getTicketByNumber(ticketNumber) {
 }
 
 function getPropertyToChange(requestBody) {
-    for(var property in requestBody) {
-        if(property !== 'id' && property !== 'ts' && property !== 'time_of_last_change') {
+    for (var property in requestBody) {
+        if (property !== 'id' && property !== 'ts' && property !== 'time_of_last_change') {
             return property;
         }
     }
@@ -573,7 +570,7 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
     debug(requestBody);
 
 
-    if(parseInt(ticketNumber, 10) !== parseInt(requestBody.id)) {
+    if (parseInt(ticketNumber, 10) !== parseInt(requestBody.id)) {
         debug(parseInt(ticketNumber, 10) + ' != ' + parseInt(requestBody.id, 10));
         return;
     }

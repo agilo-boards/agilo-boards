@@ -1,5 +1,5 @@
 
-<div class="story-card">
+<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'fade-out': !matchesSelectedOwner(story), 'story-with-postits': story.postits.length>0}">
     <div ng-hide="compactMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>
@@ -27,5 +27,8 @@
         <span style="float: right;">
             done {{story.timeDone}}h
         </span>
+    </div>
+    <div class="postits">
+        <div class="postit" ng-repeat="postit in story.postits">{{postit}}</div>
     </div>
 </div>

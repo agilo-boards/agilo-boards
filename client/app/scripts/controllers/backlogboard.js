@@ -1,53 +1,40 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo) {
+    .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo, ObjToArrayConverter) {
         var releasePromise = Agilo.getReleases();
-        $scope.releases = {
-            selectedRelease: $location.search()['release']
-        };
-        $scope.$watch('releases.selectedRelease', function (newValue, oldValue) {
+        
+        $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {
-                $location.search('release', newValue);
+                $location.search('release', newValue.name);
             }
         });
         releasePromise.then(function (releases) {
-            if (!$scope.releases.selectedReleases && releases.data[0]) {
-                $scope.releases.selectedReleases = releases.data[0];
+            var selectedRelease = $location.search()['release'];
+            if (selectedRelease) {
+                var selectedReleasesArray = releases.data.filter(function(element) {
+                    return element.name === selectedRelease;
+                });
+                $scope.selectedRelease = selectedReleasesArray[0];
             }
-            $scope.releases.allReleases = releases.data;
-            loadReleases($scope.release.selectedRelease);
+            if (!$scope.selectedRelease && releases.data[0]) {
+                $scope.selectedRelease = releases.data[0];
+            }
+            $scope.allReleases = releases.data;
+            loadStories($scope.selectedRelease);
 
         }, function (error) {
             $('#messageContainer').append('<div class="error">' + error + '</div>');
         });
+        
+        $scope.reload = function () {
+            loadStories($scope.selectedRelease);
+        };
 
-        function loadReleases(selectedRelease) {
-            var storiesPromise = Agilo.getStoriesByRelease(selectedRelease);
+        function loadStories(selectedRelease) {
+            var storiesPromise = Agilo.getStoriesByRelease(selectedRelease.name);
             storiesPromise.then(function (result) {
-                // Convert stories to an array
-                function toArray(obj) {
-                    var arr = [];
-                    for (var i in obj) {
-                        if (obj.hasOwnProperty(i)) {
-                            arr.push(obj[i]);
-                        }
-                    }
-                    return arr;
-                }
-
-                function sum() {
-                    // TODO
-                }
-
-                $scope.stories = toArray(result.stories);
-                // $scope.stories.map(enrichStory);
-                $scope.allTimeDone = sum($scope.stories, function (story) {
-                    return story.timeDone;
-                });
-                $scope.allTimeRemaining = sum($scope.stories, function (story) {
-                    return story.timeRemaining;
-                });
+                $scope.stories = ObjToArrayConverter.convert(result.projects);
             }, function (error) {
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });

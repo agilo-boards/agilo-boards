@@ -10,6 +10,13 @@ a:hover {
     text-decoration: none
 }
 
+.fade-out {
+    opacity: 0.5;
+}
+.link-pointer {
+    cursor: default;
+}
+
 #board {
     margin: 10px;
 }
@@ -106,6 +113,9 @@ div.error {
     display: inline-block;
     vertical-align: top;
 }
+.block-fullsize {
+    margin-bottom: 30px;
+}
 
 .link {
     cursor: pointer;
@@ -122,4 +132,31 @@ div.error {
     .block {
         width: 49%;
     }
+}
+
+.story-with-postit {
+    margin-bottom: 25px;
+}
+.postits {
+    position: relative;
+    left: 50px;
+    top: -20px;
+}
+.postit {
+    border-radius: 2px;
+    border: solid 1px grey;
+    background-color: #ff60df;
+    color: white;
+    font: "Comic Sans MS";
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 10px 5px 10px 5px;
+    width: 75px;
+    height: 35px;
+    vertical-align: middle;
+    text-align: center;
+    float: left;
+    box-shadow: 5px 5px 2px #888888;
+    margin-right: 10px;
+}
 }

@@ -33,8 +33,11 @@ angular.module('agiloBoardsApp')
         });
 
         $scope.reload = function () {
-            loadStories($scope.sprints.selectedSprint);
+            $scope.$emit('agiloReloadBoard');
         };
+        $scope.$on('agiloReloadBoard', function() {
+            loadStories($scope.sprints.selectedSprint);
+        });
 
         function loadStories(selectedSprint) {
             var stories = Agilo.getStoriesBySprint(selectedSprint.name);

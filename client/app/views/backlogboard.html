@@ -7,8 +7,13 @@
             </ul>
         
             <div class="navbar-form navbar-left form-group" ng-model="sprints">
-                <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases">
-                </select>
+                <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
+                &nbsp;&nbsp;
+                {{selectedRelease.description}}
+                &nbsp;&nbsp;
+                due Date: {{selectedRelease.dueDate | date:'yyyy-MM-dd'}}
+                &nbsp;&nbsp;
+                completed Date: {{selectedRelease.completedDate | date:'yyyy-MM-dd'}}
             </div>
         </div>
     </div>

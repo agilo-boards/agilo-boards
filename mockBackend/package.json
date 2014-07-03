@@ -1,10 +1,11 @@
 {
-    "name": "agiloBoardsMockBackend",
-    "description": "Mock backend for the agilo boards app",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "express": "~4.4.5",
-        "body-parser": "~1.4.3"
-    }
+  "name": "agiloBoardsMockBackend",
+  "description": "Mock backend for the agilo boards app",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "~4.4.5",
+    "body-parser": "~1.4.3",
+    "moment": "~2.7.0"
+  }
 }

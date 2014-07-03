@@ -111,7 +111,7 @@ angular.module('agiloBoardsApp')
         };
 
         $scope.isStoryNew = function (story) {
-            return story.state !== 'closed' && story.state !== 'assigned';
+            return story.status !== 'closed' && story.status !== 'assigned';
         };
 
         $scope.openTicket = function (ticket, event) {
@@ -123,7 +123,7 @@ angular.module('agiloBoardsApp')
         };
 
         $scope.isStoryClosable = function (story) {
-            return story.state === 'assigned';
+            return story.status === 'assigned';
         };
 
         $scope.closeTicket = function (ticket) {

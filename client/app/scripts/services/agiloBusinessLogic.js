@@ -81,8 +81,8 @@ angular.module('agiloBoardsApp')
                 return transformTSVtoJSON(AgiloUnformatted.getReleases, {}, function (columns) {
                     return {
                         name: columns[0].trim(),
-                        dueDate: new Date(columns[1].trim() / 1000),
-                        completedDate: new Date(columns[2].trim() / 1000),
+                        dueDate: (columns[1].trim()) ? new Date(columns[1].trim() / 1000) : null,
+                        completedDate: (columns[2].trim()) ? new Date(columns[2].trim() / 1000) : null,
                         description: columns[3].trim()
                     };
                 });

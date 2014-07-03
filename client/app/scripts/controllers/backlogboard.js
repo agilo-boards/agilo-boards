@@ -40,5 +40,12 @@ angular.module('agiloBoardsApp')
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
         }
+        
+        $scope.isRemainingStory = function(story) {
+            if ('Ready to Implement' === story.detailStatus || 'Next Sprint' === story.detailStatus) {
+                return false;
+            }
+            return true;
+        };
 
     });

@@ -159,7 +159,7 @@ var storiesAndTasks = [
     {
         id: 1100,
         type: TYPE_STORY,
-        summary: 'Write unit tests',
+        summary: 'Write unit tests: This story has got a very long title to test display <depends on other systems : xxx>',
         milestone: RELEASE_2,
         status: STATUS_CLOSED,
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,

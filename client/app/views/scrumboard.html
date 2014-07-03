@@ -43,7 +43,7 @@
                 <div class="information-text" ng-show="todoStories.length == 0">No stories</div>
 			</span>
         </div>
-        <div class="col-md-5 swimlane">
+        <div class="col-md-5 swimlane" agilo-dropable>
             <h2>In Progress</h2>
 			<span id="col-inprogress">
                 <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{status:'assigned'} | orderBy:orderBySelectedOwner)">

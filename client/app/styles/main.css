@@ -131,6 +131,23 @@ div.error {
     }
 }
 
+@media (min-height: 500px) {
+    .swimlane {
+        height: 400px;
+    }
+}
+
+@media (min-height: 800px) {
+    .swimlane {
+        height: 700px;
+    }
+}
+.swimlane.drag-area-entered {
+    border-radius: 15px;
+    border: solid 1px #d6d6d6;
+    background-color: #ebebeb;
+}
+
 @media (min-width: 1500px) {
     .block {
         width: 49%;

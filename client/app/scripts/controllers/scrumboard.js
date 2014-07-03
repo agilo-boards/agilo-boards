@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, ObjToArrayConverter) {
+    .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, ObjToArrayConverter, UpdateTicketService) {
         var sprints = Agilo.getSprints();
         $scope.sprints = {};
         sprints.then(function (sprints) {
@@ -31,6 +31,15 @@ angular.module('agiloBoardsApp')
         }, function (error) {
             $('#messageContainer').append('<div class="error">' + error + '</div>');
         });
+        
+		$scope.$on('agilo-dragged', function(e, src, dest) {
+			var storyId = src.id;
+            var story = $scope.stories.filter(function(story) { return story.id === storyId; })[0];
+            UpdateTicketService.closeTicket(story, function() {
+                $scope.$emit('agiloReloadBoard');
+            });
+		});
+
 
         $scope.reload = function () {
             $scope.$emit('agiloReloadBoard');

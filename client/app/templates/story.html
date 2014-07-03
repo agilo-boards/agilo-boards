@@ -1,4 +1,4 @@
-<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'story-with-postits': story.keywords.length>0, 'compact-mode': compactMode}">
+<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'story-with-postits': story.keywords.length>0, 'compact-mode': compactMode}" agilo-draggable id="{{story.id}}">
     <div ng-hide="compactMode || backlogMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>

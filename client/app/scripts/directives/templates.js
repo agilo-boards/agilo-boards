@@ -17,7 +17,6 @@ angular.module('agiloBoardsApp')
 
                 scope.closeTicket = function (ticket) {
                     UpdateTicketService.closeTicket(ticket, function() {
-                        debugger;
                         console.log('worked!!');
                         scope.$emit('agiloReloadBoard');
                     });

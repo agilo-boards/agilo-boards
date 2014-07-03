@@ -46,15 +46,14 @@ angular.module('agiloBoardsApp')
             },
             getSprints: function () {
                 return transformTSVtoJSON(AgiloUnformatted.getSprints, {}, function (columns) {
-                    var sprint = {
+                    return {
                         description: columns[0].trim(),
-                        sprint_end: columns[1].trim(),
+                        end: columns[1].trim(),
                         milestone: columns[2].trim(),
                         name: columns[3].trim(),
-                        start: columns[4].trim(),
+                        start: new Date(columns[4].trim() * 1000),
                         team: columns[5].trim()
                     };
-                    return sprint;
                 });
             },
             getStoriesBySprint: function (selectedSprint) {

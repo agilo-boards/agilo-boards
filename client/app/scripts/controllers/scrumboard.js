@@ -2,19 +2,29 @@
 
 angular.module('agiloBoardsApp')
     .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, ObjToArrayConverter, UpdateTicketService) {
-        var sprintNames = Agilo.getSprintNames();
-        $scope.sprints = {
-            selectedSprint: $location.search()['sprint']
-        };
-        $scope.$watch('sprints.selectedSprint', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                $location.search('sprint', newValue);
+        var sprints = Agilo.getSprints();
+        $scope.sprints = {};
+        sprints.then(function (sprints) {
+            var getParamSprint = $location.search()['sprint'];
+            if (getParamSprint) {
+                var selectedSprint = sprints.data.filter(function (element) {
+                    return element.name === getParamSprint;
+                });
+                if (selectedSprint.length === 1) {
+                    $scope.sprints.selectedSprint = selectedSprint[0];
+                }
             }
-        });
-        sprintNames.then(function (sprints) {
+
+            $scope.$watch('sprints.selectedSprint', function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    $location.search('sprint', newValue.name);
+                }
+            });
+
             if (!$scope.sprints.selectedSprint && sprints.data[0]) {
                 $scope.sprints.selectedSprint = sprints.data[0];
             }
+
             $scope.sprints.allSprints = sprints.data;
             loadStories($scope.sprints.selectedSprint);
 
@@ -27,7 +37,7 @@ angular.module('agiloBoardsApp')
         };
 
         function loadStories(selectedSprint) {
-            var stories = Agilo.getStoriesBySprint(selectedSprint);
+            var stories = Agilo.getStoriesBySprint(selectedSprint.name);
             stories.then(function (result) {
                 $scope.stories = ObjToArrayConverter.convert(result.stories);
                 $scope.stories.map(enrichStory);

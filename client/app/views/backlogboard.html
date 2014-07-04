@@ -5,19 +5,16 @@
                 <li><a href="#/scrumboard">Scrumboard</a></li>
                 <li class="active"><a href="#">Backlog</a></li>
             </ul>
-            <div class="navbar-form navbar-left form-group" ng-model="sprints">
+            <div class="navbar-form navbar-left form-group">
                 <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
-                <span id="releaseDescription">
-                    &nbsp;&nbsp;
+                <span id="releaseDescription" class="nav-item">
                     {{selectedRelease.description}}
                 </span>
-                <span id="dueDate">
-                    &nbsp;&nbsp;
-                    due Date: {{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}
+                <span id="dueDate" class="hide-when-small nav-item">
+                    Due Date: {{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}
                 </span>
-                <span id="completedDate">
-                    &nbsp;&nbsp;
-                    completed Date: {{selectedRelease.completedDate | date:'EEE yyyy-MM-dd'}}
+                <span id="completedDate" class="hide-when-small nav-item">
+                    Completed Date: {{selectedRelease.completedDate | date:'EEE yyyy-MM-dd'}}
                 </span>
             </div>
         </div>

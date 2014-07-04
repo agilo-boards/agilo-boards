@@ -6,27 +6,33 @@
                 <li><a href="#/backlog">Backlog</a></li>
             </ul>
             <form class="navbar-form navbar-left">
-                <div class="form-group" ng-model="sprints">
+                <div class="form-group">
                     <select id="sprints" class="form-control" ng-model="sprints.selectedSprint"
                             ng-options="sprint.name for sprint in sprints.allSprints" />
-                    &nbsp;&nbsp;
-                    <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
-                    &nbsp;&nbsp;
-                    start Date: {{sprints.selectedSprint.start | date:'yyyy-MM-dd'}}
-                    &nbsp;&nbsp;
-                    done (with admin): {{allTimeDone}} h
-                    &nbsp;&nbsp;
-                    remaining: {{allTimeRemaining}} h
-                    &nbsp;&nbsp;
-                    <a href="{{getDashboardUrl()}}" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
-					&nbsp;&nbsp;
-                    <input type="checkbox" ng-model="compactMode"></input>
-                    <span ng-click="compactMode = !compactMode" class="link-pointer"> Compact Mode</span>
-					&nbsp;&nbsp;
-                    <input type="checkbox" ng-model="ownerMode"></input>
-                    <span ng-click="ownerMode = !ownerMode" class="link-pointer"> Filter by owner</span>
-					<select id="owners" class="form-control" ng-model="selectedOwner" ng-options="owner for owner in owners" ng-hide="!ownerMode">
-					</select>
+                    <span class="nav-item">
+                        <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
+                    </span>
+                    <span class="nav-item">
+                        <a href="{{getDashboardUrl()}}" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
+                    </span>
+                    <span class="hide-when-small nav-item">
+                        Start Date: {{sprints.selectedSprint.start | date:'yyyy-MM-dd'}}
+                    </span>
+                    <span class="hide-when-small nav-item">
+                        Done (with admin): {{allTimeDone}} h
+                    </span>
+                    <span class="hide-when-small nav-item">
+                        Remaining: {{allTimeRemaining}} h
+                    </span>
+                    <span ng-click="compactMode = !compactMode" class="link-pointer nav-item">
+                        <input type="checkbox" ng-model="compactMode"></input> Compact Mode
+                    </span>                    
+                    <span ng-click="ownerMode = !ownerMode" class="link-pointer nav-item">
+                        <input type="checkbox" ng-model="ownerMode"></input>
+                        Filter by owner
+                        <select id="owners" class="form-control" ng-model="selectedOwner" ng-options="owner for owner in owners" ng-hide="!ownerMode">
+                        </select>
+                    </span>
                 </div>
             </form>
         </div>
@@ -35,7 +41,7 @@
 
 <div class="container-fluid board">
     <div class="row" ng-model="stories">
-        <div class="col-md-5 swimlane" id="todo" agilo-dropable agilo-on-drag-over="onDragOver('todo', event, src)">
+        <div class="col-md-5 swimlane" id="todo" agilo-dropable agilo-on-drag-over="onDragOver(['reopened', 'new'], event, id)">
             <h2>To Do</h2>
 			<span id="col-todo">
 				<agilo-story-with-tasks ng-repeat="story in todoStories = (stories | filter:isStoryNew | orderBy:orderBySelectedOwner)">
@@ -43,7 +49,7 @@
                 <div class="information-text" ng-show="todoStories.length == 0">No stories</div>
 			</span>
         </div>
-        <div class="col-md-5 swimlane" id="inprogress" agilo-dropable agilo-on-drag-over="onDragOver('inprogress', event, src)">
+        <div class="col-md-5 swimlane" id="inprogress" agilo-dropable agilo-on-drag-over="onDragOver(['assigned'], event, id)">
             <h2>In Progress</h2>
 			<span id="col-inprogress">
                 <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{status:'assigned'} | orderBy:orderBySelectedOwner)">
@@ -51,7 +57,7 @@
                 <div class="information-text" ng-show="inprogressStories.length == 0">No stories</div>
             </span>
         </div>
-        <div class="col-md-2 swimlane" id="done" agilo-dropable>
+        <div class="col-md-2 swimlane" id="done" agilo-dropable agilo-on-drag-over="onDragOver(['closed'], event, id)">
             <h2>Done</h2>
 			<span id="col-done">
                 <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{status:'closed'} | orderBy:orderBySelectedOwner)" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}">

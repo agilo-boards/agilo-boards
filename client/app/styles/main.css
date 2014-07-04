@@ -136,6 +136,9 @@ div.error {
     .swimlane {
         width: 33%;
     }
+    .hide-when-small {
+        display: none;
+    }
 }
 
 @media (min-height: 500px) {
@@ -204,4 +207,9 @@ div.error {
     padding: 0px 5px 0px 5px;
     border-radius: 15px;
     border: solid 1px #d6d6d6;
+}
+.navbar span.nav-item {
+    padding: 0px 10px 0px 10px;
+    color: #a5a5a5;
+    border-right: solid 1px #a5a5a5;
 }

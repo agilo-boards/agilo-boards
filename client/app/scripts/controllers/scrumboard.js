@@ -5,19 +5,17 @@ angular.module('agiloBoardsApp')
         var sprints = Agilo.getSprints();
         $scope.sprints = {};
         sprints.then(function (sprints) {
-            var getParamSprint = $location.search()['sprint'];
-            if (getParamSprint) {
-                var selectedSprint = sprints.data.filter(function (element) {
-                    return element.name === getParamSprint;
-                });
-                if (selectedSprint.length === 1) {
-                    $scope.sprints.selectedSprint = selectedSprint[0];
-                }
+            var preselectedSprint = $location.search()['sprint'] || localStorage.getItem('selectedSprint');
+            if (preselectedSprint) {
+                $scope.sprints.selectedSprint = sprints.data.filter(function (element) {
+                    return element.name === preselectedSprint;
+                })[0];
             }
 
             $scope.$watch('sprints.selectedSprint', function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     $location.search('sprint', newValue.name);
+                    localStorage.setItem('selectedSprint', newValue.name);
                 }
             });
 
@@ -43,13 +41,10 @@ angular.module('agiloBoardsApp')
                 });
             }
 		});
-        $scope.onDragOver = function(id, e, src) {
-            var storyId = src.id;
+        $scope.onDragOver = function(stati, e, storyId) {
             var story = $scope.stories.filter(function(story) { return story.id === storyId; })[0];
-            if (story.status === id) {
-                return false;
-            }
-            return true;
+            var dropAllowed = stati.filter(function(status) { return status === story.status; }).length === 0;
+            return dropAllowed;
         };
 
         $scope.reload = function () {

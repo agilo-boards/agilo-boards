@@ -35,9 +35,11 @@ angular.module('agiloBoardsApp')
 		$scope.$on('agilo-dragged', function(e, src, dest) {
 			var storyId = src.id;
             var story = $scope.stories.filter(function(story) { return story.id === storyId; })[0];
-            UpdateTicketService.closeTicket(story, function() {
-                $scope.$emit('agiloReloadBoard');
-            });
+            if (dest.id === 'done') {
+                UpdateTicketService.closeTicket(story, function() {
+                    $scope.$emit('agiloReloadBoard');
+                });
+            }
 		});
 
 

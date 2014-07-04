@@ -50,6 +50,13 @@ angular.module('agiloBoardsApp')
 				});
 
 				element.bind('dragenter', function (e) {
+                    // This is not the parent
+					var event = e;
+					if (!event.dataTransfer) { event = e.originalEvent; }
+                    var parentDropable = $(document.getElementById(event.dataTransfer.getData('text'))).parents('[agilo-dropable]');
+                    if (parentDropable.id === e.target.id) {
+                        return;
+                    }
 					angular.element(e.target).addClass('drag-area-entered');
 				});
 

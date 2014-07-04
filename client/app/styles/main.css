@@ -201,3 +201,6 @@ div.error {
     border-radius: 15px;
     border: solid 1px #d6d6d6;
 }
+.slice h2 {
+    padding-left: 15px;
+}

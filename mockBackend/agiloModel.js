@@ -526,12 +526,14 @@ function getTicketByNumber(ticketNumber) {
     }
 }
 
-function getPropertyToChange(requestBody) {
+function getPropertiesToChange(requestBody) {
+    var properties = [];
     for (var property in requestBody) {
         if (property !== 'id' && property !== 'ts' && property !== 'time_of_last_change') {
-            return property;
+            properties.push(property);
         }
     }
+    return properties;
 }
 
 module.exports.getStoriesAndTasksAsInReport103 = function (sprint) {
@@ -564,13 +566,25 @@ module.exports.getTicket = function (ticketNumber) {
     return ticket;
 };
 
+function setChangedValues(propertiesToChange, ticketNumber, requestBody, ticket) {
+    for (var i in propertiesToChange) {
+        var property = propertiesToChange[i];
+        debug('setting property ' + property + ' of ticket ' + ticketNumber + ' to ' + requestBody[property] + ' (old value: ' + ticket[property] + ')');
+        ticket[property] = requestBody[property];
+    }
+
+    var now = new Date();
+    ticket.ts = moment(now).format('YYYY-MM-DD HH:mm:ss.SSSSSSZ');
+    ticket.time_of_last_change = Math.floor(now.getTime() / 1000);
+}
+
 module.exports.updateTicket = function (ticketNumber, requestBody) {
     debug('updateTicket: ticketNumber = ' + ticketNumber);
     debug('updateTicket: requestBody = ');
     debug(requestBody);
 
 
-    if (parseInt(ticketNumber, 10) !== parseInt(requestBody.id)) {
+    if (parseInt(ticketNumber, 10) !== parseInt(requestBody.id, 10)) {
         debug(parseInt(ticketNumber, 10) + ' != ' + parseInt(requestBody.id, 10));
         return;
     }
@@ -582,8 +596,8 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
         return;
     }
 
-    var propertyToChange = getPropertyToChange(requestBody);
-    if (typeof propertyToChange === 'undefined') {
+    var propertiesToChange = getPropertiesToChange(requestBody);
+    if (propertiesToChange.length === 0) {
         debug('no property found to be changed');
         return;
     }
@@ -608,12 +622,7 @@ module.exports.updateTicket = function (ticketNumber, requestBody) {
         };
     }
 
-    debug('setting property ' + propertyToChange + ' of ticket ' + ticketNumber + ' to ' + requestBody[propertyToChange] + ' (old value: ' + ticket[propertyToChange] + ')');
-    // TODO Set all supplied properties
-    ticket[propertyToChange] = requestBody[propertyToChange];
-    var now = new Date();
-    ticket.ts = moment(now).format('YYYY-MM-DD HH:mm:ss.SSSSSSZ');
-    ticket.time_of_last_change = Math.floor(now.getTime() / 1000);
+    setChangedValues(propertiesToChange, ticketNumber, requestBody, ticket);
 
     return ticket;
 };

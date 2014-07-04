@@ -25,8 +25,8 @@
     <div class="row slice" id="slice_next-sprint">
         <h2>Next sprint</h2>
         <div ng-repeat="(project, stories) in projects">
-            <div class="project-col">
-                <div class="story-title">{{project}}</div>
+            <div class="col-md-2">
+                <div class="centered story-title">{{project}}</div>
                 <agilo-story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})" story="story" backlog-mode="true">
                 </agilo-story>
                 <div class="information-text" ng-show="nextSprintStories.length == 0">No stories</div>
@@ -36,7 +36,7 @@
     <div class="row slice" id="slice_ready-to-implement">
         <h2>Ready to implement</h2>
         <div ng-repeat="(project, stories) in projects">
-            <div class="project-col">
+            <div class="col-md-2">
                 <div class="centered story-title">{{project}}</div>
                 <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:{detailStatus:'Ready to Implement'})" story="story" backlog-mode="true">
                 </agilo-story>
@@ -47,7 +47,7 @@
     <div class="row slice" id="slice_remaining">
         <h2>Remaining</h2>
         <div ng-repeat="(project, stories) in projects">
-            <div class="project-col">
+            <div class="col-md-2">
                 <div class="centered story-title">{{project}}</div>
                 <agilo-story ng-repeat="story in readyToImplementStories = (stories | filter:isRemainingStory)" story="story" backlog-mode="true">
                 </agilo-story>

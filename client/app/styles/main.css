@@ -213,3 +213,6 @@ div.error {
     color: #a5a5a5;
     border-right: solid 1px #a5a5a5;
 }
+.slice h2 {
+    padding-left: 15px;
+}

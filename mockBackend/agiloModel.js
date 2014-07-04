@@ -50,7 +50,7 @@ var releases = [
         name: 'Release 3',
         due: DUE_DATE_RELEASE_3.getTime() * 1000,
         completed: null,
-        description: 'Software Delivery Date: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd DD.MM.YYYY')
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 2',

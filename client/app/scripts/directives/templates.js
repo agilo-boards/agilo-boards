@@ -10,16 +10,21 @@ angular.module('agiloBoardsApp')
                 compactMode: '=',
                 story: '='
             },
-            link: function(scope) {
+            link: function (scope) {
                 scope.isStoryClosable = function (story) {
                     return story.status === 'assigned';
                 };
-
                 scope.closeTicket = function (ticket) {
-                    UpdateTicketService.closeTicket(ticket, function() {
+                    UpdateTicketService.closeTicket(ticket, function () {
                         console.log('worked!!');
                         scope.$emit('agiloReloadBoard');
                     });
+                };
+                scope.getImagePath = function (owner) {
+                    if (!owner) {
+                        return null;
+                    }
+                    return 'images/team/' + owner + '.jpg';
                 };
             }
         };
@@ -49,7 +54,7 @@ angular.module('agiloBoardsApp')
                 id: '=',
                 compactMode: '='
             },
-            link: function(scope) {
+            link: function (scope) {
                 scope.getViewTicketUrl = function (id) {
                     return AGILO_URL + '/ticket/' + id;
                 };
@@ -60,13 +65,13 @@ angular.module('agiloBoardsApp')
             }
         };
     })
-    .directive('scaleToFit', function() {
+    .directive('scaleToFit', function () {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var text = attrs['scaleToFit'];
                 if (text.length > 8) {
-                    text = text.substr(0,7)+'..';
+                    text = text.substr(0, 7) + '..';
                 }
                 element.text(text);
             }

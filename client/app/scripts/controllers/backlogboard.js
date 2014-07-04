@@ -29,7 +29,7 @@ angular.module('agiloBoardsApp')
         $scope.reload = function () {
             loadStories($scope.selectedRelease);
         };
-
+        
         function loadStories(selectedRelease) {
             var storiesPromise = Agilo.getStoriesByRelease(selectedRelease.name);
             storiesPromise.then(function (result) {

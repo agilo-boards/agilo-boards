@@ -31,12 +31,14 @@ angular.module('agiloBoardsApp')
         }, function (error) {
             $('#messageContainer').append('<div class="error">' + error + '</div>');
         });
-        
-		$scope.$on('agilo-dragged', function(e, src, dest) {
-			var storyId = src.id;
-            var story = $scope.stories.filter(function(story) { return story.id === storyId; })[0];
+
+        $scope.$on('agilo-dragged', function (e, src, dest) {
+            var storyId = src.id;
+            var story = $scope.stories.filter(function (story) {
+                return story.id === storyId;
+            })[0];
             if (dest.id === 'done') {
-                UpdateTicketService.closeTicket(story, function() {
+                UpdateTicketService.closeTicket(story, function () {
                     $scope.$emit('agiloReloadBoard');
                 });
             }
@@ -50,11 +52,10 @@ angular.module('agiloBoardsApp')
             return true;
         };
 
-
         $scope.reload = function () {
             $scope.$emit('agiloReloadBoard');
         };
-        $scope.$on('agiloReloadBoard', function() {
+        $scope.$on('agiloReloadBoard', function () {
             loadStories($scope.sprints.selectedSprint);
         });
 
@@ -77,7 +78,7 @@ angular.module('agiloBoardsApp')
 
         function collectOwners(stories) {
             var owners = {};
-            angular.forEach(stories, function(story) {
+            angular.forEach(stories, function (story) {
                 if (story.owner) {
                     owners[story.owner] = story.owner;
                 }
@@ -97,10 +98,6 @@ angular.module('agiloBoardsApp')
 
         $scope.getDashboardUrl = function () {
             return AGILO_URL + '/dashboard';
-        };
-        
-        $scope.getImagePath = function(owner) {
-            return 'images/team/'+owner+'.jpg';
         };
 
         $scope.getNewTaskUrl = function (story) {
@@ -130,14 +127,14 @@ angular.module('agiloBoardsApp')
             return total;
         }
 
-        $scope.doesNotMatchesSelectedOwner = function(story) {
+        $scope.doesNotMatchesSelectedOwner = function (story) {
             if (!$scope.ownerMode) {
                 return false;
             }
             return story.owner !== $scope.selectedOwner;
         };
 
-        $scope.orderBySelectedOwner = function(story) {
+        $scope.orderBySelectedOwner = function (story) {
             if ($scope.doesNotMatchesSelectedOwner(story)) {
                 return 1;
             } else {

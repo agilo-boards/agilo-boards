@@ -65,12 +65,16 @@ NavigationBarPage.prototype.assertDescription = function (expectedText) {
 };
 NavigationBarPage.prototype.assertDueDate = function (expectedText) {
     this.dueDate.getText().then(function (text) {
-        expect(text).toContain('due Date : ' + expectedText);
+        expect(text).toContain('due Date: ' + expectedText);
     });
 };
 NavigationBarPage.prototype.assertCompletedDate = function (expectedText) {
     this.completedDate.getText().then(function (text) {
-        expect(text).toContain('completed Date: ' + expectedText);
+        if (expectedText){
+            expect(text).toContain('completed Date: ' + expectedText);
+        } else {
+            expect(text).toContain('completed Date:');
+        }
     });
 };
 

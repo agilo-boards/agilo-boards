@@ -29,7 +29,6 @@
         <h2>Next sprint</h2>
         <div ng-repeat="(project, stories) in projects">
             <div class="project-col">
-                {{numberOfProjects}}
                 <div class="story-title">{{project}}</div>
                 <agilo-story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})" story="story" backlog-mode="true">
                 </agilo-story>

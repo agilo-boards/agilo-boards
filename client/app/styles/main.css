@@ -30,7 +30,7 @@ div.error {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	padding: 4px 6px 4px 6px;
-	border: solid 1px #E6E6B8;
+	border: solid 3px #E8E8BF;
 	margin-bottom: 10px;
     display: block;
 }
@@ -46,7 +46,6 @@ div.error {
 .story-card:hover {
 	background-color: #FFFFCC;
 	border: solid 3px #b5b59f;
-	padding: 2px 4px 2px 4px;
 }
 
 .task-card {

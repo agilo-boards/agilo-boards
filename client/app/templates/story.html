@@ -1,16 +1,16 @@
-<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'story-with-postits': story.keywords.length>0, 'compact-mode': compactMode}">
+<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'story-with-postits': story.keywords.length>0, 'compact-mode': compactMode}" agilo-draggable id="{{story.id}}">
     <div ng-hide="compactMode || backlogMode" class="header">
         {{story.project}}
         <span style="float: right;">{{story.release}}</span>
     </div>
     <div class="story-center">
         <div class="story-owner-image" ng-show="story.owner" data-toggle="tooltip" data-placement="top" title="{{story.owner}}">
+            <img src="{{getImagePath(story.owner)}}" ng-hide="!story.owner"/>
         </div>
         <div class="centered">
             <span class="story-number" ng-click="$event.stopPropagation()">
                 #{{story.id}}
-                <a href="{{getViewTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></span></a>
-                <a href="{{getEditTicketUrl(story.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></span></a>
+                <agilo-links id="story.id" compact-mode="compactMode"></agilo-links>
                 <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && isStoryClosable(story)" ng-click="closeTicket(story)"></span>
             </span>
             <br/>
@@ -24,6 +24,6 @@
         </span>
     </div>
     <div class="postits">
-        <div class="postit" ng-repeat="postit in story.keywords">{{postit}}</div>
+        <div class="postit" ng-repeat="postit in story.keywords" scale-to-fit="{{postit}}"></div>
     </div>
 </div>

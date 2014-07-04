@@ -6,8 +6,10 @@
  *  see https://code.google.com/p/selenium/wiki/PageObjects  for more info on the pageObjects pattern
  */
 var NavigationBarPage = require('./navigationBarPage.js');
+var SlicePage = require('./slicePage.js');
 
 
 module.exports = {
-    navigationBarPage: NavigationBarPage
+    navigationBarPage: NavigationBarPage,
+    slicePage: SlicePage
 };

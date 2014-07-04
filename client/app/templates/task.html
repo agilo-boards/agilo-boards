@@ -1,6 +1,5 @@
 <div class="task-card" ng-click="openTicket(task, $event)">
     <b>#{{task.id}}: {{task.title}}</b><br/>
     done: {{task.timeDone || 0}} h - remaining: {{task.timeRemaining || 0}} h
-    <a href="{{getViewTicketUrl(task.id)}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-show="!compactMode"></a> 
-    <a href="{{getEditTicketUrl(task.id)}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></a>
+    <agilo-links id="task.id" compact-mode="compactMode"></agilo-links>
 </div>

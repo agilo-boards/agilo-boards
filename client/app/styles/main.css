@@ -15,7 +15,7 @@ a:hover {
     cursor: default;
 }
 .board {
-    margin: 10px;
+    margin-top: 20px;
 }
 div.error {
     margin: 20px;
@@ -24,13 +24,20 @@ div.error {
     background-color: #e5a7a7;
     border-radius: 5px;
 }
+.project-col {
+    margin: 4px;
+    float: right;
+    width: 270px;
+    height: 100%;
+}
 
 .story-card {
 	background-color: #FFFFE6;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	padding: 4px 6px 4px 6px;
-	border: solid 1px #E6E6B8;
+	padding:6px 8px 6px 8px;
+    box-shadow: 0 0 0 1px #FFFFE6,
+        0 0 0 3px #E8E8BF;
 	margin-bottom: 10px;
     display: block;
 }
@@ -45,8 +52,7 @@ div.error {
 
 .story-card:hover {
 	background-color: #FFFFCC;
-	border: solid 3px #b5b59f;
-	padding: 2px 4px 2px 4px;
+    box-shadow: 0 0 0 3px #b5b59f;
 }
 
 .task-card {
@@ -54,18 +60,19 @@ div.error {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	padding: 4px 6px 4px 6px;
-	border: solid 1px #A9A9F5;
+    box-shadow: 0 0 0 1px #E0E0F8,
+        0 0 0 3px #A9A9F5;
 	margin-bottom: 10px;
 }
 
 .task-card:hover {
 	background-color: #d4d4ef;
-	border: solid 3px #9292a7;
-	padding: 2px 4px 2px 4px;
+    box-shadow: 0 0 0 3px #8a8aaf;
     cursor: pointer
 }
 
 .centered {
+	text-align: center;
 	text-align: center;
 }
 
@@ -90,7 +97,7 @@ div.error {
 }
 
 .story-owner-image {
-	padding: 0.8em 0em 0.8em 0.8em;
+	margin: 0.8em 0.8em 0.8em 0.8em;
 	width: 80px;
     min-height: 80px;
     float: left;
@@ -125,11 +132,34 @@ div.error {
     cursor: pointer;
     color: #428bca;
 }
-
 @media (max-width: 1500px) and (min-width: 992px) {
     .swimlane {
         width: 33%;
     }
+    .hide-when-small {
+        display: none;
+    }
+}
+
+@media (min-height: 500px) {
+    .swimlane {
+        min-height: 400px;
+    }
+}
+
+@media (min-height: 800px) {
+    .swimlane {
+        min-height: 700px;
+    }
+}
+.swimlane.drag-area-entered {
+    border-radius: 15px;
+    background-color: #ebebeb;
+}
+.swimlane.drag-area-left {
+    background-color: #FFF;
+    transition: background-color 1000ms linear;
+    border-radius: 15px;
 }
 
 @media (min-width: 1500px) {
@@ -150,7 +180,7 @@ div.error {
     top: -20px;
 }
 .compact-mode .postits {
-    left: 90px;
+    left: 110px;
 }
 .postit {
     border-radius: 2px;
@@ -168,4 +198,21 @@ div.error {
     float: left;
     box-shadow: 5px 5px 2px #888888;
     margin-right: 10px;
+}
+.row {
+    margin: 0px;
+}
+.slice {
+    margin: 5px;
+    padding: 0px 5px 0px 5px;
+    border-radius: 15px;
+    border: solid 1px #d6d6d6;
+}
+.navbar span.nav-item {
+    padding: 0px 10px 0px 10px;
+    color: #a5a5a5;
+    border-right: solid 1px #a5a5a5;
+}
+.slice h2 {
+    padding-left: 15px;
 }

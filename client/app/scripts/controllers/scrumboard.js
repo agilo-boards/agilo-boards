@@ -5,19 +5,17 @@ angular.module('agiloBoardsApp')
         var sprints = Agilo.getSprints();
         $scope.sprints = {};
         sprints.then(function (sprints) {
-            var getParamSprint = $location.search()['sprint'];
-            if (getParamSprint) {
-                var selectedSprint = sprints.data.filter(function (element) {
-                    return element.name === getParamSprint;
-                });
-                if (selectedSprint.length === 1) {
-                    $scope.sprints.selectedSprint = selectedSprint[0];
-                }
+            var preselectedSprint = $location.search()['sprint'] || localStorage.getItem('selectedSprint');
+            if (preselectedSprint) {
+                $scope.sprints.selectedSprint = sprints.data.filter(function (element) {
+                    return element.name === preselectedSprint;
+                })[0];
             }
 
             $scope.$watch('sprints.selectedSprint', function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     $location.search('sprint', newValue.name);
+                    localStorage.setItem('selectedSprint', newValue.name);
                 }
             });
 
@@ -32,9 +30,29 @@ angular.module('agiloBoardsApp')
             $('#messageContainer').append('<div class="error">' + error + '</div>');
         });
 
-        $scope.reload = function () {
-            loadStories($scope.sprints.selectedSprint);
+        $scope.$on('agilo-dragged', function (e, src, dest) {
+            var storyId = src.id;
+            var story = $scope.stories.filter(function (story) {
+                return story.id === storyId;
+            })[0];
+            if (dest.id === 'done') {
+                UpdateTicketService.closeTicket(story, function () {
+                    $scope.$emit('agiloReloadBoard');
+                });
+            }
+		});
+        $scope.onDragOver = function(stati, e, storyId) {
+            var story = $scope.stories.filter(function(story) { return story.id === storyId; })[0];
+            var dropAllowed = stati.filter(function(status) { return status === story.status; }).length === 0;
+            return dropAllowed;
         };
+
+        $scope.reload = function () {
+            $scope.$emit('agiloReloadBoard');
+        };
+        $scope.$on('agiloReloadBoard', function () {
+            loadStories($scope.sprints.selectedSprint);
+        });
 
         function loadStories(selectedSprint) {
             var stories = Agilo.getStoriesBySprint(selectedSprint.name);
@@ -55,7 +73,7 @@ angular.module('agiloBoardsApp')
 
         function collectOwners(stories) {
             var owners = {};
-            angular.forEach(stories, function(story) {
+            angular.forEach(stories, function (story) {
                 if (story.owner) {
                     owners[story.owner] = story.owner;
                 }
@@ -77,18 +95,6 @@ angular.module('agiloBoardsApp')
             return AGILO_URL + '/dashboard';
         };
 
-        $scope.getViewTicketUrl = function (id) {
-            return AGILO_URL + '/ticket/' + id;
-        };
-
-        $scope.getEditTicketUrl = function (id) {
-            return $scope.getViewTicketUrl(id) + '?pane=edit';
-        };
-        
-        $scope.getImagePath = function(owner) {
-            return 'images/team/'+owner+'.jpg';
-        };
-
         $scope.getNewTaskUrl = function (story) {
             return AGILO_URL + '/newticket?src=' + story.id + '&amp;project=' + encodeURI(story.project) + '&amp;milestone=' + encodeURI(story.release) + '&amp;owner=&amp;sprint=' + encodeURI(story.sprint) + '&amp;type=task';
         };
@@ -105,14 +111,6 @@ angular.module('agiloBoardsApp')
             $window.open(url);
         };
 
-        $scope.isStoryClosable = function (story) {
-            return story.status === 'assigned';
-        };
-
-        $scope.closeTicket = function (ticket) {
-            UpdateTicketService.closeTicket(ticket);
-        };
-
         function sum(array, method) {
             var total = 0;
             angular.forEach(array, function (item) {
@@ -124,14 +122,14 @@ angular.module('agiloBoardsApp')
             return total;
         }
 
-        $scope.doesNotMatchesSelectedOwner = function(story) {
+        $scope.doesNotMatchesSelectedOwner = function (story) {
             if (!$scope.ownerMode) {
                 return false;
             }
             return story.owner !== $scope.selectedOwner;
         };
 
-        $scope.orderBySelectedOwner = function(story) {
+        $scope.orderBySelectedOwner = function (story) {
             if ($scope.doesNotMatchesSelectedOwner(story)) {
                 return 1;
             } else {

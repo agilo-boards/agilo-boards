@@ -3,9 +3,7 @@
 angular.module('agiloBoardsApp')
     .service('Agilo', function ($q, AgiloUnformatted, KeywordParser, TSVtoJSONConverter, AGILO_REPORT_SPRINTS, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_RELEASES, AGILO_REPORT_STORIES_BY_RELEASE) {
         function parseKeywords(keywords) {
-            // TODO
-            //return KeywordParser.parse(keywords);
-            return keywords;
+            return KeywordParser.parse(keywords);
         }
 
         function parseDateFromUnixTimestamp(date) {
@@ -60,7 +58,9 @@ angular.module('agiloBoardsApp')
             },
             getStoriesByRelease: function (selectedRelease) {
                 var deferredResult = $q.defer();
-                var stories = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_STORIES_BY_RELEASE);
+                var stories = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_STORIES_BY_RELEASE, {
+                    keywords: parseKeywords
+                });
                 stories.then(function (items) {
                     var projects = {};
                     items.data.forEach(function (item) {

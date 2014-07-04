@@ -7,21 +7,25 @@
             </ul>
             <div class="navbar-form navbar-left form-group" ng-model="sprints">
                 <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
-                &nbsp;&nbsp;
-                {{selectedRelease.description}}
-                &nbsp;&nbsp;
-                due Date: {{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}
-                &nbsp;&nbsp;
-                completed Date: {{selectedRelease.completedDate | date:'EEE yyyy-MM-dd'}}
+                <span id="releaseDescription">
+                    &nbsp;&nbsp;
+                    {{selectedRelease.description}}
+                </span>
+                <span id="dueDate">
+                    &nbsp;&nbsp;
+                    due Date: {{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}
+                </span>
+                <span id="completedDate">
+                    &nbsp;&nbsp;
+                    completed Date: {{selectedRelease.completedDate | date:'EEE yyyy-MM-dd'}}
+                </span>
             </div>
         </div>
     </div>
 </nav>
 
-
-
-<div class="" id="backlogboard">
-    <div class="row" id="slice_next-sprint">
+<div class="board" id="backlogboard">
+    <div class="row slice" id="slice_next-sprint">
         <h2>Next sprint</h2>
         <div ng-repeat="(project, stories) in projects">
             <div class="col-md-2">
@@ -32,7 +36,7 @@
             </div>
         </div>
 	</div>
-    <div class="row" id="slice_ready-to-implement">
+    <div class="row slice" id="slice_ready-to-implement">
         <h2>Ready to implement</h2>
         <div ng-repeat="(project, stories) in projects">
             <div class="col-md-2">
@@ -43,7 +47,7 @@
             </div>
         </div>
 	</div>
-    <div class="row" id="slice_remaining">
+    <div class="row slice" id="slice_remaining">
         <h2>Remaining</h2>
         <div ng-repeat="(project, stories) in projects">
             <div class="col-md-2">

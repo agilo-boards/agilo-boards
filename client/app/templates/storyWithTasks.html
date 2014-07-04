@@ -1,9 +1,9 @@
-<div>
+<div ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}">
     <div class="block">
-        <agilo-story story="story"></agilo-story>
+        <agilo-story story="story" compact-mode="compactMode"></agilo-story>
     </div>
-    <div class="block" style="padding: 0px 10px 10px 10px" ng-class="{true: '', false: 'fade-out'}[matchesSelectedOwner(story)]">
-        <agilo-task ng-repeat="task in story.tasks" task="task"></agilo-task>
+    <div class="block" style="padding: 0px 10px 10px 10px">
+        <agilo-task ng-repeat="task in story.tasks" task="task" compact-mode="compactMode"></agilo-task>
         <div ng-show="story.tasks.length == 0 && !compactMode">There are currently no tasks.</div>
         <div ng-show="story.tasks.length > 0 && !compactMode">
             Total: {{story.timeDone}}h done / {{story.timeRemaining}}h remaining</div>

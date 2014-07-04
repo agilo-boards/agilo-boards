@@ -30,7 +30,7 @@ angular.module('agiloBoardsApp')
 		return {
 			restrict: 'A',
 			scope: {
-				onDrop: '&'
+				agiloOnDragOver: '&'
 			},
 			link: function (scope, element, attrs) {
 				var id = attrs.id;
@@ -40,44 +40,56 @@ angular.module('agiloBoardsApp')
 				}
 
 				element.bind('dragover', function (e) {
-					if (e.preventDefault) {
-						e.preventDefault();
-					}
 					var event = e;
 					if (!event.dataTransfer) { event = e.originalEvent; }
 					event.dataTransfer.dropEffect = 'move';
+                    
+                    e.stopPropagation();
+                    e.preventDefault();
 					return false;
 				});
+                
+                function getSourceElement(e) {
+                    var srcElement = e.originalEvent.srcElement;
+                    if (!srcElement) {
+                        var id = e.originalEvent.dataTransfer.getData('text');
+                        if (id) {
+                            srcElement = $('#'+id)[0];
+                        }
+                    }
+                    var src = $(srcElement).closest('[agilo-draggable]')[0];
+                    if (!src) {
+                        src = $(srcElement).find('[agilo-draggable]')[0];
+                    }
+                    return src;
+                }
 
 				element.bind('dragenter', function (e) {
-                    // This is not the parent
-					var event = e;
-					if (!event.dataTransfer) { event = e.originalEvent; }
-                    var parentDropable = $(document.getElementById(event.dataTransfer.getData('text'))).parents('[agilo-dropable]');
-                    if (parentDropable.id === e.target.id) {
+                    var src = getSourceElement(e);
+                    if (!src) {
                         return;
                     }
+                    if (scope.agiloOnDragOver({event: e, src: src})) {
+                        return;
+                    }
+					$('.drag-area-entered').removeClass('drag-area-entered');
 					angular.element(e.target).addClass('drag-area-entered');
 				});
 
 				element.bind('dragleave', function (e) {
-					angular.element(e.target).removeClass('drag-area-entered');
+                    e.stopPropagation();
+                    e.preventDefault();
 				});
 
 				element.bind('drop', function (e) {
-					if (e.preventDefault) {
-						e.preventDefault();
-					}
-					if (e.stopPropogation) {
-						e.stopPropogation();
-					}
-
+                    e.stopPropagation();
+                    e.preventDefault();
+                    
 					var event = e;
 					if (!event.dataTransfer) { event = e.originalEvent; }
 					var data = event.dataTransfer.getData('text');
 					var dest = document.getElementById(id);
 					var src = document.getElementById(data);
-
 					$rootScope.$broadcast('agilo-dragged', src, dest);
 				});
 
@@ -89,7 +101,7 @@ angular.module('agiloBoardsApp')
 				$rootScope.$on('agiloDraggingEnd', function () {
 					var el = document.getElementById(id);
 					angular.element(el).removeClass('drag-started');
-					angular.element(el).removeClass('drag-area-entered');
+					$('.drag-area-entered').removeClass('drag-area-entered');
 				});
 			}
 		};

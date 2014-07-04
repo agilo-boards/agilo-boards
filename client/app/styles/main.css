@@ -132,19 +132,23 @@ div.error {
 
 @media (min-height: 500px) {
     .swimlane {
-        height: 400px;
+        min-height: 400px;
     }
 }
 
 @media (min-height: 800px) {
     .swimlane {
-        height: 700px;
+        min-height: 700px;
     }
 }
 .swimlane.drag-area-entered {
     border-radius: 15px;
-    border: solid 1px #d6d6d6;
     background-color: #ebebeb;
+}
+.swimlane.drag-area-left {
+    background-color: #FFF;
+    transition: background-color 1000ms linear;
+    border-radius: 15px;
 }
 
 @media (min-width: 1500px) {

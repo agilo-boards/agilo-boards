@@ -41,6 +41,14 @@ angular.module('agiloBoardsApp')
                 });
             }
 		});
+        $scope.onDragOver = function(id, e, src) {
+            var storyId = src.id;
+            var story = $scope.stories.filter(function(story) { return story.id === storyId; })[0];
+            if (story.status === id) {
+                return false;
+            }
+            return true;
+        };
 
 
         $scope.reload = function () {

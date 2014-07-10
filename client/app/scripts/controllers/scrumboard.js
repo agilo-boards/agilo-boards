@@ -29,6 +29,21 @@ angular.module('agiloBoardsApp')
         }, function (error) {
             $('#messageContainer').append('<div class="error">' + error + '</div>');
         });
+        
+        
+
+        $scope.compactMode = localStorage.getItem('agiloCompactMode');
+        $scope.$watch('compactMode', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                localStorage.setItem('agiloCompactMode', newValue);
+            }
+        });
+        $scope.ownerMode = localStorage.getItem('agiloOwnerMode');
+        $scope.$watch('ownerMode', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                localStorage.setItem('agiloOwnerMode', newValue);
+            }
+        });
 
         $scope.$on('agilo-dragged', function (e, src, dest) {
             var storyId = src.id;
@@ -90,7 +105,7 @@ angular.module('agiloBoardsApp')
             });
             return story;
         }
-
+        
         $scope.getDashboardUrl = function () {
             return AGILO_URL + '/dashboard';
         };

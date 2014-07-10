@@ -19,25 +19,4 @@ describe('Controller: ScrumboardCtrl', function () {
         });
     }));
 
-    describe('isStoryClosable', function () {
-        it('returns true for stories that have sate "assigned"', function () {
-            expect($scope.isStoryClosable({status: 'assigned'})).toBeTruthy();
-        });
-
-        it('returns false for stories that have any other state', function () {
-            expect($scope.isStoryClosable({status: 'closed'})).toBeFalsy();
-            expect($scope.isStoryClosable({status: 'new'})).toBeFalsy();
-            expect($scope.isStoryClosable({status: 'reopened'})).toBeFalsy();
-        });
-    });
-
-    describe('closeTicket', function () {
-        it('calls the UpdateTicketService', function () {
-            var ticket = {id: '1234'};
-            spyOn(UpdateTicketService, 'closeTicket');
-            $scope.closeTicket(ticket);
-            expect(UpdateTicketService.closeTicket).toHaveBeenCalledWith(ticket);
-        });
-    });
-
 });

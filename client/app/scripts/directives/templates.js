@@ -10,16 +10,16 @@ angular.module('agiloBoardsApp')
                 compactMode: '=',
                 story: '='
             },
-            link: function (scope) {
-                scope.isStoryClosable = function (story) {
+            controller: function ($scope) {
+                $scope.isStoryClosable = function (story) {
                     return story.status === 'assigned';
                 };
-                scope.closeTicket = function (ticket) {
+                $scope.closeTicket = function (ticket) {
                     UpdateTicketService.closeTicket(ticket, function() {
-                        scope.$emit('agiloReloadBoard');
+                        $scope.$emit('agiloReloadBoard');
                     });
                 };
-                scope.getImagePath = function (owner) {
+                $scope.getImagePath = function (owner) {
                     if (!owner) {
                         return null;
                     }

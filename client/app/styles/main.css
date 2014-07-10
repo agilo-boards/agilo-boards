@@ -136,6 +136,8 @@ div.error {
     .swimlane {
         width: 33%;
     }
+}
+@media (max-width: 1500px) {
     .hide-when-small {
         display: none;
     }

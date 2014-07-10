@@ -49,12 +49,12 @@ NavigationBarPage.prototype.reload = function () {
 
 NavigationBarPage.prototype.assertTimeDone = function (expectedText) {
     this.timeDone.getText().then(function (text) {
-        expect(text).toContain('done (with admin): ' + expectedText);
+        expect(text).toContain('Done (with admin): ' + expectedText);
     });
 };
 NavigationBarPage.prototype.assertTimeRemaining = function (expectedText) {
     this.timeRemaining.getText().then(function (text) {
-        expect(text).toContain('remaining: ' + expectedText);
+        expect(text).toContain('Remaining: ' + expectedText);
     });
 };
 

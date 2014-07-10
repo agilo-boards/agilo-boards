@@ -5,7 +5,7 @@
                 <li class="active"><a href="#">Scrumboard</a></li>
                 <li><a href="#/backlog">Backlog</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" ng-model="sprints">
                 <div class="form-group">
                     <select id="sprints" class="form-control" ng-model="sprints.selectedSprint"
                             ng-options="sprint.name for sprint in sprints.allSprints" />

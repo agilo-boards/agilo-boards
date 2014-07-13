@@ -6,24 +6,24 @@ describe('Backlog, select different releases in drop down', function() {
     it('displays desription, due date and completed date', function(){
         browser.driver.manage().window().maximize();
         
-        var navigationBarPage = new pages.navigationBarPage();
+        var navBar = new pages.backlogNavigationPage();
         browser.get('http://127.0.0.1:8091/#/backlog');
         var listOfReleases = [ 'Release 3', 'Release 2', 'Release 1' ];
-        navigationBarPage.assertNumberOfReleases(listOfReleases);
+        navBar.releases.assertOptions(listOfReleases);
 
-        navigationBarPage.chooseReleaseBranch('Release 2');
-        navigationBarPage.assertDescription('Software Delivery: Fr ');
-        navigationBarPage.assertDueDate('Mon ');
-        navigationBarPage.assertCompletedDate('Mon ');
+        navBar.releases.selectOption('Release 2');
+        navBar.description.assertToStartWith('Software Delivery: Fr ');
+        navBar.dueDate.assertToStartWith('Mon ');
+        navBar.completedDate.assertToStartWith('Mon ');
 
-        navigationBarPage.chooseReleaseBranch('Release 3');
-        navigationBarPage.assertDescription('Software Delivery: Fr ');
-        navigationBarPage.assertDueDate('Mon ');
-        navigationBarPage.assertCompletedDate('undefined');
+        navBar.releases.selectOption('Release 3');
+        navBar.description.assertToStartWith('Software Delivery: Fr ');
+        navBar.dueDate.assertToStartWith('Mon ');
+        navBar.completedDate.assertToBe('undefined');
 
-        navigationBarPage.chooseReleaseBranch('Release 1');
-        navigationBarPage.assertDescription('Software Delivery: Fr ');
-        navigationBarPage.assertDueDate('Mon ');
-        navigationBarPage.assertCompletedDate('Mon ');
+        navBar.releases.selectOption('Release 1');
+        navBar.description.assertToStartWith('Software Delivery: Fr ');
+        navBar.dueDate.assertToStartWith('Mon ');
+        navBar.completedDate.assertToStartWith('Mon ');
     });
 });

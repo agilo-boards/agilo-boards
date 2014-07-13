@@ -5,11 +5,15 @@
  *
  *  see https://code.google.com/p/selenium/wiki/PageObjects  for more info on the pageObjects pattern
  */
-var NavigationBarPage = require('./navigationBarPage.js');
+var BacklogNavigationPage = require('./backlogNavigationPage.js');
+var ScrumBoardNavigationPage = require('./scrumBoardNavigationPage.js');
+var ScrumBoardPage = require('./scrumBoardPage.js');
 var SlicePage = require('./slicePage.js');
 
 
 module.exports = {
-    navigationBarPage: NavigationBarPage,
-    slicePage: SlicePage
+    backlogNavigationPage: BacklogNavigationPage,
+    scrumBoardNavigationPage: ScrumBoardNavigationPage,
+    slicePage: SlicePage,
+    scrumBoardPage: ScrumBoardPage
 };

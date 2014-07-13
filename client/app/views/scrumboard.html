@@ -5,7 +5,7 @@
                 <li class="active"><a href="#">Scrumboard</a></li>
                 <li><a href="#/backlog">Backlog</a></li>
             </ul>
-            <form class="navbar-form navbar-left" ng-model="sprints">
+            <form class="navbar-form navbar-left">
                 <div class="form-group">
                     <select id="sprints" class="form-control" ng-model="sprints.selectedSprint"
                             ng-options="sprint.name for sprint in sprints.allSprints" />
@@ -24,11 +24,11 @@
                     <span class="hide-when-small nav-item">
                         Remaining: {{allTimeRemaining}} h
                     </span>
-                    <span ng-click="compactMode = !compactMode" class="link-pointer nav-item">
-                        <input type="checkbox" ng-checked="compactMode" ng-click="$event.stopPropagation()"></input> Compact Mode
+                    <span id="compactMode" ng-click="compactMode = !compactMode" class="link-pointer nav-item">
+                        <input id="compactMode" type="checkbox" ng-checked="compactMode" ng-click="$event.stopPropagation()"></input> Compact Mode
                     </span>                    
-                    <span ng-click="ownerMode = !ownerMode" class="link-pointer nav-item">
-                        <input type="checkbox" ng-checked="ownerMode" ng-click="$event.stopPropagation()"></input>
+                    <span id="ownerMode" ng-click="ownerMode = !ownerMode" class="link-pointer nav-item">
+                        <input id="ownerMode" type="checkbox" ng-checked="ownerMode" ng-click="$event.stopPropagation()"></input>
                         Filter by owner
                         <select id="owners" class="form-control" ng-model="selectedOwner" ng-options="owner for owner in owners" ng-hide="!ownerMode" ng-click="$event.stopPropagation()">
                         </select>

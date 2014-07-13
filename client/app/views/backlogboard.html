@@ -5,8 +5,8 @@
                 <li><a href="#/scrumboard">Scrumboard</a></li>
                 <li class="active"><a href="#">Backlog</a></li>
             </ul>
-            <div class="navbar-form navbar-left form-group" ng-model="releases">
-                <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
+            <div class="navbar-form navbar-left form-group">
+                <select id="releases" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
                 <span id="releaseDescription" class="nav-item">
                     {{selectedRelease.description}}
                 </span>

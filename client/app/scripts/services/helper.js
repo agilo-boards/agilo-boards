@@ -53,7 +53,7 @@ angular.module('agiloBoardsApp')
             function mapTransformations(object) {
                 angular.forEach(transformationMap, function (value, key) {
                     var arg = object[key];
-                    if (!object[key]) {
+                    if (!object.hasOwnProperty(key)) {
                         arg = object;
                     }
                     object[key] = value(arg);

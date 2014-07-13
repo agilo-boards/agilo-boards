@@ -5,7 +5,7 @@
                 <li><a href="#/scrumboard">Scrumboard</a></li>
                 <li class="active"><a href="#">Backlog</a></li>
             </ul>
-            <div class="navbar-form navbar-left form-group">
+            <div class="navbar-form navbar-left form-group" ng-model="releases">
                 <select id="release" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
                 <span id="releaseDescription" class="nav-item">
                     {{selectedRelease.description}}
@@ -14,7 +14,7 @@
                     Due Date: {{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}
                 </span>
                 <span id="completedDate" class="hide-when-small nav-item">
-                    Completed Date: {{selectedRelease.completedDate | date:'EEE yyyy-MM-dd'}}
+                    Completed Date: {{(selectedRelease.completedDate | date:'EEE yyyy-MM-dd') || 'undefined'}}
                 </span>
             </div>
         </div>

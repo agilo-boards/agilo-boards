@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .service('Agilo', function ($q, AgiloUnformatted, KeywordParser, TSVtoJSONConverter, AGILO_REPORT_SPRINTS, AGILO_REPORT_STORIES_AND_TASKS, AGILO_REPORT_RELEASES, AGILO_REPORT_STORIES_BY_RELEASE) {
+    .service('Agilo', function ($q, AgiloUnformatted, KeywordParser, TSVtoJSONConverter, AGILO_REPORT_MAPPING_SPRINTS, AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, AGILO_REPORT_MAPPING_RELEASES, AGILO_REPORT_MAPPING_STORIES_BY_RELEASE) {
         function parseKeywords(keywords) {
             return KeywordParser.parse(keywords);
         }
@@ -22,14 +22,14 @@ angular.module('agiloBoardsApp')
 
         return {
             getSprints: function () {
-                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getSprints({}), AGILO_REPORT_SPRINTS, {
+                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getSprints({}), AGILO_REPORT_MAPPING_SPRINTS, {
                     start: parseDateFromUnixTimestamp,
                     end: parseDateFromUnixTimestamp
                 });
             },
             getStoriesBySprint: function (selectedSprint) {
                 var deferredResult = $q.defer();
-                var storiesAndTasks = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_STORIES_AND_TASKS, {
+                var storiesAndTasks = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, {
                     keywords: parseKeywords
                 });
                 storiesAndTasks.then(function (items) {
@@ -51,14 +51,14 @@ angular.module('agiloBoardsApp')
                 return deferredResult.promise;
             },
             getReleases: function () {
-                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getReleases({}), AGILO_REPORT_RELEASES, {
+                return TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getReleases({}), AGILO_REPORT_MAPPING_RELEASES, {
                     dueDate: parseDateFromUnixTimestampInMicroseconds,
                     completedDate: parseDateFromUnixTimestampInMicroseconds
                 });
             },
             getStoriesByRelease: function (selectedRelease) {
                 var deferredResult = $q.defer();
-                var stories = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_STORIES_BY_RELEASE, {
+                var stories = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_MAPPING_STORIES_BY_RELEASE, {
                     keywords: parseKeywords
                 });
                 stories.then(function (items) {

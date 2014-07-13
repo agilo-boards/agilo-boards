@@ -32,13 +32,13 @@ angular.module('agiloBoardsApp')
         
         
 
-        $scope.compactMode = localStorage.getItem('agiloCompactMode');
+        $scope.compactMode = localStorage.getItem('agiloCompactMode') === 'true';
         $scope.$watch('compactMode', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 localStorage.setItem('agiloCompactMode', newValue);
             }
         });
-        $scope.ownerMode = localStorage.getItem('agiloOwnerMode');
+        $scope.ownerMode = localStorage.getItem('agiloOwnerMode') === 'true';
         $scope.$watch('ownerMode', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 localStorage.setItem('agiloOwnerMode', newValue);

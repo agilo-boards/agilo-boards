@@ -25,6 +25,10 @@ NavigationBarPage.prototype.chooseSprintBranch = function (sprintName) {
     // Open menu first, otherwise we cannot click
     element(by.model('sprints')).element(by.xpath('//option[text() =\'' + sprintName + '\']')).click();
 };
+NavigationBarPage.prototype.chooseReleaseBranch = function (releaseName) {
+    // Open menu first, otherwise we cannot click
+    element(by.model('releases')).element(by.xpath('//option[text() =\'' + releaseName + '\']')).click();
+};
 
 NavigationBarPage.prototype.assertNumberOfSprints = function (listOfSprints) {
     var len = listOfSprints.length;
@@ -65,15 +69,15 @@ NavigationBarPage.prototype.assertDescription = function (expectedText) {
 };
 NavigationBarPage.prototype.assertDueDate = function (expectedText) {
     this.dueDate.getText().then(function (text) {
-        expect(text).toContain('due Date: ' + expectedText);
+        expect(text).toContain('Due Date: ' + expectedText);
     });
 };
 NavigationBarPage.prototype.assertCompletedDate = function (expectedText) {
     this.completedDate.getText().then(function (text) {
         if (expectedText){
-            expect(text).toContain('completed Date: ' + expectedText);
+            expect(text).toContain('Completed Date: ' + expectedText);
         } else {
-            expect(text).toContain('completed Date:');
+            expect(text).toContain('Completed Date:');
         }
     });
 };

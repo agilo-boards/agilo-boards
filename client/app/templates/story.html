@@ -24,6 +24,6 @@
         </span>
     </div>
     <div class="postits">
-        <div class="postit" ng-repeat="postit in story.keywords" scale-to-fit="{{postit}}"></div>
+        <div class="postit" ng-repeat="postit in story.keywords" scale-to-fit="{{postit.value}}" ng-hide="(compactMode || backlogMode) && !postit.color" style="background-color: {{postit.color}}"></div>
     </div>
 </div>

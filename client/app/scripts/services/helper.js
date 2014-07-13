@@ -15,6 +15,10 @@ angular.module('agiloBoardsApp')
         };
     })
 .service('TSVtoJSONConverter', function($q) {
+    function replaceQuote(value) {
+        return value.replace(/"([^"])/g, '$1').replace(/"$/g, '');
+    }
+    
     return {
         deferredConversion: function(promise, columnsToPropertiesMap, transformationMap) {
             var deferredResult = $q.defer();
@@ -42,7 +46,7 @@ angular.module('agiloBoardsApp')
                     if (typeof columns[value] === 'undefined') {
                         return;
                     }
-                    item[key] = columns[value].trim();
+                    item[key] = replaceQuote(columns[value].trim());
                 });
                 return item;
             }
@@ -61,7 +65,7 @@ angular.module('agiloBoardsApp')
         }
     };
 })
-.service('KeywordParser', function() {
+.service('KeywordParser', function(AGILO_KEYWORDS) {
     return {
         parse: function(keywordsStr) {
             var keywords = [];
@@ -92,7 +96,17 @@ angular.module('agiloBoardsApp')
             function trimKeyword(keyword) {
                 return keyword.trim();
             }
-            return keywords.map(trimKeyword).filter(keywordNotEmpty);
+            function colorKeyword(keyword) {
+                var color;
+                if (AGILO_KEYWORDS[keyword]) {
+                    color = AGILO_KEYWORDS[keyword];
+                }
+                return {
+                    value: keyword,
+                    color: color
+                };
+            }
+            return keywords.map(trimKeyword).filter(keywordNotEmpty).map(colorKeyword);
         }
     };
 });

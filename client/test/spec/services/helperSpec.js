@@ -62,20 +62,24 @@ describe('Service: KeywordParser', function () {
     beforeEach(inject(function (_KeywordParser_) {
         keywordParser = _KeywordParser_;
     }));
+    
+    function keyword(value, color) {
+        return {value: value, color: color};
+    }
 
     it('should convert a list of words into an array', function () {
-        expect(keywordParser.parse('this is something')).toEqual(['this', 'is', 'something']);
+        expect(keywordParser.parse('this is something')).toEqual([keyword('this'), keyword('is'), keyword('something')]);
     });
     
     it('should not split multiple words within brackets', function () {
-        expect(keywordParser.parse('[this is something]')).toEqual(['this is something']);
+        expect(keywordParser.parse('[this is something]')).toEqual([keyword('this is something')]);
     });
     
     it('should be able to support brackets and spaces mixed', function () {
-        expect(keywordParser.parse('[this is] something')).toEqual(['this is', 'something']);
+        expect(keywordParser.parse('[this is] something')).toEqual([keyword('this is'), keyword('something')]);
     });
     
     it('should be able to support brackets and spaces mixed another way', function () {
-        expect(keywordParser.parse('[this is] [something]')).toEqual(['this is', 'something']);
+        expect(keywordParser.parse('[this is] [something] [on hold]')).toEqual([keyword('this is'), keyword('something'), keyword('on hold', 'red')]);
     });
 });

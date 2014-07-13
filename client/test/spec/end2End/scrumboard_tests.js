@@ -4,6 +4,8 @@ var pages = require('../../webPages');
 
 describe('Scrumboard, select different sprints in drop down', function() {
     it('updates remaining time', function(){
+        browser.driver.manage().window().maximize();
+        
         var navigationBarPage = new pages.navigationBarPage();
         browser.get('http://127.0.0.1:8091/#/scrumboard');
         var listOfSprints = [ 'Sprint 1', 'Sprint 2','Sprint 3' ];

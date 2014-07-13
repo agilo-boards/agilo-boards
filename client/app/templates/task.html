@@ -1,5 +1,5 @@
 <div class="task-card" ng-click="openTicket(task, $event)">
-    <b>#{{task.id}}: {{task.title}}</b><br/>
-    done: {{task.timeDone || 0}} h - remaining: {{task.timeRemaining || 0}} h
+    <b><span ng-hide="compactMode">#{{task.id}}: </span>{{task.title}}</b><br/>
+    Done: {{task.timeDone || 0}} h - Remaining: {{task.timeRemaining || 0}} h
     <agilo-links id="task.id" compact-mode="compactMode"></agilo-links>
 </div>

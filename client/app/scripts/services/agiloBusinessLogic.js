@@ -19,6 +19,23 @@ angular.module('agiloBoardsApp')
             }
             return new Date(date / 1000);
         }
+        
+        function parseInteger(value) {
+            var integer = parseInt(value);
+            if (integer) {
+                return integer;
+            }
+            return 0;
+        }
+        
+        function progress(story) {
+            if (story.status === 'accepted' || story.status === 'assigned') {
+                return 'in progress';
+            } else if (story.status === 'closed') {
+                return 'done';
+            }
+            return 'new';
+        }
 
         return {
             getSprints: function () {
@@ -30,7 +47,10 @@ angular.module('agiloBoardsApp')
             getStoriesBySprint: function (selectedSprint) {
                 var deferredResult = $q.defer();
                 var storiesAndTasks = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, {
-                    keywords: parseKeywords
+                    keywords: parseKeywords,
+                    timeRemaining: parseInteger,
+                    timeDone: parseInteger,
+                    progress: progress
                 });
                 storiesAndTasks.then(function (items) {
                     var stories = {};

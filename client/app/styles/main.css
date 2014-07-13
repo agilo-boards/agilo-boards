@@ -71,6 +71,27 @@ div.error {
     cursor: pointer
 }
 
+.task-card .progress {
+    float: right;
+    text-align: center;
+    background-color: #b4b4b4;
+    width: 80px;
+    height: 100%;
+    position: relative;
+    margin-bottom: 0px;
+}
+.task-card .progress div {
+    background-color: #7b7979;
+    height: 100%;
+}
+.task-card .progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: black;
+    color: #ffffff;
+ }
+
 .centered {
 	text-align: center;
 	text-align: center;

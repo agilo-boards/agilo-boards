@@ -70,37 +70,47 @@ angular.module('agiloBoardsApp')
     };
 })
 .service('KeywordParser', function(AGILO_KEYWORDS) {
+    var formats = [
+        /* Brackets */
+        {
+            regex: /(\[)([^\]]+)(\])/g,
+            group: 2
+        },
+        /* Normal */
+        {
+            regex: /(^|\s)(\w+)/g,
+            group: 2
+        }
+    ];
+    
+    function retrieveGroup(format) {
+        return function(value) {
+            // This seems to be needed to reset the state of the RegExp
+            format.regex.exec('');
+            var groups = format.regex.exec(value);
+            return groups[format.group];
+        };
+    }
+    
     return {
         parse: function(keywordsStr) {
             var keywords = [];
-            while (keywordsStr.length > 0) {
-                var endIndex = keywordsStr.length;
-                var startIndex = 0;
-                var str = '';
-                if (keywordsStr.indexOf('[')===0) {
-                    startIndex = 1;
-                    if (keywordsStr.indexOf(']')>=0) {
-                        endIndex = keywordsStr.indexOf(']');
-                        str = keywordsStr.substr(startIndex, endIndex-1);
-                    }
-                } else {
-                    if (keywordsStr.indexOf(' ')>=0) {
-                        endIndex = keywordsStr.indexOf(' ');
-                    }
+            for (var name in formats) {
+                var format = formats[name];
+                var values = keywordsStr.match(format.regex);
+                keywordsStr = keywordsStr.replace(format.regex, ' ');
+                if (values) {
+                    keywords = keywords.concat(values.map(retrieveGroup(format)));
                 }
-                if (!str) {
-                    str = keywordsStr.substr(startIndex, endIndex);
-                }
-                keywords.push(str);
-                keywordsStr = keywordsStr.substr(endIndex+1);
             }
-            function keywordNotEmpty(keyword) {
-                return keyword.length > 0;
+            
+            function isValid(keyword) {
+                return keyword && keyword.length > 0;
             }
-            function trimKeyword(keyword) {
+            function trim(keyword) {
                 return keyword.trim();
             }
-            function colorKeyword(keyword) {
+            function colorIt(keyword) {
                 var color;
                 if (AGILO_KEYWORDS[keyword]) {
                     color = AGILO_KEYWORDS[keyword];
@@ -110,7 +120,8 @@ angular.module('agiloBoardsApp')
                     color: color
                 };
             }
-            return keywords.map(trimKeyword).filter(keywordNotEmpty).map(colorKeyword);
+            
+            return keywords.map(trim).filter(isValid).map(colorIt);
         }
     };
 });

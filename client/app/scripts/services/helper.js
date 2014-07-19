@@ -112,8 +112,11 @@ angular.module('agiloBoardsApp')
             }
             function colorIt(keyword) {
                 var color;
-                if (AGILO_KEYWORDS[keyword]) {
-                    color = AGILO_KEYWORDS[keyword];
+                var matchingTypes = AGILO_KEYWORDS.filter(function(type) {
+                    return keyword.match(type.regex);
+                });
+                if (matchingTypes.length > 0) {
+                    color = matchingTypes[0].color;
                 }
                 return {
                     value: keyword,

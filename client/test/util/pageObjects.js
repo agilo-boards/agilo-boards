@@ -1,53 +1,53 @@
 'use strict';
 
-function Select(element) {
-    this.element = element;
+function Select(elem) {
+    this.elem = elem;
 }
 Select.prototype.selectOption = function (item) {
-    this.element.click();
-    this.element.element(by.xpath('//option[text() ="' + item + '"]')).click();
+    this.elem.click();
+    this.elem.element(by.xpath('//option[text() ="' + item + '"]')).click();
 };
     
 Select.prototype.assertOptions = function(options) {
     var len = options.length;
     for (var i = 0; i < len; i++) {
         if (i in options) {
-            expect(this.element.element(by.xpath('//option[' + (1 + i) + ']')).getText()).toEqual(options[i]);
+            expect(this.elem.element(by.xpath('//option[' + (1 + i) + ']')).getText()).toEqual(options[i]);
         }
     }
 };
 
-function Field(element, prefix, postfix) {
-    this.element = element;
+function Field(elem, prefix, postfix) {
+    this.elem = elem;
     this.prefix = prefix || '';
     this.postfix = postfix || '';
 }
 Field.prototype.assertToBe = function (expectedText) {
     var that = this;
-    this.element.getText().then(function (text) {
+    this.elem.getText().then(function (text) {
         expect(text).toEqual(that.prefix + expectedText + that.postfix);
     });
 };
 Field.prototype.assertToStartWith = function (expectedText) {
     var that = this;
-    this.element.getText().then(function (text) {
+    this.elem.getText().then(function (text) {
         expect(text).toContain(that.prefix + expectedText);
     });
 };
 
 
-function Checkbox(element) {
-    this.element = element;
+function Checkbox(elem) {
+    this.elem = elem;
 }
 Checkbox.prototype.assertSelected = function() {
-    expect(element.getAttribute('checked')).toBeTruthy();
+    console.log(this.elem);
+    expect(this.elem.getAttribute('checked')).toBeTruthy();
 };
 Checkbox.prototype.assertNotSelected = function() {
-    console.log(element);
-    expect(element.getAttribute('checked')).toBeFalsy();
+    expect(this.elem.getAttribute('checked')).toBeFalsy();
 };
 Checkbox.prototype.toggle = function() {
-    element.click();
+    this.elem.click();
 };
 
 

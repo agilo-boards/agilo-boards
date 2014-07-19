@@ -24,10 +24,10 @@
                     <span class="hide-when-small nav-item">
                         Remaining: {{allTimeRemaining}} h
                     </span>
-                    <span id="compactMode" ng-click="compactMode = !compactMode" class="link-pointer nav-item">
+                    <span ng-click="compactMode = !compactMode" class="link-pointer nav-item">
                         <input id="compactMode" type="checkbox" ng-model="compactMode" ng-click="$event.stopPropagation()"></input> Compact Mode
                     </span>                    
-                    <span id="ownerMode" ng-click="ownerMode = !ownerMode" class="link-pointer nav-item">
+                    <span ng-click="ownerMode = !ownerMode" class="link-pointer nav-item">
                         <input id="ownerMode" type="checkbox" ng-model="ownerMode" ng-click="$event.stopPropagation()"></input>
                         Filter by owner
                         <select id="owners" class="form-control" ng-model="selectedOwner" ng-options="owner for owner in owners" ng-hide="!ownerMode" ng-click="$event.stopPropagation()">

@@ -6,7 +6,7 @@ describe('Scrumboard', function() {
     var navBar = new pages.scrumBoardNavigationPage();
     
     beforeEach(function() {
-        browser.driver.manage().window().maximize();
+        browser.driver.manage().window().setSize(1150, 800);
         browser.get('http://127.0.0.1:8091/#/scrumboard');
     });
     
@@ -26,7 +26,7 @@ describe('Scrumboard', function() {
     });
     
     
-    xit('persists owner mode when switching sprints', function() {        
+    it('persists owner mode when switching sprints', function() {        
         browser.get('http://127.0.0.1:8091/#/scrumboard');
         
         navBar.sprints.selectOption('Sprint 3');

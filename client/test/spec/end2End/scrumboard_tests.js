@@ -25,18 +25,30 @@ describe('Scrumboard', function() {
         navBar.timeRemaining.assertToBe(0);
     });
     
-    
-    it('persists owner mode when switching sprints', function() {        
+    it('persists owner mode and compact mode when switching sprints', function() {        
         browser.get('http://127.0.0.1:8091/#/scrumboard');
         
-        navBar.sprints.selectOption('Sprint 3');
+        navBar.sprints.selectOption('Sprint 1');
         navBar.compactMode.assertNotSelected();
         navBar.compactMode.toggle();
         navBar.compactMode.assertSelected();
         
-        navBar.sprints.selectOption('Sprint 1');
+        navBar.ownerMode.assertNotSelected();
+        navBar.owners.assertNotVisible();
+        navBar.ownerMode.toggle();
+        navBar.ownerMode.assertSelected();
+        navBar.owners.assertVisible();
+        navBar.owners.assertOptions(['', 'amy', 'face']);
+        navBar.owners.selectOption('face');
+        
+        navBar.sprints.selectOption('Sprint 2');
         navBar.compactMode.assertSelected();
         navBar.compactMode.toggle();
         navBar.compactMode.assertNotSelected();
+        
+        navBar.ownerMode.assertSelected();
+        navBar.owners.assertVisible();
+        navBar.owners.assertOptions(['amy', 'ba', 'face']);
+        navBar.owners.assertSelected('face');
     });
 });

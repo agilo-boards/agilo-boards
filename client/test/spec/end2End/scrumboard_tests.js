@@ -4,6 +4,7 @@ var pages = require('../../webPages');
 
 describe('Scrumboard', function() {
     var navBar = new pages.scrumBoardNavigationPage();
+    var board = new pages.scrumBoardPage();
     
     beforeEach(function() {
         browser.driver.manage().window().setSize(1150, 800);
@@ -21,6 +22,7 @@ describe('Scrumboard', function() {
         navBar.timeDone.assertToBe(0);
         navBar.timeRemaining.assertToBe(0);
         navBar.sprints.selectOption('Sprint 1');
+        board.assertStories([], [], [1000, 1100, 1101, 1102, 1103, 1104]);
         navBar.timeDone.assertToBe(5);
         navBar.timeRemaining.assertToBe(0);
     });

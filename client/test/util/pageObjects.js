@@ -29,12 +29,11 @@ Select.prototype.assertSelected = function(item) {
     expect(this.findOption(item).isSelected()).toBeTruthy();
 };
 Select.prototype.assertOptions = function(options) {
-    var len = options.length;
-    for (var i = 0; i < len; i++) {
-        if (i in options) {
-            expect(this.elem.element(by.xpath('//select[@id="'+this.id+'"]//option[' + (1 + i) + ']')).getText()).toEqual(options[i]);
-        }
-    }
+    var optionElems = this.elem.all(by.tagName('option'));
+    expect(optionElems.count()).toEqual(options.length);
+    options.forEach(function(value, index) {
+        expect(optionElems.get(index).getText()).toEqual(value);
+    });
 };
 
 function Field(elem, prefix, postfix) {
@@ -74,5 +73,6 @@ Checkbox.prototype.toggle = function() {
 module.exports = {
     Select: Select,
     Field: Field,
-    Checkbox: Checkbox
+    Checkbox: Checkbox,
+    PageObject: PageObject
 };

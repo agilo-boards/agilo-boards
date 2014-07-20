@@ -7,7 +7,7 @@ describe('Scrumboard', function() {
     var board = new pages.scrumBoardPage();
     
     beforeEach(function() {
-        browser.driver.manage().window().setSize(1150, 800);
+        browser.driver.manage().window().setSize(1250, 800);
         browser.get('http://127.0.0.1:8091/#/scrumboard');
     });
     
@@ -41,7 +41,7 @@ describe('Scrumboard', function() {
         todoStory.assertNoTasks();
         
         var inprogressStory = board.findStory(1004);
-        // TODO assert owner
+        inprogressStory.assertOwner('ba');
         inprogressStory.assertCreateTaskLink();
         // TODO assert tasks
         

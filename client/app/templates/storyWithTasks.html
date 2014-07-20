@@ -7,6 +7,6 @@
         <div ng-show="story.tasks.length == 0 && !compactMode">There are currently no tasks.</div>
         <div ng-show="story.tasks.length > 0 && !compactMode">
             Total: {{story.timeDone}}h done / {{story.timeRemaining}}h remaining</div>
-        <a ng-show="!compactMode" href="{{getNewTaskUrl(story)}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> Add task</a>
+        <a class="task-creation-link" ng-show="!compactMode" href="{{getNewTaskUrl(story)}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> Add task</a>
     </div>
 </div>

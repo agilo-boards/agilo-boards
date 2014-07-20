@@ -3,6 +3,49 @@
 var util = require('util');
 var pageObjects = require('./generalPageObjects.js');
 
+function Task(elem) {
+    pageObjects.PageObject.call(this, elem);
+    this.title = new pageObjects.Field(elem.element(by.className('task-title')));
+    this.timeDone = new pageObjects.Field(elem.element(by.className('task-time-done')), 'Done: ', ' h');
+    this.timeRemaining = new pageObjects.Field(elem.element(by.className('task-time-remaining')), 'Remaining: ', ' h');
+    this.titleCompact = new pageObjects.Field(elem.element(by.className('task-compact-title')));
+    this.timeCompact = new pageObjects.Field(elem.element(by.className('task-compact-time')));
+}
+util.inherits(Task, pageObjects.PageObject);
+
+Task.prototype.assertTitle = function (taskId, taskTitle, compactMode) {
+    if (!compactMode) {
+        this.title.assertToBe('#'+taskId+': '+taskTitle);
+    } else {
+        this.titleCompact.assertToBe(taskTitle);
+    }
+};
+
+Task.prototype.assertTime = function (timeDone, timeRemaining, compactMode) {
+    if (!compactMode) {
+        this.timeDone.assertToBe(timeDone);
+        this.timeRemaining.assertToBe(timeRemaining);
+    } else {
+        this.timeCompact.assertToBe(timeDone + ' / '+ (timeRemaining+timeDone));
+    }
+};
+
+Task.prototype.assertNotCompactMode = function () {
+    this.title.assertVisible();
+    this.timeDone.assertVisible();
+    this.timeRemaining.assertVisible();
+    this.titleCompact.assertNotVisible();
+    this.timeCompact.assertNotVisible();
+};
+
+Task.prototype.assertCompactMode = function () {
+    this.title.assertNotVisible();
+    this.timeDone.assertNotVisible();
+    this.timeRemaining.assertNotVisible();
+    this.titleCompact.assertVisible();
+    this.timeCompact.assertVisible();
+};
+
 function Story(storyId) {
     var elem = element(by.id('story-'+storyId));
     pageObjects.PageObject.call(this, elem);
@@ -15,13 +58,7 @@ function Story(storyId) {
     this.title = new pageObjects.Field(elem.element(by.xpath('.//span[contains(@class,"story-title")]')));
     this.ownerImage = this.elem.element(by.tagName('img'));
     this.number = new pageObjects.Field(elem.element(by.xpath('.//span[contains(@class, "story-number")]')), '#');
-    this.tasks = [];
-    /*this.elem.all(by.className('task-card')).forEach(function(task) {
-        this.tasks.push(new Task(task));
-    });*/
 }
-console.log(Story);
-console.log(pageObjects.PageObject);
 util.inherits(Story, pageObjects.PageObject);
 
 Story.prototype.assertStoryNumber = function () {
@@ -72,11 +109,16 @@ Story.prototype.assertNoTasks = function () {
     expect(this.elem.all(by.className('task-card')).count()).toBe(0);
     expect(this.elem.element(by.className('tasks')).getText()).toContain('There are currently no tasks.');
 };
-
-function Task(elem) {
-    pageObjects.PageObject.call(this, elem);
-}
-util.inherits(Task, pageObjects.PageObject);
-
+Story.prototype.assertTasks = function (tasks) {
+    var taskElems = this.elem.all(by.xpath('.//*[contains(@class,"task-card")]//*[contains(@class,"task-title")]'));
+    expect(taskElems.count()).toEqual(tasks.length);
+    tasks.forEach(function(value, index) {
+        expect(taskElems.get(index).getText()).toContain(value);
+    });
+};
+Story.prototype.getTask = function (index) {
+    var taskElem = this.elem.all(by.xpath('.//*[contains(@class,"task-card")]')).get(index);
+    return new Task(taskElem);
+};
 
 module.exports = Story;

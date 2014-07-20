@@ -1,19 +1,19 @@
 <div class="task-card" ng-click="openTicket(task, $event)">
     <span ng-hide="compactMode">
-        <b><span>#{{task.id}}: </span>{{task.title}}</b>
+        <b class="task-title">#{{task.id}}: {{task.title}}</b>
         <br/>
-        <span>Done: {{task.timeDone || 0}} h - Remaining: {{task.timeRemaining || 0}} h</span>
+        <span class="task-time-done">Done: {{task.timeDone || 0}} h</span> - <span class="task-time-remaining">Remaining: {{task.timeRemaining || 0}} h</span>
     </span>
     <span ng-show="compactMode">
         <div class="progress">
-            <span>
+            <span class="task-compact-time">
                 {{task.timeDone || 0}} / {{task.timeRemaining+task.timeDone}}
             </span>
             <div class="progress-bar" role="progressbar" aria-valuenow="{{task.timeDone}}" aria-valuemin="0" aria-valuemax="{{task.timeDone}}" ng-style="{width: (task.timeDone/(task.timeRemaining+task.timeDone)*100)+'%' }">
                 &nbsp;
             </div>
         </div>
-        <div style="display: inline">
+        <div style="display: inline" class="task-compact-title">
             {{task.title}}
         </div>
     </span>

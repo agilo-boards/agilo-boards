@@ -3,7 +3,6 @@
 var BaseWebPage = require('./baseWebPage.js'), 
     util = require('util'),
     pageObjects = require('../util/pageObjects.js');
-console.log(pageObjects);
 
 function ScrumBoardPage(overridePath) {
     BaseWebPage.call(this, overridePath);

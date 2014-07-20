@@ -43,7 +43,10 @@ describe('Scrumboard', function() {
         var inprogressStory = board.findStory(1004);
         inprogressStory.assertOwner('ba');
         inprogressStory.assertCreateTaskLink();
-        // TODO assert tasks
+        inprogressStory.assertTasks(['#2002: Read intro', '#2003: Read chapter 1', '#2004: Read chapter 2']);
+        var taskReadIntro =inprogressStory.getTask(0);
+        taskReadIntro.assertTitle(2002, 'Read intro');
+        taskReadIntro.assertTime(0, 5);
         
         
         var doneStory = board.findStory(1001);
@@ -70,11 +73,19 @@ describe('Scrumboard', function() {
         
         board.findStory(1003).assertCompactMode();
         board.findStory(1001).assertCompactMode();
+        var taskReadIntro = board.findStory(1004).getTask(0);
+        taskReadIntro.assertTitle(2002, 'Read intro', true);
+        taskReadIntro.assertTime(0, 5, true);
+        taskReadIntro.assertCompactMode();
         
         navBar.compactMode.toggle();
         navBar.compactMode.assertNotSelected();
         board.findStory(1006).assertNotCompactMode();
         story.assertPostits(['usabil', 'import']);
+        
+        taskReadIntro.assertTitle(2002, 'Read intro');
+        taskReadIntro.assertTime(0, 5);
+        taskReadIntro.assertNotCompactMode();
     });
     
     it('should persist owner mode and the selected owner when switching sprints and fade out any story related to a different person than the owner', function() {

@@ -43,10 +43,7 @@ function Field(elem, prefix, postfix) {
 }
 util.inherits(Field, PageObject);
 Field.prototype.assertToBe = function (expectedText) {
-    var that = this;
-    this.elem.getText().then(function (text) {
-        expect(text).toEqual(that.prefix + expectedText + that.postfix);
-    });
+    expect(this.elem.getText()).toEqual(this.prefix + expectedText + this.postfix);
 };
 Field.prototype.assertToStartWith = function (expectedText) {
     var that = this;

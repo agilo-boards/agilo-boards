@@ -16,5 +16,9 @@ angular.module('agiloBoardsApp').constant('AGILO_KEYWORDS', [
     {
         regex: /depends on/gi,
         color: 'green'
+    },
+    {
+        regex: /importan/gi,
+        color: 'blue'
     }
 ]);

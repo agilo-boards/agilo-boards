@@ -160,7 +160,7 @@ div.error {
         width: 33%;
     }
 }
-@media (max-width: 1500px) {
+@media (max-width: 1200px) {
     .hide-when-small {
         display: none;
     }

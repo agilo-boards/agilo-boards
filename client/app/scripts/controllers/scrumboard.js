@@ -31,25 +31,21 @@ angular.module('agiloBoardsApp')
         });
         
         
-
-        $scope.compactMode = localStorage.getItem('agiloCompactMode') === 'true';
-        $scope.$watch('compactMode', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                localStorage.setItem('agiloCompactMode', newValue);
+        function setupSyncToLocalStorage(model, isBoolean) {
+            var value = localStorage.getItem('agilo-'+model);
+            if (isBoolean) {
+                value = value === 'true';
             }
-        });
-        $scope.ownerMode = localStorage.getItem('agiloOwnerMode') === 'true';
-        $scope.$watch('ownerMode', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                localStorage.setItem('agiloOwnerMode', newValue);
-            }
-        });
-        $scope.selectedOwner = localStorage.getItem('agiloSelectedOwner');
-        $scope.$watch('selectedOwner', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                localStorage.setItem('agiloSelectedOwner', newValue);
-            }
-        });
+            $scope[model] = value;
+            $scope.$watch(model, function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    localStorage.setItem('agilo-'+model, newValue);
+                }
+            });
+        }
+        setupSyncToLocalStorage('compactMode', true);
+        setupSyncToLocalStorage('ownerMode', true);
+        setupSyncToLocalStorage('selectedOwner');
 
         $scope.$on('agilo-dragged', function (e, src, dest) {
             var storyId = src.id;

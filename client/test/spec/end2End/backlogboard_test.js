@@ -4,7 +4,7 @@ var pages = require('../../webPages');
 
 describe('Backlog, select different releases in drop down', function() {
     it('displays desription, due date and completed date', function(){
-        browser.driver.manage().window().maximize();
+        browser.driver.manage().window().setSize(1150, 800);
         
         var navBar = new pages.backlogNavigationPage();
         browser.get('http://127.0.0.1:8091/#/backlog');

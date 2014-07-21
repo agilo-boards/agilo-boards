@@ -25,6 +25,9 @@ angular.module('agiloBoardsApp')
                     }
                     return 'images/team/' + owner + '.jpg';
                 };
+                $scope.isPostitDisplayed = function(postit) {
+                    return !$scope.compactMode || postit.color; 
+                };
             }
         };
     })
@@ -68,7 +71,7 @@ angular.module('agiloBoardsApp')
             templateUrl: 'templates/links.html',
             compactMode: '@',
             scope: {
-                id: '=',
+                storyId: '=',
                 compactMode: '='
             },
             link: function (scope) {

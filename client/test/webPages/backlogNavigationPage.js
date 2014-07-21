@@ -6,7 +6,7 @@ var BaseWebPage = require('./baseWebPage.js'), util = require('util'),
 function BacklogNavigationPage(overridePath) {
     BaseWebPage.call(this, overridePath);
 
-    this.releases = new pageObjects.Select(element(by.xpath('//select[@id="releases"]')));
+    this.releases = new pageObjects.Select('releases');
     this.reloadButton = element(by.id('reloadButton'));
     this.description = new pageObjects.Field(element(by.id('releaseDescription')));
     this.dueDate = new pageObjects.Field(element(by.id('dueDate')), 'Due Date: ');

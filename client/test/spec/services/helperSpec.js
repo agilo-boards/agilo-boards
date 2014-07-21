@@ -80,6 +80,6 @@ describe('Service: KeywordParser', function () {
     });
     
     it('should be able to support brackets and spaces mixed another way', function () {
-        expect(keywordParser.parse('[this is] [something] [on hold]')).toEqual([keyword('this is'), keyword('something'), keyword('on hold', 'red')]);
+        expect(keywordParser.parse('[this is] [something] [on hold unil 21.08.]')).toEqual([keyword('this is'), keyword('something'), keyword('on hold unil 21.08.', 'red')]);
     });
 });

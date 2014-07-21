@@ -41,6 +41,24 @@ angular.module('agiloBoardsApp')
             scope: {
                 task: '=',
                 compactMode: '='
+            },
+            controller: function ($scope, $window, AGILO_URL) {
+                $scope.getPercentage = function(task) {
+                    var total = task.timeRemaining+task.timeDone;
+                    if (total === 0) {
+                        return 100;
+                    }
+                    return task.timeDone/(total)*100;
+                };
+                
+                $scope.openTicket = function (ticket, event) {
+                    var url = AGILO_URL + '/ticket/' + ticket.id;
+                    if (event.shiftKey) {
+                        url += '?pane=edit';
+                    }
+                    $window.open(url);
+                };
+
             }
         };
     })

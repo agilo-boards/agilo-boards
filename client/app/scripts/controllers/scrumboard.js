@@ -44,6 +44,12 @@ angular.module('agiloBoardsApp')
                 localStorage.setItem('agiloOwnerMode', newValue);
             }
         });
+        $scope.selectedOwner = localStorage.getItem('agiloSelectedOwner');
+        $scope.$watch('selectedOwner', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                localStorage.setItem('agiloSelectedOwner', newValue);
+            }
+        });
 
         $scope.$on('agilo-dragged', function (e, src, dest) {
             var storyId = src.id;
@@ -116,14 +122,6 @@ angular.module('agiloBoardsApp')
 
         $scope.isStoryNew = function (story) {
             return story.status !== 'closed' && story.status !== 'assigned';
-        };
-
-        $scope.openTicket = function (ticket, event) {
-            var url = $scope.getViewTicketUrl(ticket.id);
-            if (event.altKey) {
-                url = $scope.getEditTicketUrl(ticket.id);
-            }
-            $window.open(url);
         };
 
         function sum(array, method) {

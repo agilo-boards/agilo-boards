@@ -377,6 +377,13 @@ module.exports = function (grunt) {
                     args: {
                     } // Target-specific arguments
                 }
+            },
+            debug: {
+                options : {
+                    configFile: 'protractor.conf.js',
+                    keepAlive: true,
+                    debug: true
+                }
             }
         },
         express: {

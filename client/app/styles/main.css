@@ -63,6 +63,7 @@ div.error {
     box-shadow: 0 0 0 1px #E0E0F8,
         0 0 0 3px #A9A9F5;
 	margin-bottom: 10px;
+	font-size: 1.1em;
 }
 
 .task-card:hover {
@@ -79,6 +80,7 @@ div.error {
     height: 100%;
     position: relative;
     margin-bottom: 0px;
+	font-size: 0.9em;
 }
 .task-card .progress div {
     background-color: #7b7979;
@@ -211,9 +213,9 @@ div.error {
     background-color: #ff60df;
     color: white;
     font: "Comic Sans MS";
-    font-size: 0.8em;
-    font-weight: bold;
-    padding: 10px 5px 10px 5px;
+    font-size: 1em;
+    font-weight: bolder;
+    padding: 5px 5px 10px 5px;
     width: 75px;
     height: 35px;
     vertical-align: middle;

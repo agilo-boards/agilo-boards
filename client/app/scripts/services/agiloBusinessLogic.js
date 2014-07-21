@@ -20,10 +20,10 @@ angular.module('agiloBoardsApp')
             return new Date(date / 1000);
         }
         
-        function parseInteger(value) {
-            var integer = parseInt(value);
-            if (integer) {
-                return integer;
+        function parseHours(value) {
+            var hours = parseFloat(value);
+            if (hours) {
+                return hours;
             }
             return 0;
         }
@@ -48,8 +48,8 @@ angular.module('agiloBoardsApp')
                 var deferredResult = $q.defer();
                 var storiesAndTasks = TSVtoJSONConverter.deferredConversion(AgiloUnformatted.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, {
                     keywords: parseKeywords,
-                    timeRemaining: parseInteger,
-                    timeDone: parseInteger,
+                    timeRemaining: parseHours,
+                    timeDone: parseHours,
                     progress: progress
                 });
                 storiesAndTasks.then(function (items) {

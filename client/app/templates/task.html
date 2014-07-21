@@ -6,10 +6,13 @@
     </span>
     <span ng-show="compactMode">
         <div class="progress">
-            <span>
-                {{task.timeDone || 0}} / {{task.timeRemaining+task.timeDone}}
+            <span ng-hide="task.timeRemaining === 0">
+                {{task.timeDone || 0}} / {{task.timeRemaining+task.timeDone}} h
             </span>
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{task.timeDone}}" aria-valuemin="0" aria-valuemax="{{task.timeDone}}" ng-style="{width: (task.timeDone/(task.timeRemaining+task.timeDone)*100)+'%' }">
+            <span ng-show="task.timeRemaining === 0">
+                {{task.timeDone}} h
+            </span>
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{task.timeDone}}" aria-valuemin="0" aria-valuemax="{{task.timeDone}}" ng-style="{width: getPercentage(task)+'%' }">
                 &nbsp;
             </div>
         </div>
@@ -17,5 +20,5 @@
             {{task.title}}
         </div>
     </span>
-    <agilo-links id="task.id" compact-mode="compactMode"></agilo-links>
+    <agilo-links id="task.id" ng-hide="compactMode"></agilo-links>
 </div>

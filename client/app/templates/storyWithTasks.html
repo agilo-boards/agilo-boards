@@ -3,7 +3,7 @@
         <agilo-story story="story" compact-mode="compactMode"></agilo-story>
     </div>
     <div class="block" style="padding: 0px 10px 10px 10px">
-        <agilo-task ng-repeat="task in story.tasks" task="task" compact-mode="compactMode"></agilo-task>
+        <agilo-task ng-repeat="task in story.tasks | orderBy:'id'" task="task" compact-mode="compactMode"></agilo-task>
         <div ng-show="story.tasks.length == 0 && !compactMode">There are currently no tasks.</div>
         <div ng-show="story.tasks.length > 0 && !compactMode">
             Total: {{story.timeDone}}h done / {{story.timeRemaining}}h remaining</div>

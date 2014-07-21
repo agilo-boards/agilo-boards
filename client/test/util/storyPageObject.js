@@ -26,7 +26,7 @@ Task.prototype.assertTime = function (timeDone, timeRemaining, compactMode) {
         this.timeDone.assertToBe(timeDone);
         this.timeRemaining.assertToBe(timeRemaining);
     } else {
-        this.timeCompact.assertToBe(timeDone + ' / '+ (timeRemaining+timeDone));
+        this.timeCompact.assertToBe(timeDone + ' / '+ (timeRemaining+timeDone) + ' h');
     }
 };
 

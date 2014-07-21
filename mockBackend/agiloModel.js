@@ -336,7 +336,8 @@ var storiesAndTasks = [
         'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
         owner: 'ba',
         keywords: '[education]',
-        'Remaining time': 8,
+        'Work done': 3,
+        'Remaining time': '',
         Sprint: SPRINT_2_RELEASE_2,
         Project: PROJECT_READ_BOOKS,
         'Story ID': 1004

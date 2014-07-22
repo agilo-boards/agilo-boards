@@ -63,8 +63,15 @@ describe('Service: KeywordParser', function () {
         keywordParser = _KeywordParser_;
     }));
     
-    function keyword(value, color) {
-        return {value: value, color: color};
+    function keyword(value, color, type) {
+        if (color) {            
+            return {
+                value: value,
+                color: color,
+                type: type
+            };
+        }
+        return {value: value };
     }
 
     it('should convert a list of words into an array', function () {
@@ -80,6 +87,6 @@ describe('Service: KeywordParser', function () {
     });
     
     it('should be able to support brackets and spaces mixed another way', function () {
-        expect(keywordParser.parse('[this is] [something] [on hold unil 21.08.]')).toEqual([keyword('this is'), keyword('something'), keyword('on hold unil 21.08.', 'red')]);
+        expect(keywordParser.parse('[this is] [something] [on hold unil 21.08.]')).toEqual([keyword('this is'), keyword('something'), keyword('on hold unil 21.08.', 'red', 'on hold')]);
     });
 });

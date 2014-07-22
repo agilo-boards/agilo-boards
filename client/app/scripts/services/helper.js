@@ -111,17 +111,17 @@ angular.module('agiloBoardsApp')
                 return keyword.trim();
             }
             function colorIt(keyword) {
-                var color;
+                var result = {
+                    value: keyword
+                };
                 var matchingTypes = AGILO_KEYWORDS.filter(function(type) {
                     return keyword.match(type.regex);
                 });
                 if (matchingTypes.length > 0) {
-                    color = matchingTypes[0].color;
+                    result.color = matchingTypes[0].color;
+                    result.type = matchingTypes[0].type;
                 }
-                return {
-                    value: keyword,
-                    color: color
-                };
+                return result;
             }
             
             return keywords.map(trim).filter(isValid).map(colorIt);

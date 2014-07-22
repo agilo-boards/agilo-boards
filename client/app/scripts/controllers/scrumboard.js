@@ -1,7 +1,20 @@
 'use strict';
 
 angular.module('agiloBoardsApp')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, ObjToArrayConverter, UpdateTicketService) {
+    .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, ObjToArrayConverter, UpdateTicketService, AGILO_KEYWORDS) {
+        $scope.keywordTypes = {};       
+        ObjToArrayConverter.convert(AGILO_KEYWORDS).forEach(function(keywordPattern) {
+            $scope.keywordTypes[keywordPattern.type] = true;
+        });
+        $scope.isNotFilteredByKeyword = function(story) {
+            return !story.keywords.some(function(keyword) {
+                if (keyword.type) {
+                    return !$scope.keywordTypes[keyword.type];
+                }
+                return false;
+            });
+        };
+        
         var sprints = Agilo.getSprints();
         $scope.sprints = {};
         sprints.then(function (sprints) {

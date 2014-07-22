@@ -19,6 +19,15 @@ a:hover {
 .board {
     margin-top: 20px;
 }
+.nav .dropdown-menu li input {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}
 div.error {
     margin: 20px;
     padding: 10px;

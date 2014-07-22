@@ -10,7 +10,7 @@ angular.module('agiloBoardsApp').constant('AGILO_KEYWORDS', [
         color: 'red'
     },
     {
-        regex: /clean[- ]up/gi,
+        regex: /clean[- ]?up/gi,
         color: 'orange'
     },
     {

@@ -42,6 +42,10 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.js'],
                 tasks: ['newer:jshint:test', 'karma']
             },
+            sass: {
+                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+                tasks: ['sass:dist', 'autoprefixer']
+            },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
@@ -152,6 +156,17 @@ module.exports = function (grunt) {
             app: {
                 src: ['<%= yeoman.app %>/index.html'],
                 ignorePath: '<%= yeoman.app %>/'
+            }
+        },
+        
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    '.tmp/styles/main.css': 'app/styles/main.scss'
+                }
             }
         },
 
@@ -287,7 +302,8 @@ module.exports = function (grunt) {
                             'views/{,*/}*.html',
                             'templates/{,*/}*.html',
                             'images/{,*/}*.{webp}',
-                            'fonts/*'
+                            'fonts/*',
+                            'bower_components/bootstrap-sass-official/assets/fonts//*.*'
                         ]
                     },
                     {
@@ -309,12 +325,14 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up the build process
         concurrent: {
             server: [
+                'sass:dist',
                 'copy:styles'
             ],
             test: [
                 'copy:styles'
             ],
             dist: [
+                'sass',
                 'copy:styles',
                 'imagemin',
                 'svgmin'
@@ -465,4 +483,6 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+    
+    grunt.loadNpmTasks('grunt-contrib-sass');
 };

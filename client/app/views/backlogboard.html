@@ -6,7 +6,8 @@
                 <li class="active"><a href="#">Backlog</a></li>
             </ul>
             <div class="navbar-form navbar-left form-group">
-                <select id="releases" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" />
+                <select id="releases" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" >
+                </select>
                 <span id="releaseDescription" class="nav-item">
                     {{selectedRelease.description}}
                 </span>

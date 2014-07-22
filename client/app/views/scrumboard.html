@@ -8,7 +8,8 @@
             <form class="navbar-form navbar-left">
                 <div class="form-group">
                     <select id="sprints" class="form-control" ng-model="sprints.selectedSprint"
-                            ng-options="sprint.name for sprint in sprints.allSprints" />
+                            ng-options="sprint.name for sprint in sprints.allSprints" >
+                    </select>
                     <span class="nav-item">
                         <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
                     </span>

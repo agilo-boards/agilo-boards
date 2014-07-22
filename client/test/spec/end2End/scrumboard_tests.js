@@ -15,8 +15,8 @@ describe('Scrumboard', function() {
         var listOfSprints = [ 'Sprint 1', 'Sprint 2','Sprint 3' ];
         navBar.sprints.assertOptions(listOfSprints);
         navBar.sprints.selectOption('Sprint 2');
-        navBar.timeDone.assertToBe(4);
-        navBar.timeRemaining.assertToBe(23);
+        navBar.timeDone.assertToBe(7);
+        navBar.timeRemaining.assertToBe(15);
         
         navBar.sprints.selectOption('Sprint 3');
         navBar.timeDone.assertToBe(0);

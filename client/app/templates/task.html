@@ -5,14 +5,14 @@
         <span class="task-time-done">Done: {{task.timeDone || 0}} h</span> - <span class="task-time-remaining">Remaining: {{task.timeRemaining || 0}} h</span>
     </span>
     <span ng-show="compactMode">
-        <div class="progress">
+        <div class="progress" ng-class="{'progress-striped': isOnGoing(task)}">
             <span class="task-compact-time" ng-hide="task.timeRemaining === 0">
-                {{task.timeDone || 0}} / {{task.timeRemaining+task.timeDone}} h
+                {{task.timeDone || 0}} / {{getTotalTime(task)}} h
             </span>
             <span ng-show="task.timeRemaining === 0">
                 {{task.timeDone}} h
             </span>
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{task.timeDone}}" aria-valuemin="0" aria-valuemax="{{task.timeDone}}" ng-style="{width: getPercentage(task)+'%' }">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{task.timeDone}}" aria-valuemin="0" aria-valuemax="{{getTotalTime(task)}}" ng-style="{width: getPercentage(task)+'%' }">
                 &nbsp;
             </div>
         </div>

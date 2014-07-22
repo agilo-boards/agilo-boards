@@ -86,6 +86,9 @@ div.error {
     background-color: #7b7979;
     height: 100%;
 }
+.task-card .progress-striped div {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent);
+}
 .task-card .progress span {
     position: absolute;
     display: block;

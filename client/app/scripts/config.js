@@ -12,7 +12,7 @@ angular.module('agiloBoardsApp').constant('AGILO_KEYWORDS', [
     },
     {
         type:  'clean up',
-        regex: /clean[- ]up/gi,
+        regex: /clean[- ]?up/gi,
         color: 'orange'
     },
     {

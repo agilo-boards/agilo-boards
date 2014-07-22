@@ -1,13 +1,15 @@
+$icon-font-path: './fonts/'; 
+@import '../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
+
 body {
   padding-top: 40px;
-}
+} 
 a {
     cursor: pointer
 }
 a:hover {
     text-decoration: none
 }
-
 .fade-out {
     opacity: 0.5;
 }
@@ -48,11 +50,11 @@ div.error {
 }
 .story-card div.footer, .story-card div.header {
     text-align: left;
-}
+}   
 
 .story-card:hover {
 	background-color: #FFFFCC;
-    box-shadow: 0 0 0 3px #b5b59f;
+    box-shadow: 0 0 0 3px #e2e254;
 }
 
 .task-card {

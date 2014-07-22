@@ -42,9 +42,9 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.js'],
                 tasks: ['newer:jshint:test', 'karma']
             },
-            sass: {
+            compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['sass:dist', 'autoprefixer']
+                tasks: ['compass:server', 'autoprefixer']
             },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -158,14 +158,32 @@ module.exports = function (grunt) {
                 ignorePath: '<%= yeoman.app %>/'
             }
         },
-        
-        sass: {
+
+        // Compiles Sass to CSS and generates necessary files if requested
+        compass: {
+            options: {
+                sassDir: '<%= yeoman.app %>/styles',
+                cssDir: '.tmp/styles',
+                generatedImagesDir: '.tmp/images/generated',
+                imagesDir: '<%= yeoman.app %>/images',
+                javascriptsDir: '<%= yeoman.app %>/scripts',
+                fontsDir: '<%= yeoman.app %>/styles/fonts',
+                importPath: '<%= yeoman.app %>/bower_components',
+                httpImagesPath: '/images',
+                httpGeneratedImagesPath: '/images/generated',
+                httpFontsPath: '/styles/fonts',
+                relativeAssets: true,
+                assetCacheBuster: false,
+                raw: 'Sass::Script::Number.precision = 10\n'
+            },
             dist: {
                 options: {
-                    style: 'expanded'
-                },
-                files: {
-                    '.tmp/styles/main.css': 'app/styles/main.scss'
+                    generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+                }
+            },
+            server: {
+                options: {
+                    debugInfo: true
                 }
             }
         },
@@ -302,8 +320,7 @@ module.exports = function (grunt) {
                             'views/{,*/}*.html',
                             'templates/{,*/}*.html',
                             'images/{,*/}*.{webp}',
-                            'fonts/*',
-                            'bower_components/bootstrap-sass-official/assets/fonts//*.*'
+                            'styles/fonts/*'
                         ]
                     },
                     {
@@ -325,14 +342,14 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up the build process
         concurrent: {
             server: [
-                'sass:dist',
+                'compass:dist',
                 'copy:styles'
             ],
             test: [
                 'copy:styles'
             ],
             dist: [
-                'sass',
+                'compass',
                 'copy:styles',
                 'imagemin',
                 'svgmin'
@@ -484,5 +501,5 @@ module.exports = function (grunt) {
         'build'
     ]);
     
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-compass');
 };

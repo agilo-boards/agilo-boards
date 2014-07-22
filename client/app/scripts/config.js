@@ -6,18 +6,22 @@ angular.module('agiloBoardsApp').constant('AGILO_REPORT_MAPPING_RELEASES', {name
 angular.module('agiloBoardsApp').constant('AGILO_REPORT_MAPPING_STORIES_BY_RELEASE', {id: 0, title: 1, release: 2, status: 3, detailStatus: 4, keywords: 5, storyPoints: 6, sprint: 7, project: 8});
 angular.module('agiloBoardsApp').constant('AGILO_KEYWORDS', [
     {
+        type:  'on hold',
         regex: /on hold/gi,
         color: 'red'
     },
     {
+        type:  'clean up',
         regex: /clean[- ]up/gi,
         color: 'orange'
     },
     {
+        type:  'depends on',
         regex: /depends on/gi,
         color: 'green'
     },
     {
+        type:  'important',
         regex: /importan/gi,
         color: 'blue'
     }

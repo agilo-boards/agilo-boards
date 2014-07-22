@@ -1,4 +1,4 @@
-$icon-font-path: '/fonts/'; 
+$icon-font-path: './fonts/'; 
 @import '../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
 
 body {
@@ -10,7 +10,6 @@ a {
 a:hover {
     text-decoration: none
 }
-
 .fade-out {
     opacity: 0.5;
 }

@@ -195,7 +195,7 @@ module.exports = function (grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/styles/fonts/*'
+                        //'<%= yeoman.dist %>/styles/fonts/*'
                     ]
                 }
             }
@@ -232,7 +232,7 @@ module.exports = function (grunt) {
         // The following *-min tasks produce minified files in the dist folder
         cssmin: {
             options: {
-                root: '<%= yeoman.app %>'
+                root: '.tmp'
             }
         },
 
@@ -484,14 +484,14 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
-        'concat',
-        'ngmin',
+        //'concat',
+        //'ngmin',
         'copy:dist',
         'cdnify',
         'cssmin',
-        'uglify',
-        'rev',
-        'usemin',
+        //'uglify',
+        //'rev',
+        //'usemin',
         'htmlmin'
     ]);
 

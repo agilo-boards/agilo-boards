@@ -207,11 +207,17 @@ div.error {
     }
 }
 
+.task-card .glyphicon {
+    font-size: 1em;
+}
+.story-card .glyphicon {
+    font-size: 1.5em;
+}
 .story-with-postits {
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 .story-card.compact-mode .centered {
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 .postits {
     position: relative;
@@ -228,15 +234,17 @@ div.error {
     color: white;
     font: "Comic Sans MS";
     font-size: 1em;
-    font-weight: bolder;
-    padding: 5px 5px 10px 5px;
-    width: 75px;
-    height: 35px;
+    padding: 3px;
+    width: 90px;
+    height: 30px;
     vertical-align: middle;
     text-align: center;
     float: left;
     box-shadow: 5px 5px 2px #888888;
     margin-right: 10px;
+}
+.postit-twolines {
+    height: 50px;
 }
 .row {
     margin: 0px;

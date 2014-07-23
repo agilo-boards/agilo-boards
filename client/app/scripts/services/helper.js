@@ -78,7 +78,7 @@ angular.module('agiloBoardsApp')
         },
         /* Normal */
         {
-            regex: /(^|\s)(\w+)/g,
+            regex: /(^|\s)([^\]\s;,]+)/g,
             group: 2
         }
     ];

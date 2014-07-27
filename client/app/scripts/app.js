@@ -2,6 +2,11 @@
 
 angular.module('scrumboards.agiloServices', [
     'scrumboards.helpers',
+    'scrumboards.models',
+    'scrumboards.config'
+]);
+angular.module('scrumboards.models', [
+    'scrumboards.helpers',
     'scrumboards.config'
 ]);
 angular.module('scrumboards.helpers', [

@@ -1,19 +1,11 @@
 'use strict';
 
 angular.module('scrumboards')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, DataService, AGILO_URL, ObjToArrayConverter, UpdateTicketService, AGILO_KEYWORDS) {
+    .controller('ScrumboardCtrl', function ($scope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter, UpdateTicketService, AGILO_KEYWORDS) {
         $scope.keywordTypes = {};       
         ObjToArrayConverter.convert(AGILO_KEYWORDS).forEach(function(keywordPattern) {
             $scope.keywordTypes[keywordPattern.type] = true;
         });
-        $scope.isNotFilteredByKeyword = function(story) {
-            return !story.keywords.some(function(keyword) {
-                if (keyword.type) {
-                    return !$scope.keywordTypes[keyword.type];
-                }
-                return false;
-            });
-        };
         
         var sprints = DataService.getSprints();
         $scope.sprints = {};
@@ -24,7 +16,6 @@ angular.module('scrumboards')
                     return element.name === preselectedSprint;
                 })[0];
             }
-
             $scope.$watch('sprints.selectedSprint', function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     $location.search('sprint', newValue.name);
@@ -44,21 +35,9 @@ angular.module('scrumboards')
         });
         
         
-        function setupSyncToLocalStorage(model, isBoolean) {
-            var value = localStorage.getItem('scrumboards-'+model);
-            if (isBoolean) {
-                value = value === 'true';
-            }
-            $scope[model] = value;
-            $scope.$watch(model, function (newValue, oldValue) {
-                if (newValue !== oldValue) {
-                    localStorage.setItem('scrumboards-'+model, newValue);
-                }
-            });
-        }
-        setupSyncToLocalStorage('compactMode', true);
-        setupSyncToLocalStorage('ownerMode', true);
-        setupSyncToLocalStorage('selectedOwner');
+        Synchronizer.syncToLocalStorage($scope, 'compactMode', true);
+        Synchronizer.syncToLocalStorage($scope, 'ownerMode', true);
+        Synchronizer.syncToLocalStorage($scope, 'selectedOwner');
 
         $scope.$on('story-dragged', function (e, src, dest) {
             var storyId = src.id;
@@ -88,13 +67,8 @@ angular.module('scrumboards')
             var stories = DataService.getStoriesBySprint(selectedSprint.name);
             stories.then(function (result) {
                 $scope.stories = ObjToArrayConverter.convert(result.data);
-                $scope.stories.map(enrichStory);
-                $scope.allTimeDone = sum($scope.stories, function (story) {
-                    return story.timeDone;
-                });
-                $scope.allTimeRemaining = sum($scope.stories, function (story) {
-                    return story.timeRemaining;
-                });
+                $scope.allTimeDone = TimeHelper.sumTimeDone($scope.stories);
+                $scope.allTimeRemaining = TimeHelper.sumTimeRemaining($scope.stories);
                 $scope.owners = ObjToArrayConverter.convert(collectOwners($scope.stories));
             }, function (error) {
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
@@ -110,39 +84,10 @@ angular.module('scrumboards')
             });
             return owners;
         }
-
-        function enrichStory(story) {
-            story.timeRemaining = sum(story.tasks, function (task) {
-                return task.timeRemaining;
-            });
-            story.timeDone = sum(story.tasks, function (task) {
-                return task.timeDone;
-            });
-            return story;
-        }
         
         $scope.getDashboardUrl = function () {
-            return AGILO_URL + '/dashboard';
+            return LinkProvider.dashboardUrl;
         };
-
-        $scope.getNewTaskUrl = function (story) {
-            return AGILO_URL + '/newticket?src=' + story.id + '&amp;project=' + encodeURI(story.project) + '&amp;milestone=' + encodeURI(story.release) + '&amp;owner=&amp;sprint=' + encodeURI(story.sprint) + '&amp;type=task';
-        };
-
-        $scope.isStoryNew = function (story) {
-            return story.status !== 'closed' && story.status !== 'assigned';
-        };
-
-        function sum(array, method) {
-            var total = 0;
-            angular.forEach(array, function (item) {
-                var num = parseFloat(method(item));
-                if (num && (num >= 0 || num < 0)) {
-                    total += num;
-                }
-            });
-            return total;
-        }
 
         $scope.doesNotMatchesSelectedOwner = function (story) {
             if (!$scope.ownerMode) {
@@ -152,10 +97,14 @@ angular.module('scrumboards')
         };
 
         $scope.orderBySelectedOwner = function (story) {
-            if ($scope.doesNotMatchesSelectedOwner(story)) {
+            if ($scope.ownerMode && $scope.doesNotMatchesSelectedOwner(story)) {
                 return 1;
             } else {
                 return 0;
             }
+        };
+        
+        $scope.isNotFilteredByKeyword = function(story) {
+            return !story.containsAnyFilteredKeywordTypes($scope.keywordTypes);
         };
     });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-.service('DataService', function (AgiloService) {
+.service('DataService', function (AgiloService, Story, Task) {
         
     function groupStoriesByProject(items) {
         var projects = {};
@@ -9,7 +9,7 @@ angular.module('scrumboards')
             if (!projects.hasOwnProperty(item.project)) {
                 projects[item.project] = [];
             }
-            projects[item.project].push(item);
+            projects[item.project].push(Story.new(item));
         });
         return {
             projects: projects
@@ -20,10 +20,10 @@ angular.module('scrumboards')
         var stories = {};
         items.data.forEach(function (item) {
             if (item.type === 'story') {
-                stories[item.id] = item;
+                stories[item.id] = Story.new(item);
                 stories[item.id].tasks = items.data.filter(function (otherItem) {
                     return otherItem.type === 'task' && otherItem.parentId === item.id;
-                });
+                }).map(Task.new);
             }
         });
         return {

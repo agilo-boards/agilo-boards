@@ -1,23 +1,14 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('links', function (AGILO_URL) {
+.directive('links', function () {
     return {
         restrict: 'E',
         templateUrl: 'templates/links.html',
         compactMode: '@',
         scope: {
-            storyId: '=',
+            ticket: '=',
             compactMode: '='
-        },
-        link: function (scope) {
-            scope.getViewTicketUrl = function (id) {
-                return AGILO_URL + '/ticket/' + id;
-            };
-
-            scope.getEditTicketUrl = function (id) {
-                return scope.getViewTicketUrl(id) + '?pane=edit';
-            };
         }
     };
 });

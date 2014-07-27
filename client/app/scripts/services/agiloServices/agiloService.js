@@ -36,15 +36,6 @@ angular.module('scrumboards.agiloServices')
         return 0;
     }
 
-    function progress(story) {
-        if (story.status === 'accepted' || story.status === 'assigned') {
-            return 'in progress';
-        } else if (story.status === 'closed') {
-            return 'done';
-        }
-        return 'new';
-    }
-
     return {
         getSprints: function () {
             return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getSprints({}), AGILO_REPORT_MAPPING_SPRINTS, {
@@ -56,8 +47,7 @@ angular.module('scrumboards.agiloServices')
             return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, {
                 keywords: parseKeywords,
                 timeRemaining: parseHoursOrInvalid,
-                timeDone: parseHours,
-                progress: progress
+                timeDone: parseHours
             });
         },
         getReleases: function () {

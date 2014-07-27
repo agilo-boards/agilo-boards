@@ -12,7 +12,7 @@
             <span ng-show="task.timeRemaining === 0">
                 {{task.timeDone}} h
             </span>
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{task.timeDone}}" aria-valuemin="0" aria-valuemax="{{getTotalTime(task)}}" ng-style="{width: getPercentage(task)+'%' }">
+            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{getTotalTime(task)}}" ng-style="{width: getPercentage(task)+'%' }">
                 &nbsp;
             </div>
         </div>

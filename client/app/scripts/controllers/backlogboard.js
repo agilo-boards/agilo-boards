@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('agiloBoardsApp')
-    .controller('BacklogboardCtrl', function ($scope, $location, $window, Agilo) {
-        var releasePromise = Agilo.getReleases();
+angular.module('scrumboards')
+    .controller('BacklogboardCtrl', function ($scope, $location, $window, DataService) {
+        var releasePromise = DataService.getReleases();
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 $location.search('release', newValue.name);
@@ -31,7 +31,7 @@ angular.module('agiloBoardsApp')
         };
         
         function loadStories(selectedRelease) {
-            var storiesPromise = Agilo.getStoriesByRelease(selectedRelease.name);
+            var storiesPromise = DataService.getStoriesByRelease(selectedRelease.name);
             storiesPromise.then(function (result) {
                 $scope.projects = result.projects;
             }, function (error) {

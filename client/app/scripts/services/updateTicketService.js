@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('agiloBoardsApp')
+angular.module('scrumboards')
     .service('UpdateTicketService', function (UpdateTicketResource) {
 
         function sendCloseTicket(currentTicket, callback) {

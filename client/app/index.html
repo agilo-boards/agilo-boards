@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="agiloBoardsApp">
+  <body ng-app="scrumboards">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -53,15 +53,21 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/config.js"></script>
-    <script src="scripts/services/agiloServices.js"></script>
-    <script src="scripts/services/agiloBusinessLogic.js"></script>
-    <script src="scripts/services/helper.js"></script>
+    <script src="scripts/services/dataService.js"></script>
     <script src="scripts/services/restResources.js"></script>
     <script src="scripts/services/updateTicketService.js"></script>
+    <script src="scripts/services/agiloServices/agiloService.js"></script>
+    <script src="scripts/services/agiloServices/agiloUnformattedService.js"></script>
+    <script src="scripts/services/helper/keywordParser.js"></script>
+    <script src="scripts/services/helper/objToArrayConverter.js"></script>
+    <script src="scripts/services/helper/tsvToJsonConverter.js"></script>
     <script src="scripts/controllers/scrumboard.js"></script>
     <script src="scripts/controllers/backlogboard.js"></script>
-    <script src="scripts/directives/templates.js"></script>
+    <script src="scripts/directives/links.js"></script>
     <script src="scripts/directives/draggable.js"></script>
+    <script src="scripts/directives/scaleToFit.js"></script>
+    <script src="scripts/directives/story.js"></script>
+    <script src="scripts/directives/task.js"></script>
     <!-- endbuild -->
 </body>
 </html>

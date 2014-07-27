@@ -2,7 +2,7 @@
 
 describe('Service: ObjToArrayConverter', function () {
 
-    beforeEach(module('agiloBoardsApp'));
+    beforeEach(module('scrumboards.helpers'));
 
     var converter;
     beforeEach(inject(function (_ObjToArrayConverter_) {
@@ -21,13 +21,13 @@ describe('Service: ObjToArrayConverter', function () {
     });
 });
 
-describe('Service: TSVtoJSONConverter', function () {
+describe('Service: TsvToJsonConverter', function () {
 
-    beforeEach(module('agiloBoardsApp'));
+    beforeEach(module('scrumboards.helpers'));
 
     var converter;
-    beforeEach(inject(function (_TSVtoJSONConverter_) {
-        converter = _TSVtoJSONConverter_;
+    beforeEach(inject(function (_TsvToJsonConverter_) {
+        converter = _TsvToJsonConverter_;
     }));
 
     it('should convert tsv with only a title line', function () {
@@ -56,7 +56,7 @@ describe('Service: TSVtoJSONConverter', function () {
 
 describe('Service: KeywordParser', function () {
 
-    beforeEach(module('agiloBoardsApp'));
+    beforeEach(module('scrumboards.helpers'));
 
     var keywordParser;
     beforeEach(inject(function (_KeywordParser_) {

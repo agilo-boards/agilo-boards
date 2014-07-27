@@ -3,7 +3,7 @@
 describe('Directive: Story', function () {
 
     // load the controller's module
-    beforeEach(module('agiloBoardsApp'));
+    beforeEach(module('scrumboards'));
 
     var scope,
         UpdateTicketService,
@@ -17,7 +17,7 @@ describe('Directive: Story', function () {
         UpdateTicketService = _UpdateTicketService_;        
         httpBackend = _$httpBackend_;
         
-        var html = '<agilo-story story="story"></agilo-story>';
+        var html = '<story story="story"></story>';
         httpBackend.whenGET('templates/story.html').respond('<div>Story</div>');
         elem = $compile(html)(scope);
         scope.$digest();
@@ -28,7 +28,7 @@ describe('Directive: Story', function () {
 
     describe('isStoryClosable', function () {
         it('returns true for stories that have sate "assigned"', function () {
-        controller = elem.controller('agiloStory');
+            controller = elem.controller('agiloStory');
             expect(scope.isStoryClosable({status: 'assigned'})).toBeTruthy();
         });
 

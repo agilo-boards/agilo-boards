@@ -1,11 +1,22 @@
 'use strict';
 
+angular.module('scrumboards.agiloServices', [
+    'scrumboards.helpers',
+    'scrumboards.config'
+]);
+angular.module('scrumboards.helpers', [
+    'scrumboards.config'
+]);
+
 angular
-    .module('agiloBoardsApp', [
+    .module('scrumboards', [
         'ngCookies',
         'ngResource',
         'ngSanitize',
-        'ngRoute'
+        'ngRoute',
+        'scrumboards.helpers',
+        'scrumboards.agiloServices',
+        'scrumboards.config'
     ])
     .config(function ($routeProvider) {
         $routeProvider

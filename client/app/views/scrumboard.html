@@ -64,28 +64,28 @@
 
 <div class="container-fluid board">
     <div class="row" ng-model="stories">
-        <div class="col-md-5 swimlane" id="todo" agilo-dropable agilo-on-drag-over="onDragOver(['reopened', 'new'], event, id)">
+        <div class="col-md-5 swimlane" id="todo" dropable on-drag-over="onDragOver(['reopened', 'new'], event, id)">
             <h2>To Do</h2>
 			<span id="col-todo">
-				<agilo-story-with-tasks ng-repeat="story in todoStories = (stories | filter:{progress: 'new'} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="story-{{story.id}}">
-				</agilo-story-with-tasks>
+				<story-with-tasks ng-repeat="story in todoStories = (stories | filter:{progress: 'new'} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="story-{{story.id}}">
+				</story-with-tasks>
                 <div class="information-text" ng-show="todoStories.length == 0">No stories</div>
 			</span>
         </div>
-        <div class="col-md-5 swimlane" id="inprogress" agilo-dropable agilo-on-drag-over="onDragOver(['assigned'], event, id)">
+        <div class="col-md-5 swimlane" id="inprogress" dropable on-drag-over="onDragOver(['assigned'], event, id)">
             <h2>In Progress</h2>
 			<span id="col-inprogress">
-                <agilo-story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{progress: 'in progress'} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="story-{{story.id}}">
-                </agilo-story-with-tasks>
+                <story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{progress: 'in progress'} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="story-{{story.id}}">
+                </story-with-tasks>
                 <div class="information-text" ng-show="inprogressStories.length == 0">No stories</div>
             </span>
         </div>
-        <div class="col-md-2 swimlane" id="done" agilo-dropable agilo-on-drag-over="onDragOver(['closed'], event, id)">
+        <div class="col-md-2 swimlane" id="done" dropable on-drag-over="onDragOver(['closed'], event, id)">
             <h2>Done</h2>
 			<span id="col-done">
                 <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{progress:'done'} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}" id="story-{{story.id}}">
-                    <agilo-story story="story" compact-mode="compactMode">
-                    </agilo-story>
+                    <story story="story" compact-mode="compactMode">
+                    </story>
                 </div>
                 <div class="information-text" ng-show="doneStories.length == 0">No stories</div>
             </span>

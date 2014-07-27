@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('agiloBoardsApp')
-    .factory('AgiloUnformatted', function($q, $http, AGILO_URL, AGILO_REPORTS) {
+angular.module('scrumboards.agiloServices')
+    .factory('AgiloUnformattedService', function($q, $http, AGILO_URL, AGILO_REPORTS) {
         function getHttpResponse(url, errorMsg, params) {
             var deferredResult = $q.defer();
             $http({

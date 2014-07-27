@@ -1,15 +1,15 @@
 'use strict';
 
-describe('Service: Agilo Service', function () {
+describe('Service: Data Service', function () {
 
     // load the controller's module
-    beforeEach(module('agiloBoardsApp'));
+    beforeEach(module('scrumboards'));
 
     var agilo, httpBackend, TestData;
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function (_Agilo_, _$httpBackend_, _TestData_) {
-        agilo = _Agilo_;
+    beforeEach(inject(function (_DataService_, _$httpBackend_, _TestData_) {
+        agilo = _DataService_;
         httpBackend = _$httpBackend_;
         TestData = _TestData_;
 

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('agiloBoardsApp')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, Agilo, AGILO_URL, ObjToArrayConverter, UpdateTicketService, AGILO_KEYWORDS) {
+angular.module('scrumboards')
+    .controller('ScrumboardCtrl', function ($scope, $location, $window, DataService, AGILO_URL, ObjToArrayConverter, UpdateTicketService, AGILO_KEYWORDS) {
         $scope.keywordTypes = {};       
         ObjToArrayConverter.convert(AGILO_KEYWORDS).forEach(function(keywordPattern) {
             $scope.keywordTypes[keywordPattern.type] = true;
@@ -15,7 +15,7 @@ angular.module('agiloBoardsApp')
             });
         };
         
-        var sprints = Agilo.getSprints();
+        var sprints = DataService.getSprints();
         $scope.sprints = {};
         sprints.then(function (sprints) {
             var preselectedSprint = $location.search()['sprint'] || localStorage.getItem('selectedSprint');
@@ -45,14 +45,14 @@ angular.module('agiloBoardsApp')
         
         
         function setupSyncToLocalStorage(model, isBoolean) {
-            var value = localStorage.getItem('agilo-'+model);
+            var value = localStorage.getItem('scrumboards-'+model);
             if (isBoolean) {
                 value = value === 'true';
             }
             $scope[model] = value;
             $scope.$watch(model, function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    localStorage.setItem('agilo-'+model, newValue);
+                    localStorage.setItem('scrumboards-'+model, newValue);
                 }
             });
         }
@@ -60,14 +60,14 @@ angular.module('agiloBoardsApp')
         setupSyncToLocalStorage('ownerMode', true);
         setupSyncToLocalStorage('selectedOwner');
 
-        $scope.$on('agilo-dragged', function (e, src, dest) {
+        $scope.$on('story-dragged', function (e, src, dest) {
             var storyId = src.id;
             var story = $scope.stories.filter(function (story) {
                 return story.id === storyId;
             })[0];
             if (dest.id === 'done') {
                 UpdateTicketService.closeTicket(story, function () {
-                    $scope.$emit('agiloReloadBoard');
+                    $scope.$emit('reloadBoard');
                 });
             }
 		});
@@ -78,14 +78,14 @@ angular.module('agiloBoardsApp')
         };
 
         $scope.reload = function () {
-            $scope.$emit('agiloReloadBoard');
+            $scope.$emit('reloadBoard');
         };
-        $scope.$on('agiloReloadBoard', function () {
+        $scope.$on('reloadBoard', function () {
             loadStories($scope.sprints.selectedSprint);
         });
 
         function loadStories(selectedSprint) {
-            var stories = Agilo.getStoriesBySprint(selectedSprint.name);
+            var stories = DataService.getStoriesBySprint(selectedSprint.name);
             stories.then(function (result) {
                 $scope.stories = ObjToArrayConverter.convert(result.data);
                 $scope.stories.map(enrichStory);

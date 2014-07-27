@@ -3,7 +3,7 @@
 describe('Controller: ScrumboardCtrl', function () {
 
     // load the controller's module
-    beforeEach(module('agiloBoardsApp'));
+    beforeEach(module('scrumboards'));
 
     var ScrumboardCtrl,
         $scope,

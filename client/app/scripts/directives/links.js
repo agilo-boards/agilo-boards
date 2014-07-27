@@ -5,7 +5,6 @@ angular.module('scrumboards')
     return {
         restrict: 'E',
         templateUrl: 'templates/links.html',
-        compactMode: '@',
         scope: {
             ticket: '=',
             compactMode: '='

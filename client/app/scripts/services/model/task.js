@@ -16,6 +16,14 @@ angular.module('scrumboards.models')
     Task.new = function(data) {
         return new Task(data);
     };
+
+    Task.prototype.totalTime = function () {
+        return this.timeDone+this.timeRemaining;
+    };
+
+    Task.prototype.isOnGoing = function () {
+        return this.timeRemaining === null;
+    };
     
     Task.prototype.getViewTicketUrl = function () {
         return LinkProvider.viewTicket(this.id);

@@ -9,7 +9,7 @@ function Task(elem) {
     this.timeDone = new pageObjects.Field(elem.element(by.className('task-time-done')), 'Done: ', ' h');
     this.timeRemaining = new pageObjects.Field(elem.element(by.className('task-time-remaining')), 'Remaining: ', ' h');
     this.titleCompact = new pageObjects.Field(elem.element(by.className('task-compact-title')));
-    this.timeCompact = new pageObjects.Field(elem.element(by.className('task-compact-time')));
+    this.timeCompact = new pageObjects.Field(elem.element(by.className('progress')));
 }
 util.inherits(Task, pageObjects.PageObject);
 

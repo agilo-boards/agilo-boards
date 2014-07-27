@@ -5,17 +5,7 @@
         <span class="task-time-done">Done: {{task.timeDone || 0}} h</span> - <span class="task-time-remaining">Remaining: {{task.timeRemaining || 0}} h</span>
     </span>
     <span ng-show="compactMode">
-        <div class="progress" ng-class="{'progress-striped': isOnGoing(task)}">
-            <span class="task-compact-time" ng-hide="task.timeRemaining === 0">
-                {{task.timeDone || 0}} / {{getTotalTime(task)}} h
-            </span>
-            <span ng-show="task.timeRemaining === 0">
-                {{task.timeDone}} h
-            </span>
-            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{getTotalTime(task)}}" ng-style="{width: getPercentage(task)+'%' }">
-                &nbsp;
-            </div>
-        </div>
+        <progress-bar ticket="task"></progress-bar>
         <div style="display: inline" class="task-compact-title">
             {{task.title}}
         </div>

@@ -30,6 +30,14 @@ angular.module('scrumboards.models')
     Story.prototype.timeRemaining = function () {
         return TimeHelper.sumTimeRemaining(this.tasks);
     };
+
+    Story.prototype.totalTime = function () {
+        return this.timeDone()+this.timeRemaining();
+    };
+
+    Story.prototype.isOnGoing = function () {
+        return this.timeRemaining() === null;
+    };
     
     Story.prototype.getNewTaskUrl = function () {
         return LinkProvider.createNewTaskForStory(this);

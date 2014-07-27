@@ -1,0 +1,11 @@
+<div class="progress" ng-class="{'progress-striped': ticket.isOnGoing()}">
+    <span ng-hide="timeRemaining === 0">
+        {{timeDone || 0}} / {{ticket.totalTime()}} h
+    </span>
+    <span ng-show="timeRemaining === 0">
+        {{timeDone}} h
+    </span>
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{task.totalTime()}}" ng-style="{width: getPercentage(task)+'%' }">
+        &nbsp;
+    </div>
+</div>

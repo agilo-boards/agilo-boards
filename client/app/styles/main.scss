@@ -5,10 +5,11 @@ body {
   padding-top: 40px;
 } 
 a {
-    cursor: pointer
-}
-a:hover {
-    text-decoration: none
+    cursor: pointer;
+        
+    &:hover {
+        text-decoration: none
+    }
 }
 .fade-out {
     opacity: 0.5;
@@ -51,19 +52,97 @@ div.error {
         0 0 0 3px #E8E8BF;
 	margin-bottom: 15px;
     display: block;
-}
-.story-card div.story-center:after{
-    clear: both;
-    content: "";
-    display: block;
-}
-.story-card div.footer, .story-card div.header {
-    text-align: left;
-}   
+    
+    &:hover {
+        background-color: #FFFFCC;
+        box-shadow: 0 0 0 3px #e2e254;
+    }
+    
+    .story-number {
+        font-weight: bold;
+        font-size: 1.5em;
+        margin-top: 0.8em;
+        margin-bottom: 0.3em;
+    }
 
-.story-card:hover {
-	background-color: #FFFFCC;
-    box-shadow: 0 0 0 3px #e2e254;
+    .story-title {
+        font-size: 1.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.8em;
+    }
+    .story-owner-image {
+        margin: 0.8em 0.8em 0.8em 0.8em;
+        width: 80px;
+        min-height: 80px;
+        float: left;
+        vertical-align: middle;
+        display: inline-block;
+        text-align: center;
+        border-radius: 4px;
+        border: solid 1px grey;
+        background-image: url("../images/team/unknown.jpg");
+        background-size: contain;
+    }
+
+    .story-owner-image img, .story-owner-image object {
+        width: 100%;
+    }
+    
+    .glyphicon {
+        font-size: 1.5em;
+    }
+    .compact-mode .centered {
+        margin-bottom: 25px;
+    }
+    
+    div.story-center:after{
+        clear: both;
+        content: "";
+        display: block;
+    }
+    div.footer, .story-card div.header {
+        text-align: left;
+    }   
+}
+
+.story-with-postits {
+    margin-bottom: 35px;
+    
+    .postits {
+        position: relative;
+        left: 50px;
+        top: -20px;
+        
+        
+        .postit {
+            border-radius: 2px;
+            border: solid 1px grey;
+            background-color: #ff60df;
+            color: white;
+            font: "Comic Sans MS";
+            font-size: 1em;
+            padding: 3px;
+            width: 90px;
+            height: 30px;
+            vertical-align: middle;
+            text-align: center;
+            float: left;
+            box-shadow: 5px 5px 2px #888888;
+            margin-right: 10px;
+            
+            .postit-twolines {
+                height: 50px;
+            }
+        }
+    }
+    .compact-mode {
+        .postits {
+            left: 110px;
+        }
+        .postits {
+            left: 110px;
+        }
+    }
 }
 
 .task-card {
@@ -75,56 +154,73 @@ div.error {
         0 0 0 3px #A9A9F5;
 	margin-bottom: 10px;
 	font-size: 1.1em;
+    
+    &:hover {
+        background-color: #d4d4ef;
+        box-shadow: 0 0 0 3px #8a8aaf;
+        cursor: pointer
+    }
+    
+    .add-time {
+        border: 3px solid #696969;
+        color: #696969;
+        border-radius: 4px;
+        background-color: #b2b2bc;
+        padding: 2px 6px 2px 6px;
+        margin: -10px 0px 0px 0px;
+        
+        &.compactMode {
+            padding: 3px 4px 3px 4px;
+            margin: -4px 5px 0px 0px;
+            border-width: 2px;
+            font-size: 0.8em;
+        }
+        
+        
+        &:hover {
+            color: #4e4e4e;
+            border-color: #4e4e4e;
+        }
+    }
+    
+    .glyphicon {
+        font-size: 1em;
+    }
 }
 
-.task-card:hover {
-	background-color: #d4d4ef;
-    box-shadow: 0 0 0 3px #8a8aaf;
-    cursor: pointer
-}
-
-.task-card .progress {
+.progress {
     float: right;
+    position: relative;
     text-align: center;
     background-color: #b4b4b4;
     width: 80px;
     height: 100%;
-    position: relative;
     margin-bottom: 0px;
 	font-size: 0.9em;
+    
+    div {
+        background-color: #7b7979;
+        height: 100%;
+    }
+    span {
+        position: absolute;
+        display: block;
+        width: 100%;
+        color: black;
+        color: #ffffff;
+    }
+    &.progress-striped div {
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.25) 25%, 
+            transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, 
+            rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent);
+    }
 }
-.task-card .progress div {
-    background-color: #7b7979;
-    height: 100%;
-}
-.task-card .progress-striped div {
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent);
-}
-.task-card .progress span {
-    position: absolute;
-    display: block;
-    width: 100%;
-    color: black;
-    color: #ffffff;
- }
 
 .centered {
 	text-align: center;
 	text-align: center;
 }
 
-.story-number {
-	font-weight: bold;
-	font-size: 1.5em;
-	margin-top: 0.8em;
-	margin-bottom: 0.3em;
-}
-
-.story-title {
-	font-size: 1.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.8em;
-}
 
 .information-text {
 	font-style: italic;
@@ -133,23 +229,6 @@ div.error {
 	margin-bottom: 0.8em;
 }
 
-.story-owner-image {
-	margin: 0.8em 0.8em 0.8em 0.8em;
-	width: 80px;
-    min-height: 80px;
-    float: left;
-    vertical-align: middle;
-    display: inline-block;
-    text-align: center;
-	border-radius: 4px;
-	border: solid 1px grey;
-    background-image: url("../images/team/unknown.jpg");
-    background-size: contain;
-}
-
-.story-owner-image img, .story-owner-image object {
-    width: 100%;
-}
 
 .space-bottom {
 	margin-bottom: 1em;
@@ -169,36 +248,29 @@ div.error {
     cursor: pointer;
     color: #428bca;
 }
-@media (max-width: 1500px) and (min-width: 992px) {
-    .swimlane {
-        width: 33%;
+
+.swimlane {
+    .drag-area-entered {
+        border-radius: 15px;
+        background-color: #ebebeb;
     }
-}
-@media (max-width: 1200px) {
-    .hide-when-small {
-        display: none;
+    .drag-area-left {
+        background-color: #FFF;
+        transition: background-color 1000ms linear;
+        border-radius: 15px;
     }
 }
 
-@media (min-height: 500px) {
-    .swimlane {
-        min-height: 400px;
+.swimlane {
+    @media (min-height: 500px) {
+        & { min-height: 400px; }
     }
-}
-
-@media (min-height: 800px) {
-    .swimlane {
-        min-height: 700px;
+    @media (min-height: 800px) {
+        & { min-height: 700px; }
     }
-}
-.swimlane.drag-area-entered {
-    border-radius: 15px;
-    background-color: #ebebeb;
-}
-.swimlane.drag-area-left {
-    background-color: #FFF;
-    transition: background-color 1000ms linear;
-    border-radius: 15px;
+    @media (max-width: 1500px) and (min-width: 992px) {
+        & { width: 33%; }
+    }
 }
 
 @media (min-width: 1500px) {
@@ -207,45 +279,12 @@ div.error {
     }
 }
 
-.task-card .glyphicon {
-    font-size: 1em;
+@media (max-width: 1200px) {
+    .hide-when-small {
+        display: none;
+    }
 }
-.story-card .glyphicon {
-    font-size: 1.5em;
-}
-.story-with-postits {
-    margin-bottom: 35px;
-}
-.story-card.compact-mode .centered {
-    margin-bottom: 25px;
-}
-.postits {
-    position: relative;
-    left: 50px;
-    top: -20px;
-}
-.compact-mode .postits {
-    left: 110px;
-}
-.postit {
-    border-radius: 2px;
-    border: solid 1px grey;
-    background-color: #ff60df;
-    color: white;
-    font: "Comic Sans MS";
-    font-size: 1em;
-    padding: 3px;
-    width: 90px;
-    height: 30px;
-    vertical-align: middle;
-    text-align: center;
-    float: left;
-    box-shadow: 5px 5px 2px #888888;
-    margin-right: 10px;
-}
-.postit-twolines {
-    height: 50px;
-}
+
 .row {
     margin: 0px;
 }

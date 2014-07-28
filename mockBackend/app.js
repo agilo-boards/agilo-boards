@@ -17,6 +17,11 @@ app.use(function (req, res, next) {
 // Needed to read payload of POST requests
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 
+app.post('/agilo/eorders/reset', function (req, res) {
+    agiloData.reset();
+    res.send('Successfully resetted');
+});
+        
 // Stories and Tasks
 app.get('/agilo/eorders/report/103', function (req, res) {
     var url_parts = url.parse(req.url, true);

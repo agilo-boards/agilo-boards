@@ -67,9 +67,18 @@ Checkbox.prototype.toggle = function() {
     this.elem.click();
 };
 
+function Button(elem) {
+    PageObject.call(this, elem);
+}
+util.inherits(Button, PageObject);
+Button.prototype.click = function() {
+    this.elem.click();
+};
+
 module.exports = {
     Select: Select,
     Field: Field,
     Checkbox: Checkbox,
+    Button: Button,
     PageObject: PageObject
 };

@@ -10,6 +10,8 @@ function Task(elem) {
     this.timeRemaining = new pageObjects.Field(elem.element(by.className('task-time-remaining')), 'Remaining: ', ' h');
     this.titleCompact = new pageObjects.Field(elem.element(by.className('task-compact-title')));
     this.timeCompact = new pageObjects.Field(elem.element(by.className('progress')));
+    
+    //this.addTimeBtn = new pageObjects.Button(elem.element(by.className('add-time')));
 }
 util.inherits(Task, pageObjects.PageObject);
 
@@ -26,7 +28,7 @@ Task.prototype.assertTime = function (timeDone, timeRemaining, compactMode) {
         this.timeDone.assertToBe(timeDone);
         this.timeRemaining.assertToBe(timeRemaining);
     } else {
-        this.timeCompact.assertToBe(timeDone + ' / '+ (timeRemaining+timeDone) + ' h');
+        this.timeCompact.assertToStartWith(timeDone + ' / '+ (timeRemaining+timeDone) + ' h');
     }
 };
 

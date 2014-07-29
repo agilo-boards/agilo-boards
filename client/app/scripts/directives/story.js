@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('story', function (UpdateTicketService) {
+.directive('story', function (UpdateTicketService, ExperimentalService) {
     return {
         restrict: 'E',
         templateUrl: 'templates/story.html',
@@ -9,6 +9,9 @@ angular.module('scrumboards')
             backlogMode: '@',
             compactMode: '=',
             story: '='
+        },
+        link: function($scope) {
+            $scope.experimental = ExperimentalService.isEnabled();
         },
         controller: function ($scope) {
             $scope.isStoryClosable = function (story) {

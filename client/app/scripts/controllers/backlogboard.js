@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-    .controller('BacklogboardCtrl', function ($scope, $location, $window, DataService, UpdateTicketService) {
+    .controller('BacklogboardCtrl', function ($scope, $filter, $location, $window, DataService, UpdateTicketService) {
         var releasePromise = DataService.getReleases();
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {
@@ -36,14 +36,16 @@ angular.module('scrumboards')
         function loadStories(selectedRelease) {
             var storiesPromise = DataService.getStoriesByRelease(selectedRelease.name);
             storiesPromise.then(function (result) {
-                $scope.projects = result.projects;
+                var projects = result.projects;
                 $scope.storyMap = {};
                 function addStoryToMap(story) {
                     $scope.storyMap[story.id] = story;
                 }
-                for (var project in $scope.projects) {
-                    $scope.projects[project].forEach(addStoryToMap);
+                
+                for (var project in projects) {
+                    projects[project].forEach(addStoryToMap);
                 }
+                $scope.projects = projects;
             }, function (error) {
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
@@ -62,6 +64,4 @@ angular.module('scrumboards')
                 $scope.$emit('reloadBoard');
             });
 		});
-
-
     });

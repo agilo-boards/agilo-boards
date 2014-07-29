@@ -12,9 +12,14 @@
                 #{{story.id}}
             </span>
             <links ticket="story" compact-mode="compactMode"></links>
-            <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && isStoryClosable(story) && experimental" ng-click="closeTicket(story)"></span>
+            <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && !backlogMode && isStoryClosable(story) && experimental" ng-click="closeTicket(story)"></span>
             <br/>
             <span class="story-title">{{story.title}}</span>
+            <span class="backlog-btns" ng-show="backlogMode">
+                <br/>            
+                <span class="glyphicon glyphicon-arrow-up link" ng-show="increasable && experimental" ng-click="increasePriority()"></span>
+                <span class="glyphicon glyphicon-arrow-down link" ng-show="decreasable && experimental" ng-click="decreasePriority()"></span>
+            </span>
             
         </div>
     </div>
@@ -22,11 +27,11 @@
         <span>
             {{story.storyPoints}} SP
         </span>
-        <span ng-show="backlogMode" class="pull-right">
-            {{story.seqNumber}}
-        </span>
         <span ng-hide="backlogMode" class="pull-right">
             done {{story.timeDone()}}h
+        </span>
+        <span ng-show="backlogMode" class="pull-right">
+            {{story.seqNumber}}
         </span>
     </footer>
     <div class="postits">

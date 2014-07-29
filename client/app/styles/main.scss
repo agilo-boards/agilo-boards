@@ -91,7 +91,7 @@ div.error {
     .glyphicon {
         font-size: 1.5em;
     }
-    .compact-mode .centered {
+    &.compact-mode .centered {
         margin-bottom: 25px;
     }
     
@@ -135,10 +135,7 @@ div.error {
             }
         }
     }
-    .compact-mode {
-        .postits {
-            left: 110px;
-        }
+    &.compact-mode {
         .postits {
             left: 110px;
         }

@@ -9,7 +9,7 @@ describe('Scrumboard', function() {
     beforeEach(function() {
         browser.driver.manage().window().setSize(1250, 800);
         //browser.post('http://127.0.0.1:3000/agilo/eorders/reset');
-        browser.get('http://127.0.0.1:8091/#/scrumboard');
+        browser.get('http://127.0.0.1:8091/#/scrumboard?experimental');
     });
     
     it('updates remaining time when selecting a different sprint', function(){

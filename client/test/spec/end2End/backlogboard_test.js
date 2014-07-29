@@ -7,7 +7,7 @@ describe('Backlog, select different releases in drop down', function() {
         browser.driver.manage().window().setSize(1250, 800);
         
         var navBar = new pages.backlogNavigationPage();
-        browser.get('http://127.0.0.1:8091/#/backlog');
+        browser.get('http://127.0.0.1:8091/#/backlog?experimental');
         var listOfReleases = [ 'Release 3', 'Release 2', 'Release 1' ];
         navBar.releases.assertOptions(listOfReleases);
 

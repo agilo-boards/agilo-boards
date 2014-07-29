@@ -585,7 +585,7 @@ module.exports.getTicket = function (ticketNumber) {
     debug('getTicket: ticketNumber = ' + ticketNumber);
 
     ticketNumber = parseInt(ticketNumber, 10);
-    var ticket = getTicketByNumber(ticketNumber);
+    var ticket = JSON.parse(JSON.stringify(getTicketByNumber(ticketNumber)));
     if (typeof ticket === 'undefined') {
         debug('ticket ' + ticketNumber + ' not found');
         return;

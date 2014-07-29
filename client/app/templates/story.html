@@ -22,6 +22,9 @@
         <span>
             {{story.storyPoints}} SP
         </span>
+        <span ng-show="backlogMode" class="pull-right">
+            {{story.seqNumber}}
+        </span>
         <span ng-hide="backlogMode" class="pull-right">
             done {{story.timeDone()}}h
         </span>

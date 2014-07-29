@@ -111,7 +111,7 @@ var sprints = [
     }
 ];
 
-var STORY_FIELDS_FOR_BACKLOG = ['id', 'summary', 'milestone', 'status', 'Detail Status', 'keywords', 'Story Points', 'Sprint', 'Project'];
+var STORY_FIELDS_FOR_BACKLOG = ['id', 'summary', 'milestone', 'status', 'Detail Status', 'keywords', 'Story Points', 'Sprint', 'Project', 'seqNumber'];
 
 var STORY_AND_TASK_FIELDS = ['id', 'type', 'summary', 'milestone', 'status', 'owner', 'keywords', 'Story Points', 'Work done', 'Remaining time', 'Sprint', 'Project', 'Story ID'];
 
@@ -155,7 +155,8 @@ function getStoriesAndTasks() {
             'Detail Status': DETAIL_STATUS_FEASIBILITY,
             owner: 'face',
             keywords: '[testing]',
-            Project: PROJECT_CLIENT_BACKLOG
+            Project: PROJECT_CLIENT_BACKLOG,
+            seqNumber: ''
         },
         {
             id: 1100,
@@ -168,7 +169,8 @@ function getStoriesAndTasks() {
             keywords: '[testing]',
             'Story Points': 3,
             Sprint: SPRINT_1_RELEASE_2,
-            Project: PROJECT_PREPARE_TESTDATA
+            Project: PROJECT_PREPARE_TESTDATA,
+            seqNumber: ''
         },
         {
             id: 1000,
@@ -181,7 +183,8 @@ function getStoriesAndTasks() {
             keywords: '[testing]',
             'Story Points': 2,
             Sprint: SPRINT_1_RELEASE_2,
-            Project: PROJECT_PREPARE_TESTDATA
+            Project: PROJECT_PREPARE_TESTDATA,
+            seqNumber: ''
         },
         {
             id: 1001,
@@ -194,7 +197,8 @@ function getStoriesAndTasks() {
             keywords: '[before camp]',
             'Story Points': 2,
             Sprint: SPRINT_2_RELEASE_2,
-            Project: PROJECT_CLIENT_INFRASTRUCTURE
+            Project: PROJECT_CLIENT_INFRASTRUCTURE,
+            seqNumber: ''
         },
         {
             id: 1002,
@@ -207,7 +211,8 @@ function getStoriesAndTasks() {
             keywords: '[before camp]',
             'Story Points': 2,
             Sprint: SPRINT_2_RELEASE_2,
-            Project: PROJECT_CLIENT_INFRASTRUCTURE
+            Project: PROJECT_CLIENT_INFRASTRUCTURE,
+            seqNumber: ''
         },
         {
             id: 1003,
@@ -220,7 +225,8 @@ function getStoriesAndTasks() {
             keywords: '',
             'Story Points': 1,
             Sprint: SPRINT_2_RELEASE_2,
-            Project: PROJECT_PREPARE_TESTDATA
+            Project: PROJECT_PREPARE_TESTDATA,
+            seqNumber: ''
         },
         {
             id: 1004,
@@ -233,7 +239,8 @@ function getStoriesAndTasks() {
             keywords: '[education]',
             'Story Points': 2,
             Sprint: SPRINT_2_RELEASE_2,
-            Project: PROJECT_READ_BOOKS
+            Project: PROJECT_READ_BOOKS,
+            seqNumber: ''
         },
         {
             id: 1005,
@@ -246,7 +253,8 @@ function getStoriesAndTasks() {
             keywords: '[important]',
             'Story Points': 3,
             Sprint: SPRINT_2_RELEASE_2,
-            Project: PROJECT_PREPARE_TESTDATA
+            Project: PROJECT_PREPARE_TESTDATA,
+            seqNumber: ''
         },
         {
             id: 1006,
@@ -258,7 +266,8 @@ function getStoriesAndTasks() {
             keywords: '[usability] [important]',
             'Story Points': 1,
             Sprint: SPRINT_2_RELEASE_2,
-            Project: PROJECT_CLIENT_SCRUMBOARD
+            Project: PROJECT_CLIENT_SCRUMBOARD,
+            seqNumber: ''
         },
         {
             id: 1007,
@@ -271,7 +280,8 @@ function getStoriesAndTasks() {
             keywords: '[important]',
             'Story Points': 3,
             Sprint: SPRINT_2_RELEASE_2,
-            Project: PROJECT_CREATE_AGILO_REPORTS
+            Project: PROJECT_CREATE_AGILO_REPORTS,
+            seqNumber: ''
         },
         {
             id: 2000,
@@ -365,7 +375,8 @@ function getStoriesAndTasks() {
             'Detail Status': DETAIL_STATUS_READY_FOR_ROUGH_ESTIMATION,
             keywords: '[story mapping]',
             'Story Points': 5,
-            Project: PROJECT_CLIENT_SCRUMBOARD
+            Project: PROJECT_CLIENT_SCRUMBOARD,
+            seqNumber: ''
         },
         {
             id: 3003,
@@ -376,7 +387,8 @@ function getStoriesAndTasks() {
             'Detail Status': DETAIL_STATUS_READY_FOR_DETAIL_ESTIMATION,
             keywords: '[story mapping]',
             'Story Points': 3,
-            Project: PROJECT_CLIENT_BACKLOG
+            Project: PROJECT_CLIENT_BACKLOG,
+            seqNumber: ''
         },
         {
             id: 3000,
@@ -387,7 +399,8 @@ function getStoriesAndTasks() {
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
             'Story Points': 4,
-            Project: PROJECT_CLIENT_BACKLOG
+            Project: PROJECT_CLIENT_BACKLOG,
+            seqNumber: ''
         },
         {
             id: 3001,
@@ -398,7 +411,8 @@ function getStoriesAndTasks() {
             'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
             keywords: '[story mapping]',
             'Story Points': 2,
-            Project: PROJECT_CLIENT_BACKLOG
+            Project: PROJECT_CLIENT_BACKLOG,
+            seqNumber: ''
         },
         {
             id: 2050,
@@ -420,7 +434,8 @@ function getStoriesAndTasks() {
             keywords: '[story mapping]',
             Sprint: SPRINT_1_RELEASE_1,
             'Story Points': 3,
-            Project: PROJECT_SETUP
+            Project: PROJECT_SETUP,
+            seqNumber: '454'
         },
         {
             id: 1102,
@@ -432,7 +447,8 @@ function getStoriesAndTasks() {
             keywords: '[story mapping]',
             Sprint: SPRINT_1_RELEASE_1,
             'Story Points': 2,
-            Project: PROJECT_SETUP
+            Project: PROJECT_SETUP,
+            seqNumber: ''
         },
         {
             id: 1105,
@@ -466,7 +482,8 @@ function getStoriesAndTasks() {
             keywords: '[story mapping]',
             Sprint: SPRINT_1_RELEASE_1,
             'Story Points': 1,
-            Project: PROJECT_SETUP
+            Project: PROJECT_SETUP,
+            seqNumber: '451'
         },
         {
             id: 1103,
@@ -478,7 +495,8 @@ function getStoriesAndTasks() {
             keywords: '[story mapping]',
             Sprint: SPRINT_1_RELEASE_1,
             'Story Points': 2,
-            Project: PROJECT_SETUP
+            Project: PROJECT_SETUP,
+            seqNumber: ''
         }
     ];
 }
@@ -559,7 +577,8 @@ module.exports.getStoriesAsInReport109 = function (release) {
 var mappedProperties = {
     'statedetail': 'Detail Status',
     'work_done': 'Work done',
-    'remaining_time': 'Remaining time'
+    'remaining_time': 'Remaining time',
+    'story_project_prio': 'seqNumber'
 };
 
 module.exports.getTicket = function (ticketNumber) {

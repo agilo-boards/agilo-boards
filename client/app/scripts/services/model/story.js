@@ -14,6 +14,7 @@ angular.module('scrumboards.models')
         this.storyPoints = data.storyPoints;
         this.sprint = data.sprint;
         this.project = data.project;
+        this.seqNumber = data.seqNumber;
         
         this.isInProgress = this.status === 'accepted' || this.status === 'assigned';
         this.isClosed = this.status === 'closed';

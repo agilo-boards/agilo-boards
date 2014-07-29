@@ -1,13 +1,16 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('task', function () {
+.directive('task', function ($location) {
     return {
         restrict: 'E',
         templateUrl: 'templates/task.html',
         scope: {
             task: '=',
             compactMode: '='
+        },
+        link: function($scope) {
+            $scope.experimental = !!$location.search()['experimental'];
         },
         controller: function ($scope, $window, UpdateTicketService) {
             $scope.openTicket = function (ticket, event) {

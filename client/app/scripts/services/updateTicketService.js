@@ -13,7 +13,8 @@ angular.module('scrumboards')
         }
 
         function closeTicket(ticket, callback) {
-            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(ticket) {
+            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
+                var ticket = tickets[0];
                 saveTicket(ticket, {
                     status: 'closed',
                     resolution: 'fixed'
@@ -22,7 +23,8 @@ angular.module('scrumboards')
         }
 
         function changeTime(ticket, difference, callback) {
-            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(ticket) {
+            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
+                var ticket = tickets[0];
                 var properties = {};
                 properties['Work done'] = ticket['Work done']+difference;
                 if (ticket['Remaining time']) {

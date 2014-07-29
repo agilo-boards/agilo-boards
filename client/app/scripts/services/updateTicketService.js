@@ -34,9 +34,20 @@ angular.module('scrumboards')
             });
         }
 
+        function switchDetailStatus(ticket, detailStatus, callback) {
+            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
+                var ticket = tickets[0];
+                var properties = {
+                    statedetail: detailStatus
+                };
+                saveTicket(ticket, properties, callback);
+            });
+        }
+
         // service interface
         return {
             closeTicket: closeTicket,
-            changeTime: changeTime
+            changeTime: changeTime,
+            switchDetailStatus: switchDetailStatus
         };
     });

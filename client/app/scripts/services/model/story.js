@@ -8,6 +8,7 @@ angular.module('scrumboards.models')
         this.title = data.title;
         this.release = data.release;
         this.status = data.status;
+        this.detailStatus = data.detailStatus;
         this.owner = data.owner;
         this.keywords = data.keywords;
         this.storyPoints = data.storyPoints;
@@ -16,6 +17,8 @@ angular.module('scrumboards.models')
         
         this.isInProgress = this.status === 'accepted' || this.status === 'assigned';
         this.isClosed = this.status === 'closed';
+        this.isReadyToImplement = this.detailStatus === 'Ready to Implement';
+        this.isPlannedForNextSprint = this.detailStatus === 'Next Sprint';
         this.isToDo = !this.isInProgress && !this.isClosed;
     }
     
@@ -38,7 +41,7 @@ angular.module('scrumboards.models')
     Story.prototype.isOnGoing = function () {
         return this.timeRemaining() === null;
     };
-    
+
     Story.prototype.getNewTaskUrl = function () {
         return LinkProvider.createNewTaskForStory(this);
     };

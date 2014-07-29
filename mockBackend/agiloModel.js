@@ -556,6 +556,11 @@ module.exports.getStoriesAsInReport109 = function (release) {
     return asTsv(getStoriesForRelease(release), STORY_FIELDS_FOR_BACKLOG);
 };
 
+var mappedProperties = {
+    'statedetail': 'Detail Status',
+    'work_done': 'Work done',
+    'remaining_time': 'Remaining time'
+};
 
 module.exports.getTicket = function (ticketNumber) {
     debug('getTicket: ticketNumber = ' + ticketNumber);
@@ -566,15 +571,26 @@ module.exports.getTicket = function (ticketNumber) {
         debug('ticket ' + ticketNumber + ' not found');
         return;
     }
+    
+    debug('ticket: '+JSON.stringify(ticket));
+    for (var property in mappedProperties) {
+        ticket[property] = ticket[mappedProperties[property]];
+        delete ticket[mappedProperties[property]];
+        debug('mapped property '+mappedProperties[property]+' to '+property+' with value '+ticket[property]);
+    }
 
-    return ticket;
+    return [ticket];
 };
 
 function setChangedValues(propertiesToChange, ticketNumber, requestBody, ticket) {
     for (var i in propertiesToChange) {
         var property = propertiesToChange[i];
-        debug('setting property ' + property + ' of ticket ' + ticketNumber + ' to ' + requestBody[property] + ' (old value: ' + ticket[property] + ')');
-        ticket[property] = requestBody[property];
+        var mappedProperty = property;
+        if (mappedProperties[property]) {
+            mappedProperty = mappedProperties[property];
+        }
+        debug('setting property ' + property + '->'+ mappedProperty+' of ticket ' + ticketNumber + ' to ' + requestBody[property] + ' (old value: ' + ticket[property] + ')');
+        ticket[mappedProperty] = requestBody[property];
     }
 
     var now = new Date();

@@ -290,12 +290,16 @@ div.error {
     padding: 0px 5px 0px 5px;
     border-radius: 15px;
     border: solid 1px #d6d6d6;
+ 
+    h2 {
+        padding-left: 15px;
+    }
+    .project-title {
+        font-size: 1.4em;
+    }
 }
 .navbar span.nav-item {
     padding: 0px 10px 0px 10px;
     color: #a5a5a5;
     border-right: solid 1px #a5a5a5;
-}
-.slice h2 {
-    padding-left: 15px;
 }

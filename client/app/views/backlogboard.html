@@ -23,23 +23,24 @@
 </nav>
 
 <div class="board" id="backlogboard">
-    <div class="row slice" id="slice_next-sprint">
+    <div class="row slice" id="slice_next-sprint" detail-status="Next Sprint" dropable on-drag-over="onDragOver(isPlannedForNextSprint, event, id)">
         <h2>Next sprint</h2>
         <div ng-repeat="(project, stories) in projects">
             <div class="col-md-2">
-                <div class="centered story-title">{{project}}</div>
-                <story ng-repeat="story in nextSprintStories = (stories | filter:{detailStatus:'Next Sprint'})" story="story" backlog-mode="true">
+                <div class="centered project-title">{{project}}</div>
+                <story ng-repeat="story in nextSprintStories = (stories | filter:{isPlannedForNextSprint: true})" story="story" backlog-mode="true">
+                    {{story.isPlannedForNextSprint()}}
                 </story>
                 <div class="information-text" ng-show="nextSprintStories.length == 0">No stories</div>
             </div>
         </div>
 	</div>
-    <div class="row slice" id="slice_ready-to-implement">
+    <div class="row slice" id="slice_ready-to-implement" detail-status="Ready to Implement" dropable on-drag-over="onDragOver(isReadyToImplement, event, id)">
         <h2>Ready to implement</h2>
         <div ng-repeat="(project, stories) in projects">
             <div class="col-md-2">
-                <div class="centered story-title">{{project}}</div>
-                <story ng-repeat="story in readyToImplementStories = (stories | filter:{detailStatus:'Ready to Implement'})" story="story" backlog-mode="true">
+                <div class="centered project-title">{{project}}</div>
+                <story ng-repeat="story in readyToImplementStories = (stories | filter:{isReadyToImplement: true})" story="story" backlog-mode="true">
                 </story>
                 <div class="information-text" ng-show="readyToImplementStories.length == 0">No stories</div>
             </div>
@@ -49,10 +50,10 @@
         <h2>Remaining</h2>
         <div ng-repeat="(project, stories) in projects">
             <div class="col-md-2">
-                <div class="centered story-title">{{project}}</div>
-                <story ng-repeat="story in readyToImplementStories = (stories | filter:isRemainingStory)" story="story" backlog-mode="true">
+                <div class="centered project-title">{{project}}</div>
+                <story ng-repeat="story in remainingStories = (stories | filter:{isReadyToImplement: false, isPlannedForNextSprint: false})" story="story" backlog-mode="true">
                 </story>
-                <div class="information-text" ng-show="readyToImplementStories.length == 0">No stories</div>
+                <div class="information-text" ng-show="remainingStories.length == 0">No stories</div>
             </div>
         </div>
 	</div>

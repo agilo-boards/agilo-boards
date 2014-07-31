@@ -19,6 +19,10 @@ a {
 }
 .board {
     margin-top: 20px;
+    
+    &#backlogboard {
+        position: absolute;
+    }
 }
 .nav .dropdown-menu li input {
     display: block;
@@ -35,12 +39,6 @@ div.error {
     border: 1px solid #9f0404;
     background-color: #e5a7a7;
     border-radius: 5px;
-}
-.project-col {
-    margin: 4px;
-    float: right;
-    width: 270px;
-    height: 100%;
 }
 
 .story-card {
@@ -290,12 +288,25 @@ div.error {
     padding: 0px 5px 0px 5px;
     border-radius: 15px;
     border: solid 1px #d6d6d6;
+    display: inline-block;
+    white-space: nowrap;
  
     h2 {
         padding-left: 15px;
     }
-    .project-title {
-        font-size: 1.4em;
+    
+    .col-project {
+        width: 20em;
+        display: inline-block;
+        margin: 5px;
+        white-space: normal;
+        vertical-align: top;
+        text-align: center;
+        
+        .project-title {
+            font-size: 1.4em;
+            padding-bottom: 10px;
+        }
     }
 }
 .navbar span.nav-item {

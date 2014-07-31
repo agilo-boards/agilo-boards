@@ -1,11 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter, UpdateTicketService, AGILO_KEYWORDS) {
-        $scope.keywordTypes = {};       
-        ObjToArrayConverter.convert(AGILO_KEYWORDS).forEach(function(keywordPattern) {
-            $scope.keywordTypes[keywordPattern.type] = true;
-        });
+    .controller('ScrumboardCtrl', function ($scope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter, UpdateTicketService) {
         
         var sprints = DataService.getSprints();
         $scope.sprints = {};

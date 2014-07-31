@@ -22,6 +22,7 @@ a {
     
     &#backlogboard {
         position: absolute;
+        min-width: 99%;
     }
 }
 .nav .dropdown-menu li input {
@@ -101,7 +102,7 @@ div.error {
         content: "";
         display: block;
     }
-    div.footer, .story-card div.header {
+    footer, div.footer, .story-card div.header {
         text-align: left;
     }   
 }
@@ -293,6 +294,7 @@ div.error {
     border: solid 1px #d6d6d6;
     display: inline-block;
     white-space: nowrap;
+    min-width: 100%;
  
     h2 {
         padding-left: 15px;

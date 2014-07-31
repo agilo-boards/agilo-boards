@@ -2,6 +2,10 @@
 
 angular.module('scrumboards')
     .controller('BacklogboardCtrl', function ($scope, $filter, $location, $window, DataService, UpdateTicketService) {
+        $scope.nextSprintStories = {};
+        $scope.readyToImplementStories = {};
+        $scope.remainingStories = {};
+        
         var releasePromise = DataService.getReleases();
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {
@@ -64,4 +68,17 @@ angular.module('scrumboards')
                 $scope.$emit('reloadBoard');
             });
 		});
+        
+        $scope.sumStoryPoints = function(stories) {
+            var total = 0;
+            function sumSP(story) {
+                if (story.inScope) {
+                    total += story.storyPoints;
+                }
+            }
+            for (var project in stories) {
+                stories[project].forEach(sumSP);
+            }
+            return total;
+        };
     });

@@ -20,20 +20,20 @@ angular.module('scrumboards.agiloServices')
         return new Date(date / 1000);
     }
 
-    function parseHoursOrInvalid(value) {
-        var hours = parseFloat(value);
-        if (hours>=0) {
-            return hours;
+    function parseFloatOrNull(value) {
+        var float = parseFloat(value);
+        if (float) {
+            return float;
         }
         return null;
     }
 
-    function parseHours(value) {
-        var hours = parseFloat(value);
-        if (hours) {
-            return hours;
+    function parseFloatOrZero(value) {
+        var float = parseFloat(value);
+        if (float) {
+            return float;
         }
-        return 0;
+        return null;
     }
 
     return {
@@ -46,8 +46,9 @@ angular.module('scrumboards.agiloServices')
         getStoriesBySprint: function (selectedSprint) {
             return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, {
                 keywords: parseKeywords,
-                timeRemaining: parseHoursOrInvalid,
-                timeDone: parseHours
+                timeRemaining: parseFloatOrNull,
+                timeDone: parseFloatOrZero,
+                storyPoints: parseFloatOrNull
             });
         },
         getReleases: function () {
@@ -58,7 +59,8 @@ angular.module('scrumboards.agiloServices')
         },
         getStoriesByRelease: function (selectedRelease) {
             return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_MAPPING_STORIES_BY_RELEASE, {
-                keywords: parseKeywords
+                keywords: parseKeywords,
+                storyPoints: parseFloatOrNull                
             });
         }
     };

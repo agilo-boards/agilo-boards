@@ -1,7 +1,8 @@
 <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'story-with-postits': story.keywords.length>0, 'compact-mode': compactMode}" draggable id="{{story.id}}">
-    <header ng-hide="compactMode || backlogMode" class="header">
-        <span>{{story.project}}</span>
-        <span class="pull-right">{{story.release}}</span>
+    <header ng-hide="compactMode" class="header">
+        <span ng-hide="backlogMode">{{story.project}}</span>
+        <span class="pull-right" ng-hide="backlogMode">{{story.release}}</span>
+        <span class="glyphicon glyphicon-thumbs-down pull-right" ng-show="backlogMode && !story.inScope" data-toggle="tooltip" data-placement="right" title="Out of scope"></span>
     </header>
     <div class="story-center">
         <div class="story-owner-image" ng-show="story.owner" data-toggle="tooltip" data-placement="top" title="{{story.owner}}">

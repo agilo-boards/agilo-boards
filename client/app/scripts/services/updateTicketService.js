@@ -44,10 +44,21 @@ angular.module('scrumboards')
             });
         }
 
+        function switchSeqNumber(ticket, seqNumber, callback) {
+            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
+                var ticket = tickets[0];
+                var properties = {
+                    story_project_prio: seqNumber
+                };
+                saveTicket(ticket, properties, callback);
+            });
+        }
+
         // service interface
         return {
             closeTicket: closeTicket,
             changeTime: changeTime,
-            switchDetailStatus: switchDetailStatus
+            switchDetailStatus: switchDetailStatus,
+            switchSeqNumber: switchSeqNumber
         };
     });

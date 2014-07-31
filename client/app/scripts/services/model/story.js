@@ -17,6 +17,7 @@ angular.module('scrumboards.models')
         this.seqNumber = data.seqNumber;
         this.inScope = data.inScope === '1';
         
+        this.hasTasks = data.numberOfTasks > 0;
         this.isInProgress = this.status === 'accepted' || this.status === 'assigned';
         this.isClosed = this.status === 'closed';
         this.isReadyToImplement = this.detailStatus === 'Ready to Implement';

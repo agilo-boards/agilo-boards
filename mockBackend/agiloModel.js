@@ -111,7 +111,7 @@ var sprints = [
     }
 ];
 
-var STORY_FIELDS_FOR_BACKLOG = ['id', 'summary', 'milestone', 'status', 'Detail Status', 'keywords', 'Story Points', 'Sprint', 'Project', 'seqNumber', 'inScope'];
+var STORY_FIELDS_FOR_BACKLOG = ['id', 'summary', 'milestone', 'status', 'Detail Status', 'keywords', 'Story Points', 'Sprint', 'Project', 'seqNumber', 'inScope', 'numberOfTasks'];
 
 var STORY_AND_TASK_FIELDS = ['id', 'type', 'summary', 'milestone', 'status', 'owner', 'keywords', 'Story Points', 'Work done', 'Remaining time', 'Sprint', 'Project', 'Story ID'];
 
@@ -172,7 +172,8 @@ function getStoriesAndTasks() {
             Sprint: SPRINT_1_RELEASE_2,
             Project: PROJECT_PREPARE_TESTDATA,
             seqNumber: '',
-            inScope: '1'
+            inScope: '1',
+            numberOfTasks: 3
         },
         {
             id: 1000,

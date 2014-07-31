@@ -6,7 +6,7 @@ angular.module('scrumboards')
         restrict: 'A',
         link: function (scope, element, attrs) {
             var text = attrs['scaleToFit'];
-            var maxLength_oneLine = 12;
+            var maxLength_oneLine = 11;
             if (text.length > maxLength_oneLine) {
                 if (text.length > 2*maxLength_oneLine) {
                     text = text.substr(0, (2*maxLength_oneLine)-3)+'..';

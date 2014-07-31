@@ -1,17 +1,17 @@
 <div class="task-card" ng-click="openTicket(task, $event)">
     <span ng-hide="compactMode">
         <b class="task-title">#{{task.id}}: {{task.title}}</b>
+        <span class="glyphicon glyphicon-plus link add-time pull-right" ng-click="changeTime(task, +0.5); $event.stopPropagation();" ng-hide="task.isOnGoing() || !experimental"></span>
         <br/>
         <span class="task-time-done">Done: {{task.timeDone || 0}} h</span> - <span class="task-time-remaining">Remaining: {{task.timeRemaining || 0}} h</span>
-        <span class="glyphicon glyphicon-plus link add-time pull-right" ng-click="changeTime(task, +0.5); $event.stopPropagation();" ng-hide="task.isOnGoing() || !experimental"></span>
     </span>
     <span ng-show="compactMode">
-        <progress-bar ticket="task"></progress-bar>
+        <div style="display: inline" class="pull-right">
+            <span class="glyphicon glyphicon-plus link add-time compactMode" ng-click="changeTime(task, +0.5); $event.stopPropagation();" ng-hide="task.isOnGoing() || !experimental"></span>
+            <progress-bar ticket="task"></progress-bar>
+        </div>
         <div style="display: inline" class="task-compact-title">
             {{task.title}}
-        </div>
-        <div style="display: inline" class="pull-right" ng-hide="task.isOnGoing() || !experimental">
-            <span class="glyphicon glyphicon-plus link add-time compactMode" ng-click="changeTime(task, +0.5); $event.stopPropagation();"></span>
         </div>
     </span>
     <links ticket="task" ng-hide="compactMode"></links>

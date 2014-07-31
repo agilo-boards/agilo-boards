@@ -366,6 +366,20 @@ function getStoriesAndTasks() {
         {
             id: 2005,
             type: TYPE_TASK,
+            summary: 'Adapt the Grunt file by doing this and that which is a long description',
+            milestone: RELEASE_2,
+            status: STATUS_ASSIGNED,
+            'Detail Status': DETAIL_STATUS_NEXT_SPRINT,
+            owner: 'amy',
+            'Work done': 1,
+            'Remaining time': '2',
+            Sprint: SPRINT_2_RELEASE_2,
+            Project: PROJECT_READ_BOOKS,
+            'Story ID': 1003
+        },
+        {
+            id: 2006,
+            type: TYPE_TASK,
             summary: 'Create new AngularJS project using Yeoman',
             milestone: RELEASE_2,
             status: STATUS_CLOSED,

@@ -162,23 +162,21 @@ div.error {
     }
     
     .add-time {
-        border: 3px solid #696969;
         color: #696969;
         border-radius: 4px;
-        background-color: #b2b2bc;
-        padding: 2px 6px 2px 6px;
-        margin: -10px 0px 0px 0px;
+        background-color: #c4c4cc;
+        padding: 5px;
+	    font-size: 1.3em;
+        vertical-align: top;
         
         &.compactMode {
-            padding: 3px 4px 3px 4px;
-            margin: -4px 5px 0px 0px;
-            border-width: 2px;
-            font-size: 0.8em;
+            font-size: 0.7em;
         }
         
         
         &:hover {
             color: #4e4e4e;
+            background-color: #b2b2bc;
             border-color: #4e4e4e;
         }
     }
@@ -189,8 +187,8 @@ div.error {
 }
 
 .progress {
-    float: right;
     position: relative;
+    display: inline-block;
     text-align: center;
     background-color: #b4b4b4;
     width: 80px;

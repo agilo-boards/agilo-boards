@@ -11,7 +11,7 @@ function Task(elem) {
     this.titleCompact = new pageObjects.Field(elem.element(by.className('task-compact-title')));
     this.timeCompact = new pageObjects.Field(elem.element(by.className('progress')));
     
-    //this.addTimeBtn = new pageObjects.Button(elem.element(by.className('add-time')));
+    this.addTimeBtn = new pageObjects.Button(elem.element(by.className('add-time')));
 }
 util.inherits(Task, pageObjects.PageObject);
 

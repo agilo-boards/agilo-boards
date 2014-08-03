@@ -145,7 +145,7 @@ var SPRINT_2_RELEASE_2 = sprints[2].name;
 //var SPRINT_1_RELEASE_3 = sprints[4].name;
 
 function getStoriesAndTasks() {
-    return [
+    var storiesAndTasks = [
         {
             id: 1930,
             type: TYPE_STORY,
@@ -531,14 +531,15 @@ function getStoriesAndTasks() {
             inScope: '1'
         }
     ];
+    
+    for (var i = 0; i < storiesAndTasks.length; i++) {
+        var ticket = storiesAndTasks[i];
+        ticket.ts = '2014-05-01 10:00:00.000000+00:00';
+        ticket.time_of_last_change = 1398938400;
+    }
+    return storiesAndTasks;
 }
 var storiesAndTasks = getStoriesAndTasks();
-
-for (var i = 0; i < storiesAndTasks.length; i++) {
-    var ticket = storiesAndTasks[i];
-    ticket.ts = '2014-05-01 10:00:00.000000+00:00';
-    ticket.time_of_last_change = 1398938400;
-}
 
 function getRow(sprint, fields) {
     return fields.map(function (field) {

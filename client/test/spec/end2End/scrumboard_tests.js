@@ -8,7 +8,7 @@ describe('Scrumboard', function() {
     
     beforeEach(function() {
         browser.driver.manage().window().setSize(1250, 800);
-        //browser.post('http://127.0.0.1:3000/agilo/eorders/reset');
+        browser.driver.get('http://127.0.0.1:3000/agilo/eorders/reset');
         browser.get('http://127.0.0.1:8091/#/scrumboard?experimental');
     });
     
@@ -122,17 +122,18 @@ describe('Scrumboard', function() {
         faceStory.assertNotFadedout();
     });
     
-    xit('should increase the time done and decrease time remaining when klicking on +', function() {
+    it('should increase the time done and decrease time remaining when klicking on +', function() {
         var inprogressStory = board.findStory(1004);
+        navBar.sprints.selectOption('Sprint 2');
         
-        var taskReadIntro =inprogressStory.getTask(0);
-        taskReadIntro.assertTime(0, 5);
+        var taskReadIntro = inprogressStory.getTask(2);
+        taskReadIntro.assertTime(3, 0);
         taskReadIntro.addTimeBtn.assertNotVisible();
-        var taskReadChapter1 =inprogressStory.getTask(1);
+        
+        var taskReadChapter1 = inprogressStory.getTask(1);
         taskReadChapter1.assertTime(2, 10);
         taskReadChapter1.addTimeBtn.assertVisible();
         taskReadChapter1.addTimeBtn.click();
         taskReadChapter1.assertTime(2.5, 9.5);
-        
     });
 });

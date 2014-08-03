@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 // Needed to read payload of POST requests
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 
-app.post('/agilo/eorders/reset', function (req, res) {
+app.get('/agilo/eorders/reset', function (req, res) {
     agiloData.reset();
     res.send('Successfully resetted');
 });

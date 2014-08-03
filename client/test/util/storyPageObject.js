@@ -53,13 +53,17 @@ function Story(storyId) {
     pageObjects.PageObject.call(this, elem);
     
     this.storyId = storyId;
-    this.project = new pageObjects.Field(elem.element(by.xpath('.//header//span[1]')));
-    this.release = new pageObjects.Field(elem.element(by.xpath('.//header//span[2]')));
-    this.storypoint = new pageObjects.Field(elem.element(by.xpath('.//footer//span[1]')), '', ' SP');
-    this.timeDone = new pageObjects.Field(elem.element(by.xpath('.//footer//span[2]')), 'done ', 'h');
-    this.title = new pageObjects.Field(elem.element(by.xpath('.//span[contains(@class,"story-title")]')));
+    var header = elem.element(by.tagName('header'));
+    this.project = new pageObjects.Field(header.element(by.className('project')));
+    this.release = new pageObjects.Field(header.element(by.className('release')));
+    
+    var footer = elem.element(by.tagName('footer'));
+    this.storypoint = new pageObjects.Field(footer.element(by.className('story-point')), '', ' SP');
+    this.timeDone = new pageObjects.Field(footer.element(by.className('time-done')), 'done ', 'h');
+    
+    this.title = new pageObjects.Field(elem.element(by.className('story-title')));
     this.ownerImage = this.elem.element(by.tagName('img'));
-    this.number = new pageObjects.Field(elem.element(by.xpath('.//span[contains(@class, "story-number")]')), '#');
+    this.number = new pageObjects.Field(elem.element(by.className('story-number')), '#');
 }
 util.inherits(Story, pageObjects.PageObject);
 

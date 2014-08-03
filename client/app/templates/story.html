@@ -1,7 +1,7 @@
 <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'story-with-postits': story.keywords.length>0, 'compact-mode': compactMode}" draggable id="{{story.id}}">
     <header ng-hide="compactMode" class="header">
-        <span ng-hide="backlogMode">{{story.project}}</span>
-        <span class="pull-right" ng-hide="backlogMode">{{story.release}}</span>
+        <span class="project" ng-hide="backlogMode">{{story.project}}</span>
+        <span class="pull-right release" ng-hide="backlogMode">{{story.release}}</span>
         <span class="glyphicon glyphicon-thumbs-down pull-right" ng-show="backlogMode && !story.inScope" data-toggle="tooltip" data-placement="right" title="Out of scope"></span>
         <span class="glyphicon glyphicon-asterisk pull-right" ng-show="backlogMode && story.hasTasks" data-toggle="tooltip" data-placement="right" title="The story has tasks and might be already planned."></span>
     </header>
@@ -26,13 +26,13 @@
         </div>
     </div>
     <footer ng-hide="compactMode">
-        <span>
+        <span class="story-point">
             {{story.storyPoints}} SP
         </span>
-        <span ng-hide="backlogMode" class="pull-right">
+        <span ng-hide="backlogMode" class="pull-right time-done">
             done {{story.timeDone()}}h
         </span>
-        <span ng-show="backlogMode" class="pull-right">
+        <span ng-show="backlogMode" class="pull-right seq-number">
             {{story.seqNumber}}
         </span>
     </footer>

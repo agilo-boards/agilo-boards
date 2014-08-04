@@ -123,12 +123,14 @@ describe('Scrumboard', function() {
         navBar.owners.assertSelected('face');
         amyStory.assertFadedout();
         faceStory.assertNotFadedout();
+        
+        navBar.ownerMode.toggle();
     });
     
     it('should increase the time done and decrease time remaining when klicking on +', function() {
-        var inprogressStory = board.findStory(1004);
         navBar.sprints.selectOption('Sprint 2');
         
+        var inprogressStory = board.findStory(1004);
         var taskReadIntro = inprogressStory.getTask(2);
         taskReadIntro.assertTime(3, 0);
         taskReadIntro.addTimeBtn.assertNotVisible();
@@ -138,5 +140,30 @@ describe('Scrumboard', function() {
         taskReadChapter1.addTimeBtn.assertVisible();
         taskReadChapter1.addTimeBtn.click();
         taskReadChapter1.assertTime(2.5, 9.5);
+    });
+    
+    it('should filter by keywords', function() {
+        navBar.sprints.selectOption('Sprint 2');
+        
+        navBar.filter();
+        navBar.filterModal.assertKeywords(['clean up', 'depends on', 'important', 'on hold']);
+        var keywordImportant = navBar.filterModal.getKeyword('important');
+        keywordImportant.assertSelected();
+        keywordImportant.toggle();
+        keywordImportant.assertNotSelected();
+        navBar.filterModal.close();
+        
+        board.findStory(1004);
+        board.assertStoryNotVisible(1005);
+        board.assertStoryNotVisible(1006);
+        board.assertStoryNotVisible(1007);
+        
+        navBar.filter();
+        keywordImportant.assertNotSelected();
+        navBar.filterModal.reset();
+        
+        board.findStory(1005);
+        board.findStory(1006);
+        board.findStory(1007);
     });
 });

@@ -26,6 +26,10 @@ ScrumBoardPage.prototype.assertStories = function (storiesTodo, storiesInProgres
     }
 };
 
+ScrumBoardPage.prototype.assertStoryNotVisible = function (storyId) {
+    expect(element.all(by.id('story-'+storyId)).count()).toEqual(0);
+};
+
 ScrumBoardPage.prototype.findStory = function (storyId) {
     var story = new pageObjects.Story(storyId);
     story.assertStoryNumber();

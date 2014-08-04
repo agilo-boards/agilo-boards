@@ -171,18 +171,23 @@ div.error {
         border-radius: 4px;
         background-color: #c4c4cc;
         padding: 5px;
-	    font-size: 1.3em;
+	    font-size: 0.7em;
         vertical-align: top;
-        
-        &.compactMode {
-            font-size: 0.7em;
-        }
-        
-        
+                
         &:hover {
             color: #4e4e4e;
             background-color: #b2b2bc;
             border-color: #4e4e4e;
+        }
+    }
+
+    .task-title {
+        font-weight: bold;
+    }
+    
+    &.compact-mode {
+        .task-title {
+            font-weight: normal;
         }
     }
     

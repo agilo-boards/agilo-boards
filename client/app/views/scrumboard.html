@@ -15,10 +15,12 @@
                         <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
                     </span>
                     <span class="nav-item">
-                        <a href="{{getDashboardUrl()}}" target="_blank"><span class="glyphicon glyphicon-stats"></span></a>
+                        <a href="{{getDashboardUrl()}}" target="_blank">
+                            <span class="glyphicon glyphicon-stats"></span>
+                        </a>
                     </span>
                     <span class="nav-item">
-                        <a data-toggle="modal" data-target="#modal-filter-keywords">
+                        <a id="filterButton" data-toggle="modal" data-target="#modal-filter-keywords">
                             <span class="glyphicon glyphicon-filter"></span>    
                         </a>
                     </span>

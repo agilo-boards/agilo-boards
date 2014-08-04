@@ -8,7 +8,7 @@ function Task(elem) {
     this.title = new pageObjects.Field(elem.element(by.className('task-title')));
     this.timeDone = new pageObjects.Field(elem.element(by.className('task-time-done')), 'Done: ', ' h');
     this.timeRemaining = new pageObjects.Field(elem.element(by.className('task-time-remaining')), 'Remaining: ', ' h');
-    this.titleCompact = new pageObjects.Field(elem.element(by.className('task-compact-title')));
+    this.title = new pageObjects.Field(elem.element(by.className('task-title')));
     this.timeCompact = new pageObjects.Field(elem.element(by.className('progress')));
     
     this.addTimeBtn = new pageObjects.Button(elem.element(by.className('add-time')));
@@ -19,7 +19,7 @@ Task.prototype.assertTitle = function (taskId, taskTitle, compactMode) {
     if (!compactMode) {
         this.title.assertToBe('#'+taskId+': '+taskTitle);
     } else {
-        this.titleCompact.assertToBe(taskTitle);
+        this.title.assertToBe(taskTitle);
     }
 };
 
@@ -33,18 +33,16 @@ Task.prototype.assertTime = function (timeDone, timeRemaining, compactMode) {
 };
 
 Task.prototype.assertNotCompactMode = function () {
-    this.title.assertVisible();
     this.timeDone.assertVisible();
     this.timeRemaining.assertVisible();
-    this.titleCompact.assertNotVisible();
+    this.title.assertVisible();
     this.timeCompact.assertNotVisible();
 };
 
 Task.prototype.assertCompactMode = function () {
-    this.title.assertNotVisible();
     this.timeDone.assertNotVisible();
     this.timeRemaining.assertNotVisible();
-    this.titleCompact.assertVisible();
+    this.title.assertVisible();
     this.timeCompact.assertVisible();
 };
 

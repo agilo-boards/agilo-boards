@@ -26,4 +26,5 @@ angular.module('scrumboards.config', [])
         regex: /importan/gi,
         color: 'blue'
     }
-]);
+])
+.constant('STORY_POINTS_FACTOR', 8);

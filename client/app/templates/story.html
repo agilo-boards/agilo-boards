@@ -25,12 +25,12 @@
             
         </div>
     </div>
-    <footer ng-hide="compactMode">
-        <span class="story-point">
+    <footer>
+        <div class="pull-right" ng-hide="backlogMode">
+            <progress-bar ticket="story"></progress-bar>
+        </div>
+        <span class="story-point" class="pull-left" style="background-color: {{story.isInProgress ? story.statusColor() : ''}}">
             {{story.storyPoints}} SP
-        </span>
-        <span ng-hide="backlogMode" class="pull-right time-done">
-            done {{story.timeDone()}}h
         </span>
         <span ng-show="backlogMode" class="pull-right seq-number">
             {{story.seqNumber}}

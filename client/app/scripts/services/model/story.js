@@ -30,7 +30,10 @@ angular.module('scrumboards.models')
     };
     
     Story.prototype.storyStatus = function() {
-        return this.totalTime()===0 ? null : this.totalTime()/(this.storyPoints*STORY_POINTS_FACTOR);
+        if (this.totalTime() === 0 || (!this.storyPoints || this.storyPoints===0)) {
+            return null;
+        }
+        return this.totalTime()/(this.storyPoints*STORY_POINTS_FACTOR);
     };
     
     Story.prototype.statusColor = function() {

@@ -11,6 +11,9 @@ PageObject.prototype.assertVisible = function() {
 PageObject.prototype.assertNotVisible = function() {
     expect(this.elem.isDisplayed()).toBeFalsy();
 };
+PageObject.prototype.assertToBeStyled = function(property, value) {
+    expect(this.elem.getCssValue(property)).toEqual(value);
+};
 
 function Select(id) {
     var elem = element(by.xpath('//select[@id="'+id+'"]'));
@@ -44,6 +47,12 @@ function Field(elem, prefix, postfix) {
 util.inherits(Field, PageObject);
 Field.prototype.assertToBe = function (expectedText) {
     expect(this.elem.getText()).toEqual(this.prefix + expectedText + this.postfix);
+};
+Field.prototype.assertToBeTrimmed = function (expectedText) {
+    var that = this;
+    this.elem.getText().then(function (text) {
+        expect(text.trim()).toEqual(that.prefix + expectedText + that.postfix);
+    });
 };
 Field.prototype.assertToStartWith = function (expectedText) {
     var that = this;

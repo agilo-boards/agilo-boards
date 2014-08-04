@@ -59,7 +59,7 @@ function Story(storyId) {
     
     var footer = elem.element(by.tagName('footer'));
     this.storypoint = new pageObjects.Field(footer.element(by.className('story-point')), '', ' SP');
-    this.timeDone = new pageObjects.Field(footer.element(by.className('time-done')), 'done ', 'h');
+    this.time = new pageObjects.Field(footer.element(by.className('progress')));
     
     this.title = new pageObjects.Field(elem.element(by.className('story-title')));
     this.ownerImage = this.elem.element(by.tagName('img'));
@@ -89,15 +89,15 @@ Story.prototype.assertCompactMode = function() {
     this.release.assertNotVisible();
     this.assertStoryNumber();
     this.title.assertVisible();
-    this.timeDone.assertNotVisible();
-    this.storypoint.assertNotVisible();
+    this.time.assertVisible();
+    this.storypoint.assertVisible();
 };
 Story.prototype.assertNotCompactMode = function() {
     this.project.assertVisible();
     this.release.assertVisible();
     this.assertStoryNumber();
     this.title.assertVisible();
-    this.timeDone.assertVisible();
+    this.time.assertVisible();
     this.storypoint.assertVisible();
     this.assertCreateTaskLink();
 };

@@ -16,6 +16,13 @@ angular.module('scrumboards')
                     sprint.selected = !isSprintFinished(sprint);
                 });
             };
+            
+            scope.$on('reloadBoard', function () {
+                scope.resetSprints();
+            });
+            if (scope.sprints) {
+                scope.resetSprints();
+            }            
         }
     };
 });

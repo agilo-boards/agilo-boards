@@ -12,11 +12,14 @@
                 <span id="releaseDescription" class="nav-item">
                     {{selectedRelease.description}}
                 </span>
-                <span id="dueDate" class="hide-when-small nav-item">
-                    Due Date: {{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}
+                <span class="hide-when-small nav-item">
+                    From <span id="dueDate">{{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}</span>
+                    until <span id="completedDate">{{(selectedRelease.completedDate | date:'EEE yyyy-MM-dd') || 'undefined'}}</span>
                 </span>
-                <span id="completedDate" class="hide-when-small nav-item">
-                    Completed Date: {{(selectedRelease.completedDate | date:'EEE yyyy-MM-dd') || 'undefined'}}
+                <span class="nav-item">
+                    <a id="filterButton" data-toggle="modal" data-target="#modal-filter-sprint">
+                        <span class="glyphicon glyphicon-filter"></span>    
+                    </a>
                 </span>
                 <span ng-click="showOutOfScope = !showOutOfScope" class="link-pointer nav-item">
                     <input id="showOutOfScope" type="checkbox" ng-model="showOutOfScope" ng-click="$event.stopPropagation()"></input> Show out-of-scope Stories
@@ -27,7 +30,7 @@
 </nav>
 
 <div class="board" id="backlogboard">
-    <div ng-repeat="sprint in sprints" class="row slice" id="slice_{{sprint.name}}" detail-sprint="{{sprint.name}}" dropable on-drag-over="onDragOver(sprint.name, event, id)">
+    <div ng-repeat="sprint in sprints" class="row slice" id="slice_{{sprint.name}}" detail-sprint="{{sprint.name}}" dropable on-drag-over="onDragOver(sprint.name, event, id)" ng-show="sprint.selected">
         <span fixed>
             <h2 class="slice-name" style="display: inline-block">
                 {{sprint.name}}

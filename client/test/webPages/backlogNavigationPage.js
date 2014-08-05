@@ -9,8 +9,8 @@ function BacklogNavigationPage(overridePath) {
     this.releases = new pageObjects.Select('releases');
     this.reloadButton = element(by.id('reloadButton'));
     this.description = new pageObjects.Field(element(by.id('releaseDescription')));
-    this.dueDate = new pageObjects.Field(element(by.id('dueDate')), 'Due Date: ');
-    this.completedDate = new pageObjects.Field(element(by.id('completedDate')), 'Completed Date: ');
+    this.dueDate = new pageObjects.Field(element(by.id('dueDate')));
+    this.completedDate = new pageObjects.Field(element(by.id('completedDate')));
 }
 
 util.inherits(BacklogNavigationPage, BaseWebPage);

@@ -1,30 +1,57 @@
 'use strict';
 
 angular.module('scrumboards')
-    .controller('BacklogboardCtrl', function ($scope, $filter, $location, $window, DataService, UpdateTicketService) {
+    .controller('BacklogboardCtrl', function ($scope, $filter, $location, $window, DataService, UpdateTicketService, Synchronizer) {
         $scope.nextSprintStories = {};
         $scope.readyToImplementStories = {};
         $scope.remainingStories = {};
         
+        $scope.$on('reloadBoard', function () {
+            var storiesPromise = DataService.getStoriesByRelease($scope.selectedRelease.name);
+            storiesPromise.then(function (result) {
+                var projects = result.projects;
+                $scope.storyMap = {};
+                function addStoryToMap(story) {
+                    $scope.storyMap[story.id] = story;
+                }
+                for (var project in projects) {
+                    projects[project].forEach(addStoryToMap);
+                }
+                $scope.projects = projects;
+            }, function (error) {
+                $('#messageContainer').append('<div class="error">' + error + '</div>');
+            });
+        });
+        var sprintPromise = DataService.getSprints();
+        sprintPromise.then(function (sprints) {
+            $scope.sprints = sprints.data;
+        });
         var releasePromise = DataService.getReleases();
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 $location.search('release', newValue.name);
                 localStorage.setItem('selectedRelease', newValue.name);
             }
+            
         });
+        
         releasePromise.then(function (releases) {
-            var selectedRelease = $location.search()['release'] || localStorage.getItem('selectedRelease');
-            if (selectedRelease) {
-                $scope.selectedRelease = releases.data.filter(function(element) {
-                    return element.name === selectedRelease;
-                })[0];
-            }
-            if (!$scope.selectedRelease && releases.data[0]) {
-                $scope.selectedRelease = releases.data[0];
-            }
             $scope.allReleases = releases.data;
-            loadStories($scope.selectedRelease);
+            Synchronizer.syncToLocalStorage($scope, 'selectedRelease', {
+                transformToString: function(release) {
+                    return release.name;
+                },
+                transformToObject: function(releaseName) {
+                    return $scope.allReleases.filter(function (element) {
+                        return element.name === releaseName;
+                    })[0];
+                },
+                getParam: 'release',
+                default: $scope.allReleases[0],
+                callback: function() {
+                    $scope.$emit('reloadBoard');                    
+                }
+            });
 
         }, function (error) {
             $('#messageContainer').append('<div class="error">' + error + '</div>');
@@ -33,28 +60,6 @@ angular.module('scrumboards')
         $scope.reload = function () {
             $scope.$emit('reloadBoard');
         };
-        $scope.$on('reloadBoard', function () {
-            loadStories($scope.selectedRelease);
-        });
-        
-        function loadStories(selectedRelease) {
-            var storiesPromise = DataService.getStoriesByRelease(selectedRelease.name);
-            storiesPromise.then(function (result) {
-                var projects = result.projects;
-                $scope.storyMap = {};
-                function addStoryToMap(story) {
-                    $scope.storyMap[story.id] = story;
-                }
-                
-                for (var project in projects) {
-                    projects[project].forEach(addStoryToMap);
-                }
-                $scope.projects = projects;
-            }, function (error) {
-                $('#messageContainer').append('<div class="error">' + error + '</div>');
-            });
-        }
-        
         
         $scope.onDragOver = function(property, e, storyId) {
             var story = $scope.storyMap[storyId];
@@ -80,5 +85,9 @@ angular.module('scrumboards')
                 stories[project].forEach(sumSP);
             }
             return total;
+        };
+        
+        $scope.isRemaining = function(story) {
+            return !story.sprint;
         };
     });

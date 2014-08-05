@@ -1,3 +1,4 @@
+<sprint-filter></sprint-filter>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -26,43 +27,32 @@
 </nav>
 
 <div class="board" id="backlogboard">
-    <div class="row slice" id="slice_next-sprint" detail-status="Next Sprint" dropable on-drag-over="onDragOver('isPlannedForNextSprint', event, id)">
-        <h2>
-            Next sprint
-            <span class="pull-right">{{sumStoryPoints(nextSprintStories)}} SP</span>
-        </h2>
+    <div ng-repeat="sprint in sprints" class="row slice" id="slice_{{sprint.name}}" detail-sprint="{{sprint.name}}" dropable on-drag-over="onDragOver(sprint.name, event, id)">
+        <span fixed>
+            <h2 class="slice-name" style="display: inline-block">
+                {{sprint.name}}
+                <small class="story-points">({{sumStoryPoints(currentStories)}} SP)</small>
+            </h2>            <br/>
+        </span>
         <div ng-repeat="(project, stories) in projects" class="col-project">
             <div class="centered project-title">{{project}}</div>
-            <story ng-repeat="story in nextSprintStories[project] = (stories | filter:{isPlannedForNextSprint: true} | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" story="story" backlog-mode="true" next-seq="{{$last?-1:nextSprintStories[project][$index+1].seqNumber}}" prev-seq="{{$first?-1:nextSprintStories[project][$index-1].seqNumber}}" ng-show="story.inScope || showOutOfScope">
-
+            <story ng-repeat="story in currentStories = (stories | filter:{sprint: sprint.name} | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" story="story" backlog-mode="true" next-seq="{{$last?-1:currentStories[$index+1].seqNumber}}" prev-seq="{{$first?-1:currentStories[$index-1].seqNumber}}" ng-show="story.inScope || showOutOfScope">
             </story>
-            <div class="information-text" ng-show="nextSprintStories.length == 0">No stories</div>
-        </div>
-	</div>
-    <br/>
-    <div class="row slice" id="slice_ready-to-implement" detail-status="Ready to Implement" dropable on-drag-over="onDragOver('isReadyToImplement', event, id)">
-        <h2>
-            Ready to implement
-            <span class="pull-right">{{sumStoryPoints(readyToImplementStories)}} SP</span>
-        </h2>
-        <div ng-repeat="(project, stories) in projects" class="col-project">
-            <div class="centered project-title">{{project}}</div>
-            <story ng-repeat="story in readyToImplementStories[project] = (stories | filter:{isReadyToImplement: true} | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" story="story" backlog-mode="true" next-seq="{{$last?-1:readyToImplementStories[project][$index+1].seqNumber}}" prev-seq="{{$first?-1:readyToImplementStories[project][$index-1].seqNumber}}" ng-show="story.inScope || showOutOfScope">
-            </story>
-            <div class="information-text" ng-show="readyToImplementStories.length == 0">No stories</div>
+            <div class="information-text" ng-show="stories.length == 0">No stories</div>
         </div>
 	</div>
     <br/>
     <div class="row slice" id="slice_remaining">
-        <h2>
-            Remaining
-            <span class="pull-right">{{sumStoryPoints(remainingStories)}} SP</span>
-        </h2>
+        <span fixed>
+            <h2 class="slice-name" style="display: inline-block">Remaining
+                <small class="story-points">({{sumStoryPoints(currentStories)}} SP)</small>
+            </h2><br/>
+        </span>
         <div ng-repeat="(project, stories) in projects" class="col-project">
             <div class="centered project-title">{{project}}</div>
-            <story ng-repeat="story in remainingStories[project] = (stories | filter:{isReadyToImplement: false, isPlannedForNextSprint: false} | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" story="story" backlog-mode="true" next-seq="{{$last?-1:remainingStories[project][$index+1].seqNumber}}" prev-seq="{{$first?-1:remainingStories[project][$index-1].seqNumber}}" ng-show="story.inScope || showOutOfScope">
+            <story ng-repeat="story in currentStories = (stories | filter:isRemaining | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" story="story" backlog-mode="true" next-seq="{{$last?-1:currentStories[$index+1].seqNumber}}" prev-seq="{{$first?-1:currentStories[$index-1].seqNumber}}" ng-show="story.inScope || showOutOfScope">
             </story>
-            <div class="information-text" ng-show="remainingStories.length == 0">No stories</div>
+            <div class="information-text" ng-show="remainingStories[project].length == 0">No stories</div>
         </div>
 	</div>
 </div>

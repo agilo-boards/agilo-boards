@@ -26,9 +26,9 @@ angular.module('scrumboards')
             UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
                 var ticket = tickets[0];
                 var properties = {};
-                properties['work_done'] = ticket['work_done']+difference;
+                properties['work_done'] = parseFloat(ticket['work_done'])+difference;
                 if (ticket['remaining_time']) {
-                    properties['remaining_time'] = Math.max(0, ticket['remaining_time']-difference);
+                    properties['remaining_time'] = Math.max(0, parseFloat(ticket['remaining_time'])-difference);
                 }
                 saveTicket(ticket, properties, callback);
             });

@@ -8,12 +8,12 @@ angular.module('scrumboards')
         link: function (scope) {
             
             scope.resetSprints = function() {
-                function isSprintFinished(sprint) {
-                    return sprint.end.getTime() < (new Date()).getTime();
+                function hasSprintStarted(sprint) {
+                    return sprint.start.getTime() < (new Date()).getTime();
                 }
                 
                 scope.sprints.map(function(sprint) {
-                    sprint.selected = !isSprintFinished(sprint);
+                    sprint.selected = !hasSprintStarted(sprint);
                 });
             };
             

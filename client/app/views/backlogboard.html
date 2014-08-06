@@ -30,7 +30,7 @@
 </nav>
 
 <div class="board" id="backlogboard">
-    <div ng-repeat="sprint in sprints" class="row slice" id="slice_{{sprint.name}}" detail-sprint="{{sprint.name}}" dropable on-drag-over="onDragOver(sprint.name, event, id)" ng-show="sprint.selected">
+    <div ng-repeat="sprint in sprints | filter:{milestone: selectedRelease.name}| orderBy:'start'" class="row slice" id="slice_{{sprint.name}}" detail-sprint="{{sprint.name}}" dropable on-drag-over="onDragOver(sprint.name, event, id)" ng-show="sprint.selected">
         <span fixed>
             <h2 class="slice-name" style="display: inline-block">
                 {{sprint.name}}

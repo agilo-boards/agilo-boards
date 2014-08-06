@@ -117,7 +117,7 @@ div.error {
 }
 
 .story-with-postits {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
     
     .postits {
         position: relative;
@@ -144,11 +144,6 @@ div.error {
             &.postit-twolines {
                 height: 50px;
             }
-        }
-    }
-    &.compact-mode {
-        .postits {
-            left: 110px;
         }
     }
 }

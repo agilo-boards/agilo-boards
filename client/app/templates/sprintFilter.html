@@ -6,13 +6,13 @@
                 <h4 class="modal-title">Displayed sprints</h4>
             </div>
             <div class="modal-body">
-                <div id="sprint-{{sprint.name}}" ng-repeat="sprint in sprints" ng-click="sprint.selected = !sprint.selected" style="cursor: pointer">
+                <div id="sprint-{{sprint.name}}" ng-repeat="sprint in sprints | filter:{milestone: selectedRelease.name}| orderBy:'start'" ng-click="sprint.selected = !sprint.selected" style="cursor: pointer">
                     <input type="checkbox" ng-model="sprint.selected" ng-click="$event.stopPropagation()"></input>
-                    &nbsp;&nbsp;<span>{{sprint.name}} ({{sprint.start | date:'EEE yyyy-MM-dd'}}-{{sprint.end | date:'EEE yyyy-MM-dd'}})</span>
+                    &nbsp;&nbsp;<span>{{sprint.name}} (From {{sprint.start | date:'EEE yyyy-MM-dd'}} until {{sprint.end | date:'EEE yyyy-MM-dd'}})</span>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="resetButton" type="button" class="btn btn-default pull-left" ng-click="resetSprints()" data-dismiss="modal">Reset</button>
+                <button id="resetButton" type="button" class="btn btn-default pull-left" ng-click="resetSprints()" data-dismiss="modal">Display sprints to come</button>
                 <button id="closeButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

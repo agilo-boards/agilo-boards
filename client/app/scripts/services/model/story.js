@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards.models')
-.factory('Story', function(Task, LinkProvider, TimeHelper, STORY_POINTS_FACTOR) {
+.factory('Story', function(Task, LinkProvider, TimeHelper) {
     
     function Story(data) {
         this.id = data.id;
@@ -27,13 +27,6 @@ angular.module('scrumboards.models')
     
     Story.new = function(data) {
         return new Story(data);
-    };
-    
-    Story.prototype.storyStatus = function() {
-        if (this.totalTime() === 0 || (!this.storyPoints || this.storyPoints===0)) {
-            return null;
-        }
-        return this.totalTime()/(this.storyPoints*STORY_POINTS_FACTOR);
     };
     
     Story.prototype.timeDone = function () {

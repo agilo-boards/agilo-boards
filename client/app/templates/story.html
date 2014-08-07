@@ -29,7 +29,7 @@
         <div class="pull-right" ng-hide="backlogMode">
             <progress-bar ticket="story"></progress-bar>
         </div>
-        <span class="story-point" class="pull-left" style="background-color: {{story.isInProgress ? story.statusColor() : ''}}">
+        <span class="story-point" class="pull-left">
             {{story.storyPoints || '-'}} SP
         </span>
         <span ng-show="backlogMode" class="pull-right seq-number">

@@ -36,20 +36,6 @@ angular.module('scrumboards.models')
         return this.totalTime()/(this.storyPoints*STORY_POINTS_FACTOR);
     };
     
-    Story.prototype.statusColor = function() {
-        var status = this.storyStatus();
-        if (!status) {
-            return '';
-        }
-        var green = 2-status;
-        var red = (status - 1)*4;
-        return 'rgba(' + [red, green, 0].map(function (x) {
-            return Math.min(1, Math.max(0, x));
-        }).map(function(x){
-            return Math.round(x*255);
-        }).join(',')+',0.6)';
-    };
-
     Story.prototype.timeDone = function () {
         return TimeHelper.sumTimeDone(this.tasks);
     };

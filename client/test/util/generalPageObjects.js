@@ -39,6 +39,31 @@ Select.prototype.assertOptions = function(options) {
     });
 };
 
+function Dropdown(id) {
+    var elem = element(by.xpath('//*[@id="'+id+'"]'));
+    PageObject.call(this, elem);
+    this.id = id;
+}
+util.inherits(Dropdown, PageObject);
+Dropdown.prototype.findOption = function(item) {
+    return this.elem.element(by.xpath('//li[@id="' + item + '"]'));
+};
+Dropdown.prototype.selectOption = function (item) {
+    this.elem.click();
+    this.findOption(item).click();
+};
+Dropdown.prototype.assertSelected = function(item) {
+    expect(this.elem.element(by.xpath('//div[@id="'+this.id+'"]//button')).getText()).toEqual(item);
+};
+Dropdown.prototype.assertOptions = function(options) {
+    var optionElems = this.elem.all(by.tagName('li'));
+    expect(optionElems.count()).toEqual(options.length);
+    options.forEach(function(value, index) {
+        console.log(optionElems.get(index).getText());
+        expect(optionElems.get(index).getText()).toEqual(value);
+    });
+};
+
 function Field(elem, prefix, postfix) {
     PageObject.call(this, elem);
     this.prefix = prefix || '';
@@ -86,6 +111,7 @@ Button.prototype.click = function() {
 
 module.exports = {
     Select: Select,
+    Dropdown: Dropdown,
     Field: Field,
     Checkbox: Checkbox,
     Button: Button,

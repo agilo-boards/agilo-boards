@@ -17,7 +17,7 @@ function ScrumBoardNavigationPage(overridePath) {
     this.timeRemaining = new pageObjects.Field(element(by.binding('allTimeRemaining')), 'Remaining: ', ' h');
     this.compactMode = new pageObjects.Checkbox(element(by.id('compactMode')));
     this.ownerMode = new pageObjects.Checkbox(element(by.id('ownerMode')));
-    this.owners = new pageObjects.Select('owners');
+    this.owners = new pageObjects.Dropdown('owners');
 }
 
 util.inherits(ScrumBoardNavigationPage, BaseWebPage);

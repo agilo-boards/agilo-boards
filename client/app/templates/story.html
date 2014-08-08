@@ -7,7 +7,7 @@
     </header>
     <div class="story-center">
         <div class="story-owner-image" ng-show="story.owner" data-toggle="tooltip" data-placement="top" title="{{story.owner}}">
-            <img src="{{getImagePath(story.owner)}}" ng-hide="!story.owner"/>
+            <owner-image owner="{{story.owner}}"></owner-image>
         </div>
         <div class="centered">
             <span class="story-number" ng-click="$event.stopPropagation()">

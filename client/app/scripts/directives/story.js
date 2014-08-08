@@ -68,12 +68,6 @@ angular.module('scrumboards')
                     $scope.$emit('reloadBoard');
                 });
             };
-            $scope.getImagePath = function (owner) {
-                if (!owner) {
-                    return null;
-                }
-                return 'images/team/' + owner + '.jpg';
-            };
             $scope.isPostitDisplayed = function(postit) {
                 return !$scope.compactMode || postit.color; 
             };

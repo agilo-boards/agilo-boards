@@ -329,4 +329,8 @@ div.error {
     padding: 0px 10px 0px 10px;
     color: #a5a5a5;
     border-right: solid 1px #a5a5a5;
+    
+    .dropdown owner-image img {
+        height: 25px;
+    }
 }

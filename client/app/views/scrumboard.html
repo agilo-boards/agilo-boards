@@ -33,11 +33,24 @@
                     <span ng-click="compactMode = !compactMode" class="link-pointer nav-item">
                         <input id="compactMode" type="checkbox" ng-model="compactMode" ng-click="$event.stopPropagation()"></input> Compact Mode
                     </span>                    
-                    <span ng-click="ownerMode = !ownerMode" class="link-pointer nav-item">
+                    <span class="link-pointer nav-item">
                         <input id="ownerMode" type="checkbox" ng-model="ownerMode" ng-click="$event.stopPropagation()"></input>
-                        Filter by owner
-                        <select id="owners" class="form-control" ng-model="selectedOwner" ng-options="owner for owner in owners | orderBy:'toString()'" ng-hide="!ownerMode" ng-click="$event.stopPropagation()">
-                        </select>
+                        <span ng-click="ownerMode = !ownerMode">Filter by owner</span>
+                        &nbsp;
+                        <span class="dropdown" id="owners" ng-show="ownerMode">
+                          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                              {{selectedOwner || 'Select owner'}}
+                              <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation" ng-repeat="owner in owners | orderBy: 'toString()'">
+                                <a href role="menuitem" ng-click="$parent.selectedOwner = owner">
+                                    <owner-image owner="{{owner}}"></owner-image>
+                                    {{owner}}
+                                </a>
+                            </li>
+                          </ul>
+                        </span>
                     </span>
                 </div>
             </form>

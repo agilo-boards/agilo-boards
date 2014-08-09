@@ -30,7 +30,7 @@
 </nav>
 
 <div class="board" id="backlogboard">
-    <div ng-repeat="sprint in sprints | filter:{milestone: selectedRelease.name}| orderBy:'start'" class="row slice" id="slice_{{sprint.name}}" detail-sprint="{{sprint.name}}" dropable on-drag-over="onDragOver(sprint.name, event, id)" ng-show="sprint.selected">
+    <div ng-repeat="sprint in sprints | filter:{milestone: selectedRelease.name}| orderBy:'start'" class="row slice" id="slice_{{sprint.name}}" sprint="{{sprint.name}}" dropable ng-show="sprint.selected">
         <span fixed>
             <h2 class="slice-name" style="display: inline-block">
                 {{sprint.name}}
@@ -45,7 +45,7 @@
         </div>
 	</div>
     <br/>
-    <div class="row slice" id="slice_remaining">
+    <div class="row slice" id="slice_remaining" dropable sprint="">
         <span fixed>
             <h2 class="slice-name" style="display: inline-block">Remaining
                 <small class="story-points">({{sumStoryPoints(currentStories)}} SP)</small>

@@ -61,15 +61,11 @@ angular.module('scrumboards')
             $scope.$emit('reloadBoard');
         };
         
-        $scope.onDragOver = function(property, e, storyId) {
-            var story = $scope.storyMap[storyId];
-            return story[property];
-        };
         $scope.$on('story-dragged', function (e, src, dest) {
             var storyId = src.id;
             var story = $scope.storyMap[storyId];
-            var detailStatus = dest.getAttribute('detail-status');
-            UpdateTicketService.switchDetailStatus(story, detailStatus, function () {
+            var sprint = dest.getAttribute('sprint');
+            UpdateTicketService.switchSprint(story, sprint, function () {
                 $scope.$emit('reloadBoard');
             });
 		});

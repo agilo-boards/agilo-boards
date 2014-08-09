@@ -44,7 +44,7 @@
                           </button>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation" ng-repeat="owner in owners | orderBy: 'toString()'">
-                                <a href role="menuitem" ng-click="$parent.selectedOwner = owner">
+                                <a href role="menuitem" ng-click="$parent.selectedOwner = owner" id="owner-{{owner}}">
                                     <owner-image owner="{{owner}}"></owner-image>
                                     {{owner}}
                                 </a>

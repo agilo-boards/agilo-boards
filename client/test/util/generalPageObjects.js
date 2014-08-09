@@ -46,22 +46,23 @@ function Dropdown(id) {
 }
 util.inherits(Dropdown, PageObject);
 Dropdown.prototype.findOption = function(item) {
-    return this.elem.element(by.xpath('//li[@id="' + item + '"]'));
+    return this.elem.element(by.xpath('//a[@id="owner-' + item + '"]'));
 };
 Dropdown.prototype.selectOption = function (item) {
     this.elem.click();
     this.findOption(item).click();
 };
 Dropdown.prototype.assertSelected = function(item) {
-    expect(this.elem.element(by.xpath('//div[@id="'+this.id+'"]//button')).getText()).toEqual(item);
+    expect(this.elem.element(by.xpath('//*[@id="'+this.id+'"]//button')).getText()).toEqual(item);
 };
 Dropdown.prototype.assertOptions = function(options) {
-    var optionElems = this.elem.all(by.tagName('li'));
+    this.elem.click();
+    var optionElems = this.elem.all(by.tagName('a'));
     expect(optionElems.count()).toEqual(options.length);
     options.forEach(function(value, index) {
-        console.log(optionElems.get(index).getText());
         expect(optionElems.get(index).getText()).toEqual(value);
     });
+    this.elem.click();
 };
 
 function Field(elem, prefix, postfix) {

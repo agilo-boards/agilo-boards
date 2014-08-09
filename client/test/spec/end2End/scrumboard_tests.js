@@ -107,7 +107,7 @@ describe('Scrumboard', function() {
         amyStory.assertFadedout();
         
         navBar.owners.assertVisible();
-        navBar.owners.assertOptions(['', 'amy', 'face']);
+        navBar.owners.assertOptions(['amy', 'face']);
         navBar.owners.selectOption('face');
         faceStory.assertNotFadedout();
         amyStory.assertFadedout();

@@ -45,6 +45,16 @@ div.error {
     border-radius: 5px;
 }
 
+.drag-placeholder {
+	background-color: #d8d8d4;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: 6px 8px 6px 8px;
+    width: 100%;
+    min-height: 120px;
+    margin-bottom: 25px;
+}
+
 .story-card {
 	background-color: #FFFFE6;
 	-moz-border-radius: 4px;
@@ -52,7 +62,7 @@ div.error {
 	padding:6px 8px 6px 8px;
     box-shadow: 0 0 0 1px #FFFFE6,
         0 0 0 3px #E8E8BF;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
     display: block;
     word-wrap: break-word;
     

@@ -44,6 +44,17 @@ angular.module('scrumboards')
             });
         }
 
+        function switchSprintAndSeqNumber(ticket, sprint, seqNumber, callback) {
+            UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
+                var ticket = tickets[0];
+                var properties = {
+                    Sprint: sprint,
+                    story_project_prio: seqNumber
+                };
+                saveTicket(ticket, properties, callback);
+            });
+        }
+
         function switchSeqNumber(ticket, seqNumber, callback) {
             UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
                 var ticket = tickets[0];
@@ -59,6 +70,7 @@ angular.module('scrumboards')
             closeTicket: closeTicket,
             changeTime: changeTime,
             switchSprint: switchSprint,
-            switchSeqNumber: switchSeqNumber
+            switchSeqNumber: switchSeqNumber,
+            switchSprintAndSeqNumber: switchSprintAndSeqNumber
         };
     });

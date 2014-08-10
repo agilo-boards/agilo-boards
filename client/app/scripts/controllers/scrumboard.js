@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter, UpdateTicketService) {
+    .controller('ScrumboardCtrl', function ($scope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter) {
         
         var sprints = DataService.getSprints();
         $scope.sprints = {};
@@ -47,23 +47,6 @@ angular.module('scrumboards')
         Synchronizer.syncToLocalStorage($scope, 'compactMode', { isBoolean: true });
         Synchronizer.syncToLocalStorage($scope, 'ownerMode', { isBoolean: true });
         Synchronizer.syncToLocalStorage($scope, 'selectedOwner');
-
-        $scope.$on('story-dragged', function (e, src, dest) {
-            var storyId = src.id;
-            var story = $scope.stories.filter(function (story) {
-                return story.id === storyId;
-            })[0];
-            if (dest.id === 'done') {
-                UpdateTicketService.closeTicket(story, function () {
-                    $scope.$emit('reloadBoard');
-                });
-            }
-		});
-        $scope.onDragOver = function(stati, e, storyId) {
-            var story = $scope.stories.filter(function(story) { return story.id === storyId; })[0];
-            var dropAllowed = stati.filter(function(status) { return status === story.status; }).length === 0;
-            return dropAllowed;
-        };
 
         $scope.reload = function () {
             $scope.$emit('reloadBoard');

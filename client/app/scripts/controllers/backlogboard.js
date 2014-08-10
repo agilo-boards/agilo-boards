@@ -61,11 +61,31 @@ angular.module('scrumboards')
             $scope.$emit('reloadBoard');
         };
         
-        $scope.$on('story-dragged', function (e, src, dest) {
+        function determineSeqNumber(story, draggedOver) {
+            if (!draggedOver || !$scope.storyMap[draggedOver.ticketId]) {
+                return undefined;
+            }
+            var draggedOverStory = $scope.storyMap[draggedOver.ticketId];
+            var draggedOverSeqNumber = parseInt(draggedOverStory.seqNumber);
+            if (!draggedOverSeqNumber) {
+                draggedOverSeqNumber = 100;
+                UpdateTicketService.switchSeqNumber(story, 100, function () {
+                    $scope.$emit('reloadBoard');
+                });
+            }
+            if (draggedOver.upperHalf) {
+                return draggedOverSeqNumber-1;
+            } else {
+                return draggedOverSeqNumber+1;
+            }
+            
+        }
+        $scope.$on('story-dragged', function (e, src, dest, draggedOver) {
             var storyId = src.id;
             var story = $scope.storyMap[storyId];
             var sprint = dest.getAttribute('sprint');
-            UpdateTicketService.switchSprint(story, sprint, function () {
+            var seqNumber = determineSeqNumber(story, draggedOver);
+            UpdateTicketService.switchSprintAndSeqNumber(story, sprint, seqNumber, function () {
                 $scope.$emit('reloadBoard');
             });
 		});

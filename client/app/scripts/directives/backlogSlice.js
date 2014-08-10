@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('backlogSlice', function ($filter) {
+.directive('backlogSlice', function () {
     return {
         restrict: 'E',
         templateUrl: 'templates/backlogSlice.html',

@@ -30,7 +30,6 @@ angular.module('scrumboards')
     return {
         restrict: 'A',
         scope: {
-            onDragOver: '&'
         },
         link: function (scope, element, attrs) {
             if (!ExperimentalService.isEnabled()) {
@@ -42,23 +41,60 @@ angular.module('scrumboards')
                 angular.element(element).attr('id', id);
             }
 
+            function hasDraggedOverChanged(ticketId, isInUpperHalf) {
+                var prevTicketId = localStorage.getItem('draggedOverTicketId');
+                var prevHalf = localStorage.getItem('draggedOverInUpperHalf') === 'true';
+                var idHasChanged = ticketId!==prevTicketId || !prevTicketId;
+                var halfHasChanged = prevHalf!==isInUpperHalf || !prevHalf;
+                return idHasChanged || halfHasChanged;
+            }
+            function isInSameTicketGroup(draggedOverItem) {
+                var draggedItem = $('#'+localStorage.getItem('draggedItemId')).closest('story');
+                return $(draggedItem).attr('ticket-group') === $(draggedOverItem).attr('ticket-group');
+            }
             element.bind('dragover', function (e) {
+                var placeholder = '<div class="drag-placeholder"></div>';
                 var event = e;
                 if (!event.dataTransfer) { event = e.originalEvent; }
                 event.dataTransfer.dropEffect = 'move';
 
+                var target = e.originalEvent.toElement;
+                var closestItem = $(target).closest('story')[0];
+                if (closestItem) {
+                    var height = closestItem.offsetHeight || $(closestItem).find('div').first().height();
+                    var isInUpperHalf = ($(closestItem).offset().top + (height/2)) >= event.pageY;
+                    var ticketId = closestItem.getAttribute('ticket-id');
+                    if (hasDraggedOverChanged(ticketId, isInUpperHalf)) {
+                        if (ticketId === localStorage.getItem('draggedItemId')) {
+                            ticketId = undefined;
+                            isInUpperHalf = undefined;
+                        }
+                        localStorage.setItem('draggedOverTicketId', ticketId);
+                        localStorage.setItem('draggedOverInUpperHalf', isInUpperHalf);
+                        $('.drag-placeholder').detach();
+                        if (isInSameTicketGroup(closestItem)) {
+                            if (isInUpperHalf === true) {
+                                $(closestItem).after(placeholder);
+                            } else if (isInUpperHalf === false) {
+                                $(closestItem).before(placeholder);
+                            }
+                        }
+                    }
+                }
                 e.preventDefault();
                 return false;
             });
 
             element.bind('dragenter', function (e) {
-                if (!scope.onDragOver({event: e, id: localStorage.getItem('draggedItemId')})) {
-                    return;
-                }
+                var draggedItem = $('#'+localStorage.getItem('draggedItemId')).closest('story');
+                var ticketGroup = $(e.target).closest('[dropable]').find('.ticket-group[ticket-group="'+draggedItem.attr('ticket-group')+'"]');
+                $('.drag-placeholder').detach();
+                ticketGroup.append('<div class="drag-placeholder"></div>');
+                
                 $('.drag-area-entered').removeClass('drag-area-entered');
                 angular.element(e.target).addClass('drag-area-entered');
             });
-
+            
             element.bind('dragleave', function () {
             });
 
@@ -71,7 +107,12 @@ angular.module('scrumboards')
                 var data = localStorage.getItem('draggedItemId');
                 var dest = document.getElementById(id);
                 var src = document.getElementById(data);
-                $rootScope.$broadcast('story-dragged', src, dest);
+                var draggedOver = {
+                    ticketId: localStorage.getItem('draggedOverTicketId'),
+                    upperHalf: localStorage.getItem('draggedOverInUpperHalf')==='true'
+                };
+                $('.drag-placeholder').detach();
+                $rootScope.$broadcast('story-dragged', src, dest, draggedOver);
             });
 
             $rootScope.$on('storyDraggingStart', function () {

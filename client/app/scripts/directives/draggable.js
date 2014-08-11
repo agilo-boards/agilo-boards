@@ -88,8 +88,10 @@ angular.module('scrumboards')
             element.bind('dragenter', function (e) {
                 var draggedItem = $('#'+localStorage.getItem('draggedItemId')).closest('story');
                 var ticketGroup = $(e.target).closest('[dropable]').find('.ticket-group[ticket-group="'+draggedItem.attr('ticket-group')+'"]');
-                $('.drag-placeholder').detach();
-                ticketGroup.append('<div class="drag-placeholder"></div>');
+                if (ticketGroup.find('.no-stories:visible').length>0) {
+                    $('.drag-placeholder').detach();
+                    ticketGroup.append('<div class="drag-placeholder"></div>');
+                }
                 
                 $('.drag-area-entered').removeClass('drag-area-entered');
                 angular.element(e.target).addClass('drag-area-entered');

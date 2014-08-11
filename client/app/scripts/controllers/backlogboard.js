@@ -22,6 +22,9 @@ angular.module('scrumboards')
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
         });
+        $scope.reload = function () {
+            $scope.$emit('reloadBoard');
+        };
         var sprintPromise = DataService.getSprints();
         sprintPromise.then(function (sprints) {
             $scope.sprints = sprints.data;

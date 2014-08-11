@@ -8,7 +8,7 @@
     </span>
     <div ng-repeat="(project, stories) in storiesByProject" class="col-project ticket-group" ticket-group="{{project}}">
         <div class="centered project-title">{{project}}</div>
-        <story ng-repeat="story in currentStories = (stories | filter:{sprint: sliceValue} | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" 
+        <story ng-repeat="story in currentStories = (stories | filter:isMatchingSprint | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" 
                story="story" backlog-mode="true" 
                next-seq="{{$last?-1:currentStories[$index+1].seqNumber}}" 
                prev-seq="{{$first?-1:currentStories[$index-1].seqNumber}}" 
@@ -17,6 +17,6 @@
                ticket-id="{{story.id}}"
                ticket-group="{{project}}">
         </story>
-        <div class="information-text" ng-show="currentStories.length == 0">No stories</div>
+        <div class="information-text no-stories" ng-show="currentStories.length == 0">No stories</div>
     </div>
 </div>

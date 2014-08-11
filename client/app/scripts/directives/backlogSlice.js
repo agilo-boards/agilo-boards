@@ -25,6 +25,9 @@ angular.module('scrumboards')
                 return total;
             };
             
+            $scope.isMatchingSprint = function(story) {
+                return story.sprint === $scope.sliceValue;
+            };            
         }
     };
 });

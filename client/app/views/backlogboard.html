@@ -9,6 +9,9 @@
             <div class="navbar-form navbar-left form-group">
                 <select id="releases" class="form-control" ng-model="selectedRelease" ng-options="release.name for release in allReleases" >
                 </select>
+                <span class="nav-item">
+                    <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
+                </span>
                 <span id="releaseDescription" class="nav-item">
                     {{selectedRelease.description}}
                 </span>

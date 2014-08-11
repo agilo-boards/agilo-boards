@@ -17,12 +17,12 @@ angular.module('scrumboards')
                 });
             };
             
-            scope.$on('reloadBoard', function () {
-                scope.resetSprints();
-            });
             scope.$on('sprintsLoaded', function () {
                 scope.resetSprints();
             });
+            if (scope.sprints) {
+                scope.resetSprints();
+            }
         }
     };
 });

@@ -40,7 +40,17 @@ angular.module('scrumboards')
                 id = 'draggable_' + Math.floor(Math.random()*100000);
                 angular.element(element).attr('id', id);
             }
+            var placeholderHtml = $('<div class="drag-placeholder"></div>');
+            placeholderHtml.bind('dragover', function(event) {
+                event.preventDefault();
+                return false;
+            });
 
+            function resetPlaceholders() {
+                $('.drag-placeholder').detach();
+                $('.no-stories.drag-hide').removeClass('drag-hide');
+            }
+            
             function hasDraggedOverChanged(ticketId, isInUpperHalf) {
                 var prevTicketId = localStorage.getItem('draggedOverTicketId');
                 var prevHalf = localStorage.getItem('draggedOverInUpperHalf') === 'true';
@@ -53,7 +63,6 @@ angular.module('scrumboards')
                 return $(draggedItem).attr('ticket-group') === $(draggedOverItem).attr('ticket-group');
             }
             element.bind('dragover', function (e) {
-                var placeholder = '<div class="drag-placeholder"></div>';
                 var event = e;
                 if (!event.dataTransfer) { event = e.originalEvent; }
                 event.dataTransfer.dropEffect = 'move';
@@ -71,12 +80,12 @@ angular.module('scrumboards')
                         }
                         localStorage.setItem('draggedOverTicketId', ticketId);
                         localStorage.setItem('draggedOverInUpperHalf', isInUpperHalf);
-                        $('.drag-placeholder').detach();
+                        resetPlaceholders();
                         if (isInSameTicketGroup(closestItem)) {
                             if (isInUpperHalf === true) {
-                                $(closestItem).after(placeholder);
+                                $(closestItem).after(placeholderHtml);
                             } else if (isInUpperHalf === false) {
-                                $(closestItem).before(placeholder);
+                                $(closestItem).before(placeholderHtml);
                             }
                         }
                     }
@@ -88,9 +97,11 @@ angular.module('scrumboards')
             element.bind('dragenter', function (e) {
                 var draggedItem = $('#'+localStorage.getItem('draggedItemId')).closest('story');
                 var ticketGroup = $(e.target).closest('[dropable]').find('.ticket-group[ticket-group="'+draggedItem.attr('ticket-group')+'"]');
-                if (ticketGroup.find('.no-stories:visible').length>0) {
-                    $('.drag-placeholder').detach();
-                    ticketGroup.append('<div class="drag-placeholder"></div>');
+                var noStories = ticketGroup.find('.no-stories:visible, .no-stories.drag-hide');
+                if (noStories.length>0) {
+                    resetPlaceholders();
+                    ticketGroup.append(placeholderHtml);
+                    noStories.addClass('drag-hide');
                 }
                 
                 $('.drag-area-entered').removeClass('drag-area-entered');
@@ -113,7 +124,7 @@ angular.module('scrumboards')
                     ticketId: localStorage.getItem('draggedOverTicketId'),
                     upperHalf: localStorage.getItem('draggedOverInUpperHalf')==='true'
                 };
-                $('.drag-placeholder').detach();
+                resetPlaceholders();
                 $rootScope.$broadcast('story-dragged', src, dest, draggedOver);
             });
 

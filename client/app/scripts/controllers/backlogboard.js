@@ -78,9 +78,9 @@ angular.module('scrumboards')
                 });
             }
             if (draggedOver.upperHalf) {
-                return draggedOverSeqNumber-1;
-            } else {
                 return draggedOverSeqNumber+1;
+            } else {
+                return draggedOverSeqNumber-1;
             }
             
         }

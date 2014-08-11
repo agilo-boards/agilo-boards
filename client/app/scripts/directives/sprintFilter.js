@@ -20,9 +20,9 @@ angular.module('scrumboards')
             scope.$on('reloadBoard', function () {
                 scope.resetSprints();
             });
-            if (scope.sprints) {
+            scope.$on('sprintsLoaded', function () {
                 scope.resetSprints();
-            }            
+            });
         }
     };
 });

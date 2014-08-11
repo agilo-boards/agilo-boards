@@ -28,6 +28,7 @@ angular.module('scrumboards')
         var sprintPromise = DataService.getSprints();
         sprintPromise.then(function (sprints) {
             $scope.sprints = sprints.data;
+            $scope.$emit('sprintsLoaded');
         });
         var releasePromise = DataService.getReleases();
         $scope.$watch('selectedRelease', function (newValue, oldValue) {

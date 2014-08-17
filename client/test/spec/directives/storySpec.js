@@ -14,6 +14,7 @@ describe('Directive: Story', function () {
     // Initialize the controller and a mock $scope
     beforeEach(inject(function ($controller, $rootScope, _UpdateTicketService_, $compile, _$httpBackend_) {
         scope = $rootScope.$new();
+        scope.story = { id: 1234 };
         UpdateTicketService = _UpdateTicketService_;        
         httpBackend = _$httpBackend_;
         
@@ -48,4 +49,10 @@ describe('Directive: Story', function () {
         });
     });
 
+    describe('initialization', function () {
+        it('sets the id on the element', function () {
+            expect(elem.attr('id')).toEqual('story-1234');
+            expect(elem.attr('story-id')).toEqual('1234');
+        });
+    });
 });

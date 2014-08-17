@@ -10,8 +10,10 @@ angular.module('scrumboards')
             compactMode: '=',
             story: '='
         },
-        link: function($scope) {
+        link: function($scope, element) {
             $scope.experimental = ExperimentalService.isEnabled();
+            element.attr('story-id', $scope.story.id);
+            element.attr('id', 'story-'+$scope.story.id);
         },
         controller: function ($scope) {
             $scope.isStoryClosable = function (story) {
@@ -32,7 +34,8 @@ angular.module('scrumboards')
     return {
         restrict: 'E',
         templateUrl: 'templates/storyWithTasks.html',
-        link: function($scope) {
+        link: function($scope, element) {
+            element.attr('id', 'story-and-tasks-'+$scope.story.id);
             $scope.showOwnerImage = function(story) {
                 return story.tasks.filter(function(task) {
                     return task.owner && task.owner !== story.owner;

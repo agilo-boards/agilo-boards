@@ -16,7 +16,7 @@ ScrumBoardPage.prototype.assertStories = function (storiesTodo, storiesInProgres
         'done': storiesDone
     };
     function assertStoryExists(storyElems, storyId, index) {
-        expect(storyElems.get(index).element(by.xpath('//div[@story-id="'+storyId.toString()+'"]')).getAttribute('story-id')).toEqual(storyId.toString());
+        expect(storyElems.get(index).getAttribute('story-id')).toEqual(storyId.toString());
     }
     for (var type in stories) {
         var storyIds = stories[type];

@@ -63,7 +63,7 @@
         <div class="col-md-5 swimlane" id="todo">
             <h2>To Do</h2>
 			<span id="col-todo">
-				<story-with-tasks ng-repeat="story in todoStories = (stories | filter:{isToDo: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="story-{{story.id}}">
+				<story-with-tasks ng-repeat="story in todoStories = (stories | filter:{isToDo: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword">
 				</story-with-tasks>
                 <div class="information-text" ng-show="todoStories.length == 0">No stories</div>
 			</span>
@@ -71,7 +71,7 @@
         <div class="col-md-5 swimlane" id="inprogress">
             <h2>In Progress</h2>
 			<span id="col-inprogress">
-                <story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{isInProgress: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="story-{{story.id}}">
+                <story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{isInProgress: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword">
                 </story-with-tasks>
                 <div class="information-text" ng-show="inprogressStories.length == 0">No stories</div>
             </span>
@@ -79,7 +79,7 @@
         <div class="col-md-2 swimlane" id="done">
             <h2>Done</h2>
 			<span id="col-done">
-                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{isClosed: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}" id="story-{{story.id}}">
+                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{isClosed: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}">
                     <story story="story" compact-mode="compactMode">
                     </story>
                 </div>

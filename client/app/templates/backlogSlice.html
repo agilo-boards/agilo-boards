@@ -11,9 +11,7 @@
         <story ng-repeat="story in currentStories = (stories | filter:isMatchingSprint | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" 
                story="story" backlog-mode="true"
                ng-show="story.inScope || showOutOfScope"
-               id="story-{{story.id}}"
-               ticket-id="{{story.id}}"
-               ticket-group="{{project}}">
+               assigned-ticket-group="{{project}}">
         </story>
         <div class="information-text no-stories" ng-show="currentStories.length == 0">No stories</div>
     </div>

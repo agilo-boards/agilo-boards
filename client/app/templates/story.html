@@ -1,5 +1,5 @@
-<div story-id="{{story.id}}">
-    <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'compact-mode': compactMode}" draggable>
+<div draggable story-id="{{story.id}}">
+    <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'compact-mode': compactMode}">
         <header ng-hide="compactMode" class="header">
             <span class="project" ng-hide="backlogMode">{{story.project}}</span>
             <span class="pull-right release" ng-hide="backlogMode">{{story.release}}</span>

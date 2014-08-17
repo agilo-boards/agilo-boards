@@ -79,7 +79,7 @@
         <div class="col-md-2 swimlane" id="done">
             <h2>Done</h2>
 			<span id="col-done">
-                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{isClosed: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}">
+                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{isClosed: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" ng-class="{'fade-out': doesNotMatchesSelectedOwner(story)}" id="whole-story-{{story.id}}">
                     <story story="story" compact-mode="compactMode">
                     </story>
                 </div>

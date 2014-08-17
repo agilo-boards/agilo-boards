@@ -47,7 +47,7 @@ Task.prototype.assertCompactMode = function () {
 };
 
 function Story(storyId) {
-    var elem = element(by.id('story-'+storyId));
+    var elem = element(by.id('whole-story-'+storyId));
     pageObjects.PageObject.call(this, elem);
     
     var storyCard = elem.element(by.className('story-card'));
@@ -74,10 +74,10 @@ Story.prototype.assertFullsize = function () {
     expect(this.elem.getAttribute('class')).toMatch('block-fullsize');
 };
 Story.prototype.assertFadedout = function() {
-    expect(this.elem.getAttribute('class')).toMatch('fade-out');
+    expect(this.elem.getAttribute('class')).toContain('fade-out');
 };
 Story.prototype.assertNotFadedout = function() {
-    expect(this.elem.getAttribute('class')).toNotMatch('fade-out');
+    expect(this.elem.getAttribute('class')).toNotContain('fade-out');
 };
 Story.prototype.assertCreateTaskLink = function() {
     var createTaskLink = this.elem.element(by.xpath('.//a[contains(@class, "task-creation-link")]'));

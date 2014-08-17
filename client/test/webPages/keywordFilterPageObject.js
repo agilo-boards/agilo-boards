@@ -18,7 +18,7 @@ KeywordFilter.prototype.assertKeywords = function (keywords) {
     });
 };
 KeywordFilter.prototype.getKeyword = function (keyword) {
-    return new pageObjects.Checkbox(this.elem.element(by.xpath('.//*[@id="keyword-'+keyword+'"]//input')));
+    return new pageObjects.Checkbox(this.elem.element(by.xpath('.//*[@keyword="'+keyword+'"]//input')));
 };
 KeywordFilter.prototype.reset = function () {
     this.resetButton.click();

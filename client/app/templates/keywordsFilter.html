@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Filter keywords by type</h4>
             </div>
             <div class="modal-body">
-                <div id="keyword-{{type}}" ng-repeat="(type, value) in keywordTypes" ng-click="keywordTypes[type] = !keywordTypes[type]" style="cursor: pointer">
+                <div keyword="{{type}}" ng-repeat="(type, value) in keywordTypes" ng-click="keywordTypes[type] = !keywordTypes[type]" style="cursor: pointer">
                     <input type="checkbox" ng-model="keywordTypes[type]" ng-click="$event.stopPropagation()"></input>
                     &nbsp;&nbsp;<span class="keyword">{{type}}</span>
                 </div>

@@ -79,6 +79,17 @@ div.error {
         box-shadow: 0 0 0 3px #e2e254;
     }
     
+    &.closed {
+        background-color: #e2e2f7;
+        box-shadow: 0 0 0 1px #e2e2f7,
+                    0 0 0 3px #cdcdd1;
+        
+        &:hover {
+            background-color: #dfdfe3;
+            box-shadow: 0 0 0 3px #bfbcbc;
+        }
+    }
+    
     .story-number {
         font-weight: bold;
         font-size: 1.5em;

@@ -118,13 +118,14 @@ angular.module('scrumboards')
                 var event = e;
                 if (!event.dataTransfer) { event = e.originalEvent; }
                 var dest = document.getElementById(id);
-                var src = getStory(localStorage.getItem('draggedStoryId'));
+                var storyId = localStorage.getItem('draggedStoryId');
+                var src = getStory(storyId);
                 var draggedOver = {
                     storyId: localStorage.getItem('draggedOverStoryId'),
                     upperHalf: localStorage.getItem('draggedOverInUpperHalf')==='true'
                 };
                 resetPlaceholders();
-                $rootScope.$broadcast('story-dragged', src, dest, draggedOver);
+                $rootScope.$broadcast('story-dragged', src, dest, storyId, draggedOver);
             });
 
             $rootScope.$on('storyDraggingStart', function () {

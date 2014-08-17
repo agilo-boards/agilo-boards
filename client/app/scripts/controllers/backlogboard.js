@@ -84,15 +84,10 @@ angular.module('scrumboards')
             }
             
         }
-        $scope.$on('story-dragged', function (e, src, dest, draggedOver) {
-            var storyId = src.id;
+        $scope.$on('story-dragged', function (e, src, dest, storyId, draggedOver) {
             var story = $scope.storyMap[storyId];
             var sprint = dest.getAttribute('sprint');
             var seqNumber = determineSeqNumber(story, draggedOver);
-            if (seqNumber) {
-                console.error('Unable to drag story as seqNumber is '+seqNumber);
-                return;
-            }
             UpdateTicketService.switchSprintAndSeqNumber(story, sprint, seqNumber, function () {
                 $scope.$emit('reloadBoard');
             });

@@ -61,7 +61,8 @@ angular.module('scrumboards.agiloServices')
         getStoriesByRelease: function (selectedRelease) {
             return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getStoriesByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_MAPPING_STORIES_BY_RELEASE, {
                 keywords: parseKeywords,
-                storyPoints: parseFloatOrNull                
+                storyPoints: parseFloatOrNull,
+                seqNumber: parseFloatOrNull                
             });
         }
     };

@@ -1,9 +1,14 @@
 <div class="task-card" ng-click="openTicket(task, $event)" ng-class="{'compact-mode': compactMode}">
-    <span>
-        <div style="display: inline" class="pull-right">
-            <span class="glyphicon glyphicon-plus link add-time compactMode" ng-click="changeTime(task, +0.5); $event.stopPropagation();" ng-hide="task.isOnGoing() || !experimental"></span>
-            <progress-bar ticket="task" ng-show="compactMode"></progress-bar>
+    <div class="pull-left" style="height: 100%">
+        <div class="owner-image" ng-show="task.owner && showOwnerImage" data-toggle="tooltip" data-placement="top" title="{{task.owner}}">
+            <owner-image owner="{{task.owner}}"></owner-image>
         </div>
+    </div>
+    <div class="pull-right">
+        <span class="glyphicon glyphicon-plus link add-time compactMode" ng-click="changeTime(task, +0.5); $event.stopPropagation();" ng-hide="task.isOnGoing() || !experimental"></span>
+        <progress-bar ticket="task" ng-show="compactMode"></progress-bar>
+    </div>
+    <div>
         <div style="display: inline" class="task-title">
             <span ng-hide="compactMode">#{{task.id}}: </span>{{task.title}}
         </div>
@@ -11,6 +16,6 @@
             <span class="task-time-done">Done: {{task.timeDone || 0}} h</span>
             - <span class="task-time-remaining">Remaining: {{task.timeRemaining || 0}} h</span>
         </div>
-    </span>
+    </div>
     <links ticket="task" ng-hide="compactMode"></links>
 </div>

@@ -26,6 +26,14 @@ a {
     &#backlogboard {
         position: absolute;
         min-width: 99%;
+        
+        .story-card {
+            font-size: 0.8em;
+            
+            .postit {
+                font-size: 1.2em;
+            }
+        }
     }
 }
 .nav .dropdown-menu li input {
@@ -55,14 +63,14 @@ div.error {
     margin-bottom: 25px;
 }
 
-.story-card {
+.story-card {    
+    @extend .div-block;
 	background-color: #FFFFE6;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	padding:6px 8px 6px 8px;
     box-shadow: 0 0 0 1px #FFFFE6,
         0 0 0 3px #E8E8BF;
-	margin-bottom: 25px;
     display: block;
     word-wrap: break-word;
     
@@ -82,23 +90,6 @@ div.error {
         font-size: 1.5em;
         margin-top: 0.3em;
         margin-bottom: 0.8em;
-    }
-    .story-owner-image {
-        margin: 0.8em 0.8em 0.8em 0.8em;
-        width: 80px;
-        min-height: 80px;
-        float: left;
-        vertical-align: middle;
-        display: inline-block;
-        text-align: center;
-        border-radius: 4px;
-        border: solid 1px grey;
-        background-image: url("../images/team/unknown.jpg");
-        background-size: contain;
-    }
-
-    .story-owner-image img, .story-owner-image object {
-        width: 100%;
     }
     
     .story-point {
@@ -126,39 +117,66 @@ div.error {
     }   
 }
 
-.story-with-postits {
-    margin-bottom: 40px;
-    
-    .postits {
-        position: relative;
-        left: 50px;
-        top: -20px;
-        
-        
-        .postit {
-            border-radius: 2px;
-            border: solid 1px grey;
-            background-color: #ff60df;
-            color: white;
-            font: "Comic Sans MS";
-            font-size: 1em;
-            padding: 3px;
-            width: 90px;
-            height: 30px;
-            vertical-align: middle;
-            text-align: center;
-            float: left;
-            box-shadow: 5px 5px 2px #888888;
-            margin-right: 10px;
-            
-            &.postit-twolines {
-                height: 50px;
-            }
+
+.owner-image {
+    margin: 0.4em;
+    width: 80px;
+    min-height: 80px;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 4px;
+    border: solid 1px grey;
+    background-image: url("../images/team/unknown.jpg");
+    background-size: contain;
+
+    img {
+        width: 100%;
+    }
+}
+
+.postits {
+    position: relative;
+    left: 50px;
+    top: -2em;
+    min-height: 1em;
+    width: 65%;
+
+
+    .postit {
+        border-radius: 2px;
+        border: solid 1px grey;
+        background-color: #ff60df;
+        color: white;
+        font: "Comic Sans MS";
+        font-size: 1em;
+        padding: 3px;
+        width: 90px;
+        height: 2em;
+        vertical-align: middle;
+        text-align: center;
+        float: left;
+        box-shadow: 5px 5px 2px #888888;
+        margin-right: 10px;
+
+        &.postit-twolines {
+            height: 50px;
         }
     }
 }
 
+story-with-tasks > div {
+    margin-bottom: 25px;
+    &.compact-mode {
+        margin-bottom: 0px;
+    }
+}
+
+.tasks {
+    margin-top: 20px;
+}
+
 .task-card {
+    @extend .div-block;
 	background-color: #E0E0F8;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
@@ -188,7 +206,11 @@ div.error {
             border-color: #4e4e4e;
         }
     }
-
+    .owner-image {
+        width: 60px;
+        min-height: 60px;        
+        margin: 0.2em 0.8em 0.2em 0em;
+    }
     .task-title {
         font-weight: bold;
     }
@@ -202,6 +224,10 @@ div.error {
     .glyphicon {
         font-size: 1em;
     }
+}
+.div-block {
+    height: auto;
+    overflow: hidden;
 }
 
 .progress {
@@ -233,7 +259,6 @@ div.error {
 }
 
 .centered {
-	text-align: center;
 	text-align: center;
 }
 
@@ -322,7 +347,7 @@ div.error {
     }
     
     .col-project {
-        width: 20em;
+        width: 15em;
         display: inline-block;
         margin: 5px;
         white-space: normal;
@@ -332,6 +357,10 @@ div.error {
         .project-title {
             font-size: 1.4em;
             padding-bottom: 10px;
+        }
+        story .postits {
+            top: -1.5em;
+            margin-bottom: 1em;
         }
     }
 }

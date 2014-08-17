@@ -50,18 +50,19 @@ function Story(storyId) {
     var elem = element(by.id('story-'+storyId));
     pageObjects.PageObject.call(this, elem);
     
+    var storyCard = elem.element(by.className('story-card'));
     this.storyId = storyId;
-    var header = elem.element(by.tagName('header'));
+    var header = storyCard.element(by.tagName('header'));
     this.project = new pageObjects.Field(header.element(by.className('project')));
     this.release = new pageObjects.Field(header.element(by.className('release')));
     
-    var footer = elem.element(by.tagName('footer'));
+    var footer = storyCard.element(by.tagName('footer'));
     this.storypoint = new pageObjects.Field(footer.element(by.className('story-point')), '', ' SP');
     this.time = new pageObjects.Field(footer.element(by.className('progress')));
     
-    this.title = new pageObjects.Field(elem.element(by.className('story-title')));
-    this.ownerImage = this.elem.element(by.tagName('img'));
-    this.number = new pageObjects.Field(elem.element(by.className('story-number')), '#');
+    this.title = new pageObjects.Field(storyCard.element(by.className('story-title')));
+    this.ownerImage = storyCard.element(by.tagName('img'));
+    this.number = new pageObjects.Field(storyCard.element(by.className('story-number')), '#');
 }
 util.inherits(Story, pageObjects.PageObject);
 

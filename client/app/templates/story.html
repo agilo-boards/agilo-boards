@@ -1,42 +1,39 @@
-<div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'story-with-postits': story.keywords.length>0, 'compact-mode': compactMode}" draggable id="{{story.id}}">
-    <header ng-hide="compactMode" class="header">
-        <span class="project" ng-hide="backlogMode">{{story.project}}</span>
-        <span class="pull-right release" ng-hide="backlogMode">{{story.release}}</span>
-        <span class="glyphicon glyphicon-thumbs-down pull-right" ng-show="backlogMode && !story.inScope" data-toggle="tooltip" data-placement="right" title="Out of scope"></span>
-        <span class="glyphicon glyphicon-asterisk pull-right" ng-show="backlogMode && story.hasTasks" data-toggle="tooltip" data-placement="right" title="The story has tasks and might be already planned."></span>
-    </header>
-    <div class="story-center">
-        <div class="story-owner-image" ng-show="story.owner" data-toggle="tooltip" data-placement="top" title="{{story.owner}}">
-            <owner-image owner="{{story.owner}}"></owner-image>
+<div story-id="{{story.id}}">
+    <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'compact-mode': compactMode}" draggable>
+        <header ng-hide="compactMode" class="header">
+            <span class="project" ng-hide="backlogMode">{{story.project}}</span>
+            <span class="pull-right release" ng-hide="backlogMode">{{story.release}}</span>
+            <span class="glyphicon glyphicon-thumbs-down pull-right" ng-show="backlogMode && !story.inScope" data-toggle="tooltip" data-placement="right" title="Out of scope"></span>
+            <span class="glyphicon glyphicon-asterisk pull-right" ng-show="backlogMode && story.hasTasks" data-toggle="tooltip" data-placement="right" title="The story has tasks and might be already planned."></span>
+        </header>
+        <div class="story-center">
+            <div class="owner-image pull-left" ng-show="story.owner" data-toggle="tooltip" data-placement="top" title="{{story.owner}}">
+                <owner-image owner="{{story.owner}}"></owner-image>
+            </div>
+            <div class="centered">
+                <span class="story-number" ng-click="$event.stopPropagation()">
+                    #{{story.id}}
+                </span>
+                <links ticket="story" compact-mode="compactMode"></links>
+                <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && !backlogMode && isStoryClosable(story) && experimental" ng-click="closeTicket(story)"></span>
+                <br/>
+                <span class="story-title">{{story.title}}</span>
+
+            </div>
         </div>
-        <div class="centered">
-            <span class="story-number" ng-click="$event.stopPropagation()">
-                #{{story.id}}
+        <footer>
+            <div class="pull-right" ng-hide="backlogMode">
+                <progress-bar ticket="story"></progress-bar>
+            </div>
+            <span class="story-point" class="pull-left">
+                {{story.storyPoints || '-'}} SP
             </span>
-            <links ticket="story" compact-mode="compactMode"></links>
-            <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && !backlogMode && isStoryClosable(story) && experimental" ng-click="closeTicket(story)"></span>
-            <br/>
-            <span class="story-title">{{story.title}}</span>
-            <span class="backlog-btns" ng-show="backlogMode">
-                <br/>            
-                <span class="glyphicon glyphicon-arrow-up link" ng-show="increasable && experimental" ng-click="increasePriority()"></span>
-                <span class="glyphicon glyphicon-arrow-down link" ng-show="decreasable && experimental" ng-click="decreasePriority()"></span>
+            <span ng-show="backlogMode" class="pull-right seq-number">
+                {{story.seqNumber}}
             </span>
-            
-        </div>
+        </footer>
     </div>
-    <footer>
-        <div class="pull-right" ng-hide="backlogMode">
-            <progress-bar ticket="story"></progress-bar>
-        </div>
-        <span class="story-point" class="pull-left">
-            {{story.storyPoints || '-'}} SP
-        </span>
-        <span ng-show="backlogMode" class="pull-right seq-number">
-            {{story.seqNumber}}
-        </span>
-    </footer>
     <div class="postits">
-        <div class="postit" ng-repeat="postit in story.keywords | filter:isPostitDisplayed" scale-to-fit="{{postit.value}}" ng-hide="(compactMode || backlogMode) && !postit.color" style="background-color: {{postit.color}}"></div>
+        <div class="postit" ng-repeat="postit in postits = (story.keywords | filter:isPostitDisplayed)" scale-to-fit="{{postit.value}}" ng-hide="(compactMode || backlogMode) && !postit.color" style="background-color: {{postit.color}}"></div>
     </div>
 </div>

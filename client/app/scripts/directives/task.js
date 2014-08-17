@@ -7,7 +7,8 @@ angular.module('scrumboards')
         templateUrl: 'templates/task.html',
         scope: {
             task: '=',
-            compactMode: '='
+            compactMode: '=',
+            showOwnerImage: '@'
         },
         link: function($scope) {
             $scope.experimental = ExperimentalService.isEnabled();

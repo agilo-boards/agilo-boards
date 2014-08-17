@@ -8,58 +8,12 @@ angular.module('scrumboards')
         scope: {
             backlogMode: '@',
             compactMode: '=',
-            story: '=',
-            prevSeq: '@',
-            nextSeq: '@'
+            story: '='
         },
         link: function($scope) {
             $scope.experimental = ExperimentalService.isEnabled();
         },
         controller: function ($scope) {
-            $scope.increasable = ($scope.prevSeq!=='-1') || !$scope.story.isPlannedForNextSprint;
-            $scope.decreasable = ($scope.nextSeq!=='-1') || ($scope.story.isPlannedForNextSprint || $scope.story.isReadyToImplement);
-            
-            $scope.increasePriority = function() {
-                if ($scope.prevSeq !== '-1') {
-                    var newSeqNumber = (parseInt($scope.prevSeq) || 100)+1;
-                    UpdateTicketService.switchSeqNumber($scope.story, newSeqNumber, function() {
-                        $scope.$emit('reloadBoard');
-                    });
-                } else {
-                    var newDetailStatus;
-                    if ($scope.story.isPlannedForNextSprint) {
-                        return;
-                    } else if ($scope.story.isReadyToImplement) {
-                        newDetailStatus = 'Next Sprint';
-                    } else {
-                        newDetailStatus = 'Ready to Implement';
-                    }
-                    UpdateTicketService.switchDetailStatus($scope.story, newDetailStatus, function() {
-                        $scope.$emit('reloadBoard');
-                    });
-                }
-            };
-            $scope.decreasePriority = function() {
-                if ($scope.nextSeq !== '-1') {
-                    var newSeqNumber = (parseInt($scope.nextSeq) || 100)-1;
-                    UpdateTicketService.switchSeqNumber($scope.story, newSeqNumber, function() {
-                        $scope.$emit('reloadBoard');
-                    });
-                } else {
-                    var newDetailStatus;
-                    if ($scope.story.isPlannedForNextSprint) {
-                        newDetailStatus = 'Ready to Implement';
-                    } else if ($scope.story.isReadyToImplement) {
-                        newDetailStatus = '';
-                    } else {
-                        return;
-                    }
-                    UpdateTicketService.switchDetailStatus($scope.story, newDetailStatus, function() {
-                        $scope.$emit('reloadBoard');
-                    });
-                }
-
-            };
             $scope.isStoryClosable = function (story) {
                 return story.status === 'assigned';
             };
@@ -77,6 +31,13 @@ angular.module('scrumboards')
 .directive('storyWithTasks', function () {
     return {
         restrict: 'E',
-        templateUrl: 'templates/storyWithTasks.html'
+        templateUrl: 'templates/storyWithTasks.html',
+        link: function($scope) {
+            $scope.showOwnerImage = function(story) {
+                return story.tasks.filter(function(task) {
+                    return task.owner && task.owner !== story.owner;
+                }).length > 0;
+            };
+        }
     };
 });

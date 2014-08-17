@@ -9,9 +9,7 @@
     <div ng-repeat="(project, stories) in storiesByProject" class="col-project ticket-group" ticket-group="{{project}}">
         <div class="centered project-title">{{project}}</div>
         <story ng-repeat="story in currentStories = (stories | filter:isMatchingSprint | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" 
-               story="story" backlog-mode="true" 
-               next-seq="{{$last?-1:currentStories[$index+1].seqNumber}}" 
-               prev-seq="{{$first?-1:currentStories[$index-1].seqNumber}}" 
+               story="story" backlog-mode="true"
                ng-show="story.inScope || showOutOfScope"
                id="story-{{story.id}}"
                ticket-id="{{story.id}}"

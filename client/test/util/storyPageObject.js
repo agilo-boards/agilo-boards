@@ -10,6 +10,7 @@ function Task(elem) {
     this.timeRemaining = new pageObjects.Field(elem.element(by.className('task-time-remaining')), 'Remaining: ', ' h');
     this.title = new pageObjects.Field(elem.element(by.className('task-title')));
     this.timeCompact = new pageObjects.Field(elem.element(by.className('progress')));
+    this.ownerImage = elem.element(by.tagName('img'));
     
     this.addTimeBtn = new pageObjects.Button(elem.element(by.className('add-time')));
 }
@@ -30,6 +31,9 @@ Task.prototype.assertTime = function (timeDone, timeRemaining, compactMode) {
     } else {
         this.timeCompact.assertToStartWith(timeDone + ' / '+ (timeRemaining+timeDone) + ' h');
     }
+};
+Task.prototype.assertOwner = function (owner) {
+    expect(this.ownerImage.getAttribute('src')).toContain('images/team/'+owner+'.jpg');
 };
 
 Task.prototype.assertNotCompactMode = function () {

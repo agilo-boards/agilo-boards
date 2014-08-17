@@ -8,12 +8,12 @@
 var BacklogNavigationPage = require('./backlogNavigationPage.js');
 var ScrumBoardNavigationPage = require('./scrumBoardNavigationPage.js');
 var ScrumBoardPage = require('./scrumBoardPage.js');
-var SlicePage = require('./slicePage.js');
+var BacklogPage = require('./backlogPage.js');
 
 
 module.exports = {
     backlogNavigationPage: BacklogNavigationPage,
     scrumBoardNavigationPage: ScrumBoardNavigationPage,
-    slicePage: SlicePage,
+    backlogPage: BacklogPage,
     scrumBoardPage: ScrumBoardPage
 };

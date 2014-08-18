@@ -14,6 +14,12 @@ PageObject.prototype.assertNotVisible = function() {
 PageObject.prototype.assertToBeStyled = function(property, value) {
     expect(this.elem.getCssValue(property)).toEqual(value);
 };
+PageObject.prototype.waitToBeDisplayed = function () {
+    var that = this;
+    browser.wait(function() {
+      return that.elem.isDisplayed();
+    }, 30000);
+};
 
 function Select(id) {
     var elem = element(by.xpath('//select[@id="'+id+'"]'));

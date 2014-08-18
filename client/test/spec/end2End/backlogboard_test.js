@@ -61,6 +61,7 @@ describe('Backlog Functionality', function() {
     });
     
     it('filters sprints', function(){
+        navBar.releases.selectOption('Release 2');
         
         backlog.assertSliceNotVisible('Sprint 1');
         backlog.assertSliceNotVisible('Sprint 2');
@@ -98,6 +99,42 @@ describe('Backlog Functionality', function() {
         navBar.filterModal.getSprint('Sprint 3').assertSelected();
         navBar.filterModal.close();
         
+    });
+    
+    it('should out of scope stories only when selected', function() {
+        navBar.releases.selectOption('Release 2');
+        navBar.filterButton.click();        
+        navBar.filterModal.getSprint('Sprint 3').assertSelected();
+        navBar.filterModal.showAll();
+        
+        backlog.findStory(3000).assertVisible();
+        backlog.assertStoryNotVisible(1006);
+        backlog.assertStoryNotVisible(1004);
+        
+        navBar.toggleOutOfScope();
+        
+        backlog.findStory(1006).assertVisible();
+        backlog.findStory(1006).assertToBeOutOfScope();
+        backlog.findStory(1004).assertVisible();
+        backlog.findStory(1004).assertToBeOutOfScope();
+        
+        navBar.toggleOutOfScope();
+        
+        backlog.assertStoryNotVisible(1006);
+        backlog.assertStoryNotVisible(1004);
+    });
+    
+    
+    it('should show additional properties of stories', function() {
+        navBar.releases.selectOption('Release 2');
+        navBar.filterButton.click();        
+        navBar.filterModal.getSprint('Sprint 3').assertSelected();
+        navBar.filterModal.showAll();
+        
+        backlog.findStory(1000).assertToBeClosed();        
+        
+        backlog.findStory(1100).assertToBeClosed();
+        backlog.findStory(1100).assertToHaveTasks();
     });
 });
 

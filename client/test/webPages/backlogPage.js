@@ -21,8 +21,12 @@ BacklogPage.prototype.assertSliceNotVisible = function (sliceName) {
     expect(this.getSlice(sliceName).elem.isDisplayed()).toBeFalsy();    
 };
 
+BacklogPage.prototype.assertStoryNotVisible = function (storyId) {
+    expect(element(by.id('story-'+storyId)).isDisplayed()).toBeFalsy();
+};
+
 BacklogPage.prototype.findStory = function (storyId) {
-    var story = new pageObjects.Story(storyId);
+    var story = new pageObjects.Story(storyId, 'story-');
     story.assertStoryNumber();
     return story;
 };

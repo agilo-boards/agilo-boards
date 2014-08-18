@@ -32,8 +32,11 @@ Task.prototype.assertTime = function (timeDone, timeRemaining, compactMode) {
         this.timeCompact.assertToStartWith(timeDone + ' / '+ (timeRemaining+timeDone) + ' h');
     }
 };
-Task.prototype.assertOwner = function (owner) {
+Task.prototype.assertOwnerImage = function (owner) {
     expect(this.ownerImage.getAttribute('src')).toContain('images/team/'+owner+'.jpg');
+};
+Task.prototype.assertNoOwnerImage = function () {
+    expect(this.ownerImage.isDisplayed()).toBeFalsy();
 };
 
 Task.prototype.assertNotCompactMode = function () {
@@ -50,8 +53,8 @@ Task.prototype.assertCompactMode = function () {
     this.timeCompact.assertVisible();
 };
 
-function Story(storyId) {
-    var elem = element(by.id('whole-story-'+storyId));
+function Story(storyId, prefix) {
+    var elem = element(by.id((prefix || 'whole-story-')+storyId));
     pageObjects.PageObject.call(this, elem);
     
     var storyCard = elem.element(by.className('story-card'));
@@ -103,6 +106,15 @@ Story.prototype.assertNotCompactMode = function() {
     this.time.assertVisible();
     this.storypoint.assertVisible();
     this.assertCreateTaskLink();
+};
+Story.prototype.assertToBeClosed = function () {
+    expect(this.elem.element(by.className('story-card')).getAttribute('class')).toContain('closed');
+};
+Story.prototype.assertToHaveTasks = function () {
+    expect(this.elem.element(by.className('has-tasks')).isDisplayed()).toBeTruthy();
+};
+Story.prototype.assertToBeOutOfScope = function () {
+    expect(this.elem.element(by.className('out-of-scope')).isDisplayed()).toBeTruthy();
 };
 Story.prototype.assertPostits = function (postits) {
     var postitElems = this.elem.all(by.className('postit'));

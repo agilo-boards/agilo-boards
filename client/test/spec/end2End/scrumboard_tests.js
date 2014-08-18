@@ -165,4 +165,17 @@ describe('Scrumboard', function() {
         board.findStory(1006);
         board.findStory(1007);
     });
+    
+    it('should show owner picture if story has tasks not assigned to the owner of the story', function() {
+        navBar.sprints.selectOption('Sprint 2');
+        
+        var storyWithOnlyOneOwner = board.findStory(1004);
+        storyWithOnlyOneOwner.getTask(1).assertNoOwnerImage();
+        storyWithOnlyOneOwner.getTask(2).assertNoOwnerImage();
+        
+        var storyWithMultipleOwners = board.findStory(1003);
+        storyWithMultipleOwners.assertOwner('amy');
+        storyWithMultipleOwners.getTask(0).assertOwnerImage('amy');
+        storyWithMultipleOwners.getTask(1).assertOwnerImage('face');
+    });
 });

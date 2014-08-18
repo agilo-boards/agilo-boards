@@ -5,8 +5,8 @@
             <span ng-show="backlogMode && story.isClosed" class="pull-center">/ Story is {{story.status}}</span>
             <span class="project" ng-hide="backlogMode">{{story.project}}</span>
             <span class="pull-right release" ng-hide="backlogMode">{{story.release}}</span>
-            <span class="glyphicon glyphicon-thumbs-down pull-right" ng-show="backlogMode && !story.inScope" data-toggle="tooltip" data-placement="right" title="Out of scope"></span>
-            <span class="glyphicon glyphicon-asterisk pull-right" ng-show="backlogMode && story.hasTasks" data-toggle="tooltip" data-placement="right" title="The story has tasks and might be already planned."></span>
+            <span class="glyphicon glyphicon-thumbs-down out-of-scope pull-right" ng-show="backlogMode && !story.inScope" data-toggle="tooltip" data-placement="right" title="Out of scope"></span>
+            <span class="glyphicon glyphicon-asterisk has-tasks pull-right" ng-show="backlogMode && story.hasTasks" data-toggle="tooltip" data-placement="right" title="The story has tasks and might be already planned."></span>
         </header>
         <div class="story-center">
             <div class="owner-image pull-left" ng-show="story.owner" data-toggle="tooltip" data-placement="top" title="{{story.owner}}">

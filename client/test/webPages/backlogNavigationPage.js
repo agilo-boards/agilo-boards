@@ -14,6 +14,7 @@ function BacklogNavigationPage(overridePath) {
     this.completedDate = new pageObjects.Field(element(by.id('completedDate')));
     this.filterButton = element(by.id('filterButton'));
     this.filterModal = new SprintFilter(element(by.id('modal-filter-sprint')));
+    this.outOfScopeCheckbox = new pageObjects.Checkbox(element(by.id('showOutOfScope')));
 }
 
 util.inherits(BacklogNavigationPage, BaseWebPage);
@@ -21,5 +22,10 @@ util.inherits(BacklogNavigationPage, BaseWebPage);
 BacklogNavigationPage.prototype.reload = function () {
     this.reloadButton.click();
 };
+
+BacklogNavigationPage.prototype.toggleOutOfScope = function () {
+    this.outOfScopeCheckbox.toggle();
+};
+
 
 module.exports = BacklogNavigationPage;

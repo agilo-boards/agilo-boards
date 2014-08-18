@@ -13,6 +13,7 @@ function SprintFilter(elem) {
 util.inherits(SprintFilter, pageObjects.PageObject);
 
 SprintFilter.prototype.assertSprints = function (sprints) {
+    this.waitToBeDisplayed();
     var sprintElems = this.elem.all(by.className('sprint'));
     expect(sprintElems.count()).toEqual(sprints.length);
     sprints.forEach(function(value, index) {
@@ -20,15 +21,19 @@ SprintFilter.prototype.assertSprints = function (sprints) {
     });
 };
 SprintFilter.prototype.getSprint = function (sprint) {
+    this.waitToBeDisplayed();
     return new pageObjects.Checkbox(this.elem.element(by.xpath('.//*[@sprint="'+sprint+'"]//input')));
 };
 SprintFilter.prototype.reset = function () {
+    this.waitToBeDisplayed();
     this.resetButton.click();
 };
 SprintFilter.prototype.showAll = function () {
+    this.waitToBeDisplayed();
     this.showAllButton.click();
 };
 SprintFilter.prototype.close = function () {
+    this.waitToBeDisplayed();
     this.closeButton.click();
 };
 module.exports = SprintFilter;

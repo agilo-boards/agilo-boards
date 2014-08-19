@@ -40,10 +40,7 @@ angular.module('scrumboards.helpers')
             function mapTransformations(object) {
                 angular.forEach(transformationMap, function (value, key) {
                     var arg = object[key];
-                    if (!object.hasOwnProperty(key)) {
-                        arg = object;
-                    }
-                    object[key] = value(arg);
+                    object[key] = value(arg, object);
                 });
                 return object;
             }

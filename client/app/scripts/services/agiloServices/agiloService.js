@@ -22,7 +22,7 @@ angular.module('scrumboards.agiloServices')
 
     function parseFloatOrNull(value) {
         var float = parseFloat(value);
-        if (float) {
+        if (float >= 0 || float < 0) {
             return float;
         }
         return null;
@@ -33,7 +33,7 @@ angular.module('scrumboards.agiloServices')
         if (float) {
             return float;
         }
-        return null;
+        return 0;
     }
 
     return {

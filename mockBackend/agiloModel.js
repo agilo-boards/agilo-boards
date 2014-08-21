@@ -624,7 +624,8 @@ var mappedProperties = {
     'statedetail': 'Detail Status',
     'work_done': 'Work done',
     'remaining_time': 'Remaining time',
-    'story_project_prio': 'seqNumber'
+    'story_project_prio': 'seqNumber',
+    'sprint': 'Sprint'
 };
 
 module.exports.getTicket = function (ticketNumber) {

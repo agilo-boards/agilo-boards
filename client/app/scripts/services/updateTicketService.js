@@ -38,7 +38,7 @@ angular.module('scrumboards')
             UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
                 var ticket = tickets[0];
                 var properties = {
-                    Sprint: sprint
+                    sprint: sprint
                 };
                 saveTicket(ticket, properties, callback);
             });
@@ -48,7 +48,7 @@ angular.module('scrumboards')
             UpdateTicketResource.get({ticketNumber: ticket.id}).$promise.then(function(tickets) {
                 var ticket = tickets[0];
                 var properties = {
-                    Sprint: sprint,
+                    sprint: sprint,
                     story_project_prio: seqNumber
                 };
                 saveTicket(ticket, properties, callback);

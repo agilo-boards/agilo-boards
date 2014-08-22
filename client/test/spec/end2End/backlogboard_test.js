@@ -32,7 +32,7 @@ describe('Backlog Navigation', function() {
     });
 });
 
-describe('Backlog Functionality', function() {
+describe('Backlog', function() {
     var navBar = new pages.backlogNavigationPage();
     var backlog = new pages.backlogPage();
     
@@ -52,51 +52,51 @@ describe('Backlog Functionality', function() {
             'Client Scrumboard':    [3002]
         });
         
-        var sliceSprint3 = backlog.getSlice('Sprint 3');
+        var sliceSprint3 = backlog.getSlice('Sprint 3 (Release 2)');
         sliceSprint3.assertStoryPointTotal(0);
         sliceSprint3.assertStories({});
         
-        backlog.assertSliceNotVisible('Sprint 1');
-        backlog.assertSliceNotVisible('Sprint 2');
+        backlog.assertSliceNotVisible('Sprint 1 (Release 2)');
+        backlog.assertSliceNotVisible('Sprint 2 (Release 1)');
     });
     
     it('filters sprints', function(){
         navBar.releases.selectOption('Release 2');
         
-        backlog.assertSliceNotVisible('Sprint 1');
-        backlog.assertSliceNotVisible('Sprint 2');
-        backlog.getSlice('Sprint 3').assertStoryPointTotal(0);
+        backlog.assertSliceNotVisible('Sprint 1 (Release 2)');
+        backlog.assertSliceNotVisible('Sprint 2 (Release 1)');
+        backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);
         backlog.getSlice('Remaining').assertStoryPointTotal(14);
         
         navBar.filterButton.click();
-        navBar.filterModal.assertSprints(['Sprint 1', 'Sprint 2', 'Sprint 3']);
-        navBar.filterModal.getSprint('Sprint 1').assertNotSelected();
-        navBar.filterModal.getSprint('Sprint 2').assertNotSelected();
-        navBar.filterModal.getSprint('Sprint 3').assertSelected();
+        navBar.filterModal.assertSprints(['Sprint 1 (Release 2)', 'Sprint 2 (Release 1)', 'Sprint 3 (Release 2)']);
+        navBar.filterModal.getSprint('Sprint 1 (Release 2)').assertNotSelected();
+        navBar.filterModal.getSprint('Sprint 2 (Release 1)').assertNotSelected();
+        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         
         navBar.filterModal.showAll();
         
-        backlog.getSlice('Sprint 1').assertStoryPointTotal(5);
-        backlog.getSlice('Sprint 2').assertStoryPointTotal(11);
-        backlog.getSlice('Sprint 3').assertStoryPointTotal(0);
+        backlog.getSlice('Sprint 1 (Release 2)').assertStoryPointTotal(5);
+        backlog.getSlice('Sprint 2 (Release 1)').assertStoryPointTotal(11);
+        backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);
         backlog.getSlice('Remaining').assertStoryPointTotal(14);
         
         navBar.filterButton.click();
-        navBar.filterModal.getSprint('Sprint 1').assertSelected();
-        navBar.filterModal.getSprint('Sprint 2').assertSelected();
-        navBar.filterModal.getSprint('Sprint 3').assertSelected();
+        navBar.filterModal.getSprint('Sprint 1 (Release 2)').assertSelected();
+        navBar.filterModal.getSprint('Sprint 2 (Release 1)').assertSelected();
+        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         
         navBar.filterModal.reset();
         
-        backlog.assertSliceNotVisible('Sprint 1');
-        backlog.assertSliceNotVisible('Sprint 2');
-        backlog.getSlice('Sprint 3').assertStoryPointTotal(0);
+        backlog.assertSliceNotVisible('Sprint 1 (Release 2)');
+        backlog.assertSliceNotVisible('Sprint 2 (Release 1)');
+        backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);
         backlog.getSlice('Remaining').assertStoryPointTotal(14);
         
         navBar.filterButton.click();
-        navBar.filterModal.getSprint('Sprint 1').assertNotSelected();
-        navBar.filterModal.getSprint('Sprint 2').assertNotSelected();
-        navBar.filterModal.getSprint('Sprint 3').assertSelected();
+        navBar.filterModal.getSprint('Sprint 1 (Release 2)').assertNotSelected();
+        navBar.filterModal.getSprint('Sprint 2 (Release 1)').assertNotSelected();
+        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         navBar.filterModal.close();
         
     });
@@ -104,7 +104,7 @@ describe('Backlog Functionality', function() {
     it('should out of scope stories only when selected', function() {
         navBar.releases.selectOption('Release 2');
         navBar.filterButton.click();        
-        navBar.filterModal.getSprint('Sprint 3').assertSelected();
+        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         navBar.filterModal.showAll();
         
         backlog.findStory(3000).assertVisible();
@@ -128,7 +128,7 @@ describe('Backlog Functionality', function() {
     it('should show additional properties of stories', function() {
         navBar.releases.selectOption('Release 2');
         navBar.filterButton.click();        
-        navBar.filterModal.getSprint('Sprint 3').assertSelected();
+        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         navBar.filterModal.showAll();
         
         backlog.findStory(1000).assertToBeClosed();        

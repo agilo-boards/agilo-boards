@@ -5,108 +5,99 @@ var debug = require('debug')('mock-backend');
 var moment = require('moment');
 moment().format('dd.MM.YYYY');
 
-function addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(date.getDate() + days);
-    return result;
+function weeksAndDaysFromNow(weeks, days, date) {
+    date = date || new Date();
+    days = days || 0;
+    var result = new Date();
+    result.setDate(date.getDate() + (7 * weeks + days));
+    return result.getTime() / 1000;
+}
+function getMondayWeeksFromNow(weeks) {
+    var today = new Date();
+    var day = today.getDay(),
+        diff = today.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+    var monday = new Date(diff);
+    return weeksAndDaysFromNow(weeks, 0, monday) * 1000;
 }
 
-function addWeeks(date, weeks) {
-    var result = new Date(date);
-    result.setDate(date.getDate() + 7 * weeks);
-    return result;
-}
+var COMPLETED_DATE_RELEASE_1 = getMondayWeeksFromNow(-1);
+var DUE_DATE_RELEASE_1 = getMondayWeeksFromNow(-1);
+var DELIVERY_DATE_RELEASE_1 = getMondayWeeksFromNow(0);
 
-function getMonday(d) {
-    d = new Date(d);
-    var day = d.getDay(),
-        diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
-    return new Date(d.setDate(diff));
-}
+var COMPLETED_DATE_RELEASE_2 = getMondayWeeksFromNow(1);
+var DUE_DATE_RELEASE_2 = getMondayWeeksFromNow(1);
+var DELIVERY_DATE_RELEASE_2 = getMondayWeeksFromNow(2);
 
-var BEGIN_SPRINT_1_RELEASE_1 = addWeeks(getMonday(new Date()), -6);
-var BEGIN_SPRINT_1_RELEASE_2 = addWeeks(BEGIN_SPRINT_1_RELEASE_1, 3);
-var BEGIN_SPRINT_2_RELEASE_2 = addWeeks(BEGIN_SPRINT_1_RELEASE_2, 3);
-var BEGIN_SPRINT_3_RELEASE_2 = addWeeks(BEGIN_SPRINT_2_RELEASE_2, 3);
-var BEGIN_SPRINT_1_RELEASE_3 = addWeeks(BEGIN_SPRINT_3_RELEASE_2, 3);
-var BEGIN_SPRINT_2_RELEASE_3 = addWeeks(BEGIN_SPRINT_1_RELEASE_3, 3);
-
-var COMPLETED_DATE_RELEASE_3 = addWeeks(BEGIN_SPRINT_2_RELEASE_3, 6);
-var DUE_DATE_RELEASE_3 = addWeeks(COMPLETED_DATE_RELEASE_3, -2);
-var DELIVERY_DATE_RELEASE_3 = addWeeks(addDays(DUE_DATE_RELEASE_3, 4), -5);
-
-var COMPLETED_DATE_RELEASE_2 = BEGIN_SPRINT_1_RELEASE_3;
-var DUE_DATE_RELEASE_2 = addWeeks(COMPLETED_DATE_RELEASE_2, -2);
-var DELIVERY_DATE_RELEASE_2 = addWeeks(addDays(DUE_DATE_RELEASE_2, 4), -5);
-
-var COMPLETED_DATE_RELEASE_1 = BEGIN_SPRINT_1_RELEASE_2;
-var DUE_DATE_RELEASE_1 = addWeeks(COMPLETED_DATE_RELEASE_1, -2);
-var DELIVERY_DATE_RELEASE_1 = addWeeks(addDays(DUE_DATE_RELEASE_1, 4), -5);
+var DUE_DATE_RELEASE_3 = getMondayWeeksFromNow(3);
+var DELIVERY_DATE_RELEASE_3 = getMondayWeeksFromNow(4);
 
 var RELEASE_FIELDS = ['name', 'due', 'completed', 'description'];
 
 var releases = [
     {
         name: 'Release 3',
-        due: DUE_DATE_RELEASE_3.getTime() * 1000,
+        due: DUE_DATE_RELEASE_1,
         completed: null,
-        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd DD.MM.YYYY')
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_1).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 2',
-        due: DUE_DATE_RELEASE_2.getTime() * 1000,
-        completed: COMPLETED_DATE_RELEASE_2.getTime() * 1000,
+        due: DUE_DATE_RELEASE_2,
+        completed: COMPLETED_DATE_RELEASE_2,
         description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_2).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 1',
-        due: DUE_DATE_RELEASE_1.getTime() * 1000,
-        completed: COMPLETED_DATE_RELEASE_1.getTime() * 1000,
-        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_1).format('dd DD.MM.YYYY')
+        due: DUE_DATE_RELEASE_3,
+        completed: COMPLETED_DATE_RELEASE_1,
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd DD.MM.YYYY')
     }
 ];
 
 var SPRINT_FIELDS = ['description', 'sprint_end', 'milestone', 'name', 'start', 'team'];
 
 var sprints = [
+    /* Release 1 */
     {
-        description: 'First Sprint',
-        sprint_end: BEGIN_SPRINT_1_RELEASE_2.getTime() / 1000,
+        description: 'Last Sprint',
+        sprint_end: weeksAndDaysFromNow(-1),
         milestone: releases[0].name,
-        name: 'Sprint 1',
-        start: BEGIN_SPRINT_1_RELEASE_1.getTime() / 1000,
+        name: 'Sprint 5 (Release 1)',
+        start: weeksAndDaysFromNow(-4),
         team: 'A-Team'
     },
+    /* Release 2 */
     {
         description: 'First Sprint',
-        sprint_end: BEGIN_SPRINT_2_RELEASE_2.getTime() / 1000,
+        sprint_end: weeksAndDaysFromNow(1),
         milestone: releases[1].name,
-        name: 'Sprint 1',
-        start: BEGIN_SPRINT_1_RELEASE_2.getTime() / 1000,
+        name: 'Sprint 1 (Release 2)',
+        start: weeksAndDaysFromNow(-2),
         team: 'A-Team'
     },
     {
         description: 'Second Sprint',
-        sprint_end: BEGIN_SPRINT_3_RELEASE_2.getTime() / 1000,
+        sprint_end: weeksAndDaysFromNow(2),
         milestone: releases[1].name,
-        name: 'Sprint 2',
-        start: BEGIN_SPRINT_2_RELEASE_2.getTime() / 1000,
+        name: 'Sprint 2 (Release 2)',
+        start: weeksAndDaysFromNow(-1),
         team: 'A-Team'
     },
     {
         description: 'Third Sprint',
-        sprint_end: BEGIN_SPRINT_1_RELEASE_3.getTime() / 1000,
+        sprint_end: weeksAndDaysFromNow(4),
         milestone: releases[1].name,
-        name: 'Sprint 3',
-        start: BEGIN_SPRINT_3_RELEASE_2.getTime() / 1000,
+        name: 'Sprint 3 (Release 2)',
+        start: weeksAndDaysFromNow(1),
         team: 'A-Team'
     },
+    /* Release 3 */
     {
         description: 'First Sprint',
-        sprint_end: BEGIN_SPRINT_2_RELEASE_3.getTime() / 1000,
+        sprint_end: weeksAndDaysFromNow(1),
         milestone: releases[2].name,
-        name: 'Sprint 1',
-        start: BEGIN_SPRINT_1_RELEASE_3.getTime() / 1000,
+        name: 'Sprint 1 (Release 3)',
+        start: weeksAndDaysFromNow(-1),
         team: 'A-Team'
     }
 ];
@@ -117,7 +108,6 @@ var STORY_AND_TASK_FIELDS = ['id', 'type', 'summary', 'milestone', 'status', 'ow
 
 var TYPE_STORY = 'story';
 var TYPE_TASK = 'task';
-var RELEASE_1 = releases[0].name;
 var RELEASE_2 = releases[1].name;
 var RELEASE_3 = releases[2].name;
 var STATUS_ASSIGNED = 'assigned';
@@ -137,11 +127,9 @@ var PROJECT_CLIENT_SCRUMBOARD = 'Client Scrumboard';
 var PROJECT_CLIENT_BACKLOG = 'Client Backlog';
 var PROJECT_READ_BOOKS = 'Read Books';
 var PROJECT_PREPARE_TESTDATA = 'Prepare Test Data';
-var SPRINT_1_RELEASE_1 = sprints[0].name;
 var SPRINT_1_RELEASE_2 = sprints[1].name;
 var SPRINT_2_RELEASE_2 = sprints[2].name;
-//var SPRINT_3_RELEASE_2 = sprints[3].name;
-//var SPRINT_1_RELEASE_3 = sprints[4].name;
+var SPRINT_1_RELEASE_3 = sprints[4].name;
 
 function getStoriesAndTasks() {
     var storiesAndTasks = [
@@ -469,11 +457,11 @@ function getStoriesAndTasks() {
             id: 1101,
             type: TYPE_STORY,
             summary: 'Find Team Members',
-            milestone: RELEASE_1,
+            milestone: RELEASE_3,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_1,
+            Sprint: SPRINT_1_RELEASE_3,
             'Story Points': 3,
             Project: PROJECT_SETUP,
             seqNumber: '454',
@@ -483,11 +471,11 @@ function getStoriesAndTasks() {
             id: 1102,
             type: TYPE_STORY,
             summary: 'Find Budget',
-            milestone: RELEASE_1,
+            milestone: RELEASE_3,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_1,
+            Sprint: SPRINT_1_RELEASE_3,
             'Story Points': 2,
             Project: PROJECT_SETUP,
             seqNumber: '',
@@ -497,9 +485,9 @@ function getStoriesAndTasks() {
             id: 1105,
             type: TYPE_TASK,
             summary: 'Ask Roger',
-            milestone: RELEASE_1,
+            milestone: RELEASE_3,
             status: STATUS_CLOSED,
-            Sprint: SPRINT_1_RELEASE_1,
+            Sprint: SPRINT_1_RELEASE_3,
             'Work done': 3,
             Project: PROJECT_SETUP,
             'Story ID': 1102
@@ -508,9 +496,9 @@ function getStoriesAndTasks() {
             id: 1106,
             type: TYPE_TASK,
             summary: 'Ask Wolfgang',
-            milestone: RELEASE_1,
+            milestone: RELEASE_3,
             status: STATUS_CLOSED,
-            Sprint: SPRINT_1_RELEASE_1,
+            Sprint: SPRINT_1_RELEASE_3,
             'Work done': 2,
             Project: PROJECT_SETUP,
             'Story ID': 1102
@@ -519,11 +507,11 @@ function getStoriesAndTasks() {
             id: 1104,
             type: TYPE_STORY,
             summary: 'Prepare For Camp',
-            milestone: RELEASE_1,
+            milestone: RELEASE_3,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_1,
+            Sprint: SPRINT_1_RELEASE_3,
             'Story Points': 1,
             Project: PROJECT_SETUP,
             seqNumber: '451',
@@ -533,11 +521,11 @@ function getStoriesAndTasks() {
             id: 1103,
             type: TYPE_STORY,
             summary: 'Find Project Goal',
-            milestone: RELEASE_1,
+            milestone: RELEASE_3,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_1,
+            Sprint: SPRINT_1_RELEASE_3,
             'Story Points': 2,
             Project: PROJECT_SETUP,
             seqNumber: '',
@@ -578,12 +566,6 @@ function getStoriesForRelease(release) {
     });
 }
 
-function getSprintsInRelease2() {
-    return sprints.filter(function (sprint) {
-        return sprint.milestone === releases[1].name;
-    });
-}
-
 function getTicketByNumber(ticketNumber) {
     var foundTicket = storiesAndTasks.filter(function (ticket) {
         return ticket.id === ticketNumber;
@@ -609,7 +591,7 @@ module.exports.getStoriesAndTasksAsInReport103 = function (sprint) {
 };
 
 module.exports.getSprintsAsInReport104 = function () {
-    return asTsv(getSprintsInRelease2(), SPRINT_FIELDS);
+    return asTsv(sprints, SPRINT_FIELDS);
 };
 
 module.exports.getReleasesAsInReport108 = function () {

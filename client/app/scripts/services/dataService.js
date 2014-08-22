@@ -32,7 +32,18 @@ angular.module('scrumboards')
     }
 
     return {
-        getSprints: AgiloService.getSprints,
+        getSprints: AgiloService.getSprints,        
+        getOngoingSprints: function () {
+            return this.getSprints().then(function (result) {
+                var now = new Date();
+                var filteredSprints = result.data.filter(function(sprint) {
+                    return sprint.start <= now && now <= sprint.end;
+                });
+                return {
+                    data: filteredSprints
+                };
+            });
+        },
         getStoriesBySprint: function (selectedSprint) {
             var storiesAndTasks = AgiloService.getStoriesBySprint(selectedSprint);
             return storiesAndTasks.then(groupTasksByStory);

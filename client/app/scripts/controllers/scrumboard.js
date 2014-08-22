@@ -3,7 +3,7 @@
 angular.module('scrumboards')
     .controller('ScrumboardCtrl', function ($scope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter) {
         
-        var sprints = DataService.getSprints();
+        var sprints = DataService.getOngoingSprints();
         $scope.sprints = {};
 
         $scope.$on('reloadBoard', function () {

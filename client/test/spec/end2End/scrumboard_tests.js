@@ -13,21 +13,18 @@ describe('Scrumboard', function() {
     });
     
     it('updates remaining time when selecting a different sprint', function(){
-        var listOfSprints = [ 'Sprint 1', 'Sprint 2','Sprint 3' ];
+        var listOfSprints = [ 'Sprint 1 (Release 2)', 'Sprint 2 (Release 2)', 'Sprint 1 (Release 3)'];
         navBar.sprints.assertOptions(listOfSprints);
-        navBar.sprints.selectOption('Sprint 2');
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');
         navBar.timeDone.assertToBe(8);
         navBar.timeRemaining.assertToBe(18);
         
-        navBar.sprints.selectOption('Sprint 3');
-        navBar.timeDone.assertToBe(0);
-        navBar.timeRemaining.assertToBe(0);
-        navBar.sprints.selectOption('Sprint 1');    
+        navBar.sprints.selectOption('Sprint 1 (Release 3)');    
         navBar.timeDone.assertToBe(5);
         navBar.timeRemaining.assertToBe(0);
     });
     it('displays the scrum board correctly', function(){
-        navBar.sprints.selectOption('Sprint 2');
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');
         board.assertStories([1005, 1006, 1007], [1003, 1004], [1001, 1002]);
         
         var todoStory = board.findStory(1006);
@@ -55,19 +52,19 @@ describe('Scrumboard', function() {
         var doneStory = board.findStory(1001);
         doneStory.assertFullsize();
         
-        navBar.sprints.selectOption('Sprint 1');    
+        navBar.sprints.selectOption('Sprint 1 (Release 2)');    
         board.assertStories([], [], [1000, 1100, 1101, 1102, 1103, 1104]);
     });
     
     it('should persist compact mode when switching sprint and display the stories only in compact', function() {        
         browser.get('http://127.0.0.1:8091/#/scrumboard');
         
-        navBar.sprints.selectOption('Sprint 1');
+        navBar.sprints.selectOption('Sprint 1 (Release 2)');
         navBar.compactMode.assertNotSelected();
         navBar.compactMode.toggle();
         navBar.compactMode.assertSelected();
         
-        navBar.sprints.selectOption('Sprint 2');
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');
         navBar.compactMode.assertSelected();
         
         var story = board.findStory(1006);
@@ -92,7 +89,7 @@ describe('Scrumboard', function() {
     });
     
     it('should persist owner mode and the selected owner when switching sprints and fade out any story related to a different person than the owner', function() {
-        navBar.sprints.selectOption('Sprint 1');
+        navBar.sprints.selectOption('Sprint 1 (Release 2)');
         var faceStory = board.findStory(1000);
         var amyStory = board.findStory(1100);        
         
@@ -112,7 +109,7 @@ describe('Scrumboard', function() {
         faceStory.assertNotFadedout();
         amyStory.assertFadedout();
         
-        navBar.sprints.selectOption('Sprint 2');        
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');        
         faceStory = board.findStory(1005);     
         amyStory = board.findStory(1002);
         
@@ -127,7 +124,7 @@ describe('Scrumboard', function() {
     });
     
     it('should increase the time done and decrease time remaining when klicking on +', function() {
-        navBar.sprints.selectOption('Sprint 2');
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');
         
         var inprogressStory = board.findStory(1004);
         var taskReadIntro = inprogressStory.getTask(2);
@@ -142,7 +139,7 @@ describe('Scrumboard', function() {
     });
     
     it('should filter by keywords', function() {
-        navBar.sprints.selectOption('Sprint 2');
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');
         
         navBar.filter();
         navBar.filterModal.assertKeywords(['clean up', 'depends on', 'important', 'on hold']);
@@ -167,7 +164,7 @@ describe('Scrumboard', function() {
     });
     
     it('should show owner picture if story has tasks not assigned to the owner of the story', function() {
-        navBar.sprints.selectOption('Sprint 2');
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');
         
         var storyWithOnlyOneOwner = board.findStory(1004);
         storyWithOnlyOneOwner.getTask(1).assertNoOwnerImage();

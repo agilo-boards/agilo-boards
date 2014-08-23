@@ -91,7 +91,7 @@ describe('Scrumboard', function() {
     it('should persist owner mode and the selected owner when switching sprints and fade out any story related to a different person than the owner', function() {
         navBar.sprints.selectOption('Sprint 1 (Release 2)');
         var faceStory = board.findStory(1000);
-        var amyStory = board.findStory(1100);        
+        var amyStory = board.findStory(1100);       
         
         navBar.ownerMode.assertNotSelected();
         navBar.owners.assertNotVisible();
@@ -111,13 +111,15 @@ describe('Scrumboard', function() {
         
         navBar.sprints.selectOption('Sprint 2 (Release 2)');        
         faceStory = board.findStory(1005);     
-        amyStory = board.findStory(1002);
+        amyStory = board.findStory(1003);
         
         navBar.ownerMode.assertSelected();
         navBar.owners.assertVisible();
         navBar.owners.assertOptions(['amy', 'ba', 'face']);
         navBar.owners.assertSelected('face');
         amyStory.assertFadedout();
+        amyStory.getTask(0).assertFadedout();
+        amyStory.getTask(1).assertNotFadedout();
         faceStory.assertNotFadedout();
         
         navBar.ownerMode.toggle();

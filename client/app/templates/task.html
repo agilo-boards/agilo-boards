@@ -1,4 +1,4 @@
-<div class="task-card" ng-click="openTicket(task, $event)" ng-class="{'compact-mode': compactMode}">
+<div class="task-card" ng-click="openTicket(task, $event)" ng-class="{'compact-mode': compactMode, 'fade-out': fadedOut}">
     <div class="pull-left" style="height: 100%">
         <div class="owner-image" ng-show="task.owner && showOwnerImage" data-toggle="tooltip" data-placement="top" title="{{task.owner}}">
             <owner-image owner="{{task.owner}}"></owner-image>

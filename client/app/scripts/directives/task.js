@@ -7,7 +7,8 @@ angular.module('scrumboards')
         templateUrl: 'templates/task.html',
         scope: {
             task: '=',
-            compactMode: '=',
+            compactMode: '=',            
+            fadedOut: '=',
             showOwnerImage: '@'
         },
         link: function($scope) {
@@ -21,7 +22,6 @@ angular.module('scrumboards')
                 }
                 $window.open(url);
             };
-            
             $scope.changeTime = function(task, difference) {
                 UpdateTicketService.changeTime(task, difference, function() {
                     $scope.$emit('reloadBoard');

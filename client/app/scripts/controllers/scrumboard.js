@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-    .controller('ScrumboardCtrl', function ($scope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter) {
+    .controller('ScrumboardCtrl', function ($scope, $rootScope, $location, $window, LinkProvider, Synchronizer, TimeHelper, DataService, ObjToArrayConverter) {
         
         var sprints = DataService.getOngoingSprints();
         $scope.sprints = {};
@@ -46,7 +46,10 @@ angular.module('scrumboards')
         });        
         Synchronizer.syncToLocalStorage($scope, 'compactMode', { isBoolean: true });
         Synchronizer.syncToLocalStorage($scope, 'ownerMode', { isBoolean: true });
-        Synchronizer.syncToLocalStorage($scope, 'selectedOwner');
+        var ScrumboardCtrl = this;
+        Synchronizer.syncToLocalStorage($scope, 'selectedOwner', { callback: function (value) {
+            ScrumboardCtrl.selectedOwner = value;
+        }});
 
         $scope.reload = function () {
             $scope.$emit('reloadBoard');
@@ -66,16 +69,28 @@ angular.module('scrumboards')
             return LinkProvider.dashboardUrl;
         };
 
-        $scope.doesNotMatchesSelectedOwner = function (story) {
+        function notMatchingSelectedOwner(ticket) {
             if (!$scope.ownerMode) {
                 return false;
             }
-            return story.owner !== $scope.selectedOwner;
+            return ticket.owner !== $scope.selectedOwner;
+        }
+        $scope.fadedOutStory = notMatchingSelectedOwner;
+
+        $scope.fadedOutTask = function (task, story) {
+            if (task.owner) {
+                return notMatchingSelectedOwner(task);
+            }
+            return notMatchingSelectedOwner(story);
         };
 
         $scope.orderBySelectedOwner = function (story) {
-            if ($scope.ownerMode && $scope.doesNotMatchesSelectedOwner(story)) {
-                return 1;
+            if ($scope.ownerMode && notMatchingSelectedOwner(story)) {
+                if (story.tasks.every(notMatchingSelectedOwner)) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             } else {
                 return 0;
             }

@@ -1,9 +1,9 @@
-<div ng-class="{'fade-out': doesNotMatchesSelectedOwner(story), 'compact-mode': compactMode}" id="whole-story-{{story.id}}">
+<div ng-class="{'compact-mode': compactMode}" id="whole-story-{{story.id}}">
     <div class="block">
-        <story story="story" compact-mode="compactMode"></story>
+        <story story="story" compact-mode="compactMode" faded-out="fadedOutStory(story)"></story>
     </div>
     <div class="block tasks" style="padding: 0px 10px 10px 10px">
-        <task ng-repeat="task in story.tasks | orderBy:'id'" task="task" show-owner-image="{{showOwnerImage(story)}}" compact-mode="compactMode"></task>
+        <task ng-repeat="task in story.tasks | orderBy:'id'" task="task" show-owner-image="{{showOwnerImage(story)}}" compact-mode="compactMode" faded-out="fadedOutTask(task, story)"></task>
         <div ng-show="story.tasks.length == 0 && !compactMode">There are currently no tasks.</div>
         <div ng-show="story.tasks.length > 0 && !compactMode">
             Total: {{story.timeDone()}}h done / {{story.timeRemaining() || 0}}h remaining</div>

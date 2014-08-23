@@ -38,6 +38,12 @@ Task.prototype.assertOwnerImage = function (owner) {
 Task.prototype.assertNoOwnerImage = function () {
     expect(this.ownerImage.isDisplayed()).toBeFalsy();
 };
+Task.prototype.assertFadedout = function() {
+    expect(this.elem.getAttribute('class')).toContain('fade-out');
+};
+Task.prototype.assertNotFadedout = function() {
+    expect(this.elem.getAttribute('class')).toNotContain('fade-out');
+};
 
 Task.prototype.assertNotCompactMode = function () {
     this.timeDone.assertVisible();
@@ -57,19 +63,19 @@ function Story(storyId, prefix) {
     var elem = element(by.id((prefix || 'whole-story-')+storyId));
     pageObjects.PageObject.call(this, elem);
     
-    var storyCard = elem.element(by.className('story-card'));
+    this.storyCard = elem.element(by.className('story-card'));
     this.storyId = storyId;
-    var header = storyCard.element(by.tagName('header'));
+    var header = this.storyCard.element(by.tagName('header'));
     this.project = new pageObjects.Field(header.element(by.className('project')));
     this.release = new pageObjects.Field(header.element(by.className('release')));
     
-    var footer = storyCard.element(by.tagName('footer'));
+    var footer = this.storyCard.element(by.tagName('footer'));
     this.storypoint = new pageObjects.Field(footer.element(by.className('story-point')), '', ' SP');
     this.time = new pageObjects.Field(footer.element(by.className('progress')));
     
-    this.title = new pageObjects.Field(storyCard.element(by.className('story-title')));
-    this.ownerImage = storyCard.element(by.tagName('img'));
-    this.number = new pageObjects.Field(storyCard.element(by.className('story-number')), '#');
+    this.title = new pageObjects.Field(this.storyCard.element(by.className('story-title')));
+    this.ownerImage = this.storyCard.element(by.tagName('img'));
+    this.number = new pageObjects.Field(this.storyCard.element(by.className('story-number')), '#');
 }
 util.inherits(Story, pageObjects.PageObject);
 
@@ -81,10 +87,10 @@ Story.prototype.assertFullsize = function () {
     expect(this.elem.getAttribute('class')).toMatch('block-fullsize');
 };
 Story.prototype.assertFadedout = function() {
-    expect(this.elem.getAttribute('class')).toContain('fade-out');
+    expect(this.storyCard.getAttribute('class')).toContain('fade-out');
 };
 Story.prototype.assertNotFadedout = function() {
-    expect(this.elem.getAttribute('class')).toNotContain('fade-out');
+    expect(this.storyCard.getAttribute('class')).toNotContain('fade-out');
 };
 Story.prototype.assertCreateTaskLink = function() {
     var createTaskLink = this.elem.element(by.xpath('.//a[contains(@class, "task-creation-link")]'));

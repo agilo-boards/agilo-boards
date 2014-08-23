@@ -20,7 +20,7 @@ describe('Scrumboard', function() {
         navBar.timeRemaining.assertToBe(18);
         
         navBar.sprints.selectOption('Sprint 1 (Release 3)');    
-        navBar.timeDone.assertToBe(5);
+        navBar.timeDone.assertToBe(0);
         navBar.timeRemaining.assertToBe(0);
     });
     it('displays the scrum board correctly', function(){

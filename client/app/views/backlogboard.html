@@ -12,7 +12,7 @@
                 <span class="nav-item">
                     <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
                 </span>
-                <span id="releaseDescription" class="nav-item">
+                <span id="releaseDescription" class="hide-when-really-small nav-item">
                     {{selectedRelease.description}}
                 </span>
                 <span class="hide-when-small nav-item">
@@ -25,7 +25,7 @@
                     </a>
                 </span>
                 <span id="showOutOfScope" ng-click="showOutOfScope = !showOutOfScope" class="link-pointer nav-item">
-                    <input type="checkbox" ng-model="showOutOfScope" ng-click="$event.stopPropagation()"></input> Show out-of-scope Stories
+                    <input type="checkbox" ng-model="showOutOfScope" ng-click="$event.stopPropagation()"></input> Show all Stories
                 </span>   
             </div>
         </div>

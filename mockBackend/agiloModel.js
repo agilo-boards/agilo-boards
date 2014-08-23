@@ -111,6 +111,7 @@ var STORY_AND_TASK_FIELDS = ['id', 'type', 'summary', 'milestone', 'status', 'ow
 
 var TYPE_STORY = 'story';
 var TYPE_TASK = 'task';
+var RELEASE_1 = releases[0].name;
 var RELEASE_2 = releases[1].name;
 var RELEASE_3 = releases[2].name;
 var STATUS_ASSIGNED = 'assigned';
@@ -130,9 +131,9 @@ var PROJECT_CLIENT_SCRUMBOARD = 'Client Scrumboard';
 var PROJECT_CLIENT_BACKLOG = 'Client Backlog';
 var PROJECT_READ_BOOKS = 'Read Books';
 var PROJECT_PREPARE_TESTDATA = 'Prepare Test Data';
+var SPRINT_1_RELEASE_1 = sprints[0].name;
 var SPRINT_1_RELEASE_2 = sprints[1].name;
 var SPRINT_2_RELEASE_2 = sprints[2].name;
-var SPRINT_1_RELEASE_3 = sprints[4].name;
 
 function getStoriesAndTasks() {
     var storiesAndTasks = [
@@ -140,7 +141,7 @@ function getStoriesAndTasks() {
             id: 1930,
             type: TYPE_STORY,
             summary: 'Enable and Disable Optional Slices',
-            milestone: RELEASE_3,
+            milestone: RELEASE_1,
             status: STATUS_NEW,
             'Detail Status': DETAIL_STATUS_FEASIBILITY,
             owner: 'face',
@@ -460,11 +461,11 @@ function getStoriesAndTasks() {
             id: 1101,
             type: TYPE_STORY,
             summary: 'Find Team Members',
-            milestone: RELEASE_3,
+            milestone: RELEASE_1,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_3,
+            Sprint: SPRINT_1_RELEASE_1,
             'Story Points': 3,
             Project: PROJECT_SETUP,
             seqNumber: '454',
@@ -474,11 +475,11 @@ function getStoriesAndTasks() {
             id: 1102,
             type: TYPE_STORY,
             summary: 'Find Budget',
-            milestone: RELEASE_3,
+            milestone: RELEASE_1,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_3,
+            Sprint: SPRINT_1_RELEASE_1,
             'Story Points': 2,
             Project: PROJECT_SETUP,
             seqNumber: '',
@@ -488,9 +489,9 @@ function getStoriesAndTasks() {
             id: 1105,
             type: TYPE_TASK,
             summary: 'Ask Roger',
-            milestone: RELEASE_3,
+            milestone: RELEASE_1,
             status: STATUS_CLOSED,
-            Sprint: SPRINT_1_RELEASE_3,
+            Sprint: SPRINT_1_RELEASE_1,
             'Work done': 3,
             Project: PROJECT_SETUP,
             'Story ID': 1102
@@ -499,9 +500,9 @@ function getStoriesAndTasks() {
             id: 1106,
             type: TYPE_TASK,
             summary: 'Ask Wolfgang',
-            milestone: RELEASE_3,
+            milestone: RELEASE_1,
             status: STATUS_CLOSED,
-            Sprint: SPRINT_1_RELEASE_3,
+            Sprint: SPRINT_1_RELEASE_1,
             'Work done': 2,
             Project: PROJECT_SETUP,
             'Story ID': 1102
@@ -510,11 +511,11 @@ function getStoriesAndTasks() {
             id: 1104,
             type: TYPE_STORY,
             summary: 'Prepare For Camp',
-            milestone: RELEASE_3,
+            milestone: RELEASE_1,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_3,
+            Sprint: SPRINT_1_RELEASE_1,
             'Story Points': 1,
             Project: PROJECT_SETUP,
             seqNumber: '451',
@@ -524,11 +525,24 @@ function getStoriesAndTasks() {
             id: 1103,
             type: TYPE_STORY,
             summary: 'Find Project Goal',
+            milestone: RELEASE_1,
+            status: STATUS_CLOSED,
+            'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
+            keywords: '[story mapping]',
+            Sprint: SPRINT_1_RELEASE_1,
+            'Story Points': 2,
+            Project: PROJECT_SETUP,
+            seqNumber: '',
+            inScope: '1'
+        },
+        {
+            id: 4001,
+            type: TYPE_STORY,
+            summary: 'Define further steps',
             milestone: RELEASE_3,
             status: STATUS_CLOSED,
             'Detail Status': DETAIL_STATUS_READY_TO_IMPLEMENT,
             keywords: '[story mapping]',
-            Sprint: SPRINT_1_RELEASE_3,
             'Story Points': 2,
             Project: PROJECT_SETUP,
             seqNumber: '',

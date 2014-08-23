@@ -149,7 +149,7 @@ div.error {
     position: relative;
     left: 50px;
     top: -2em;
-    min-height: 1em;
+    min-height: 1.4em;
     width: 65%;
 
 
@@ -307,24 +307,8 @@ story-with-tasks > div {
 }
 
 .swimlane {
-    .drag-area-entered {
-        border-radius: 15px;
-        background-color: #ebebeb;
-    }
-    .drag-area-left {
-        background-color: #FFF;
-        transition: background-color 1000ms linear;
-        border-radius: 15px;
-    }
-}
-
-.swimlane {
-    @media (min-height: 500px) {
-        & { min-height: 400px; }
-    }
-    @media (min-height: 800px) {
-        & { min-height: 700px; }
-    }
+    min-height: 100px;
+    
     @media (max-width: 1500px) and (min-width: 992px) {
         & { width: 33%; }
     }

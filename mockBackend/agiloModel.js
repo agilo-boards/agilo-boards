@@ -14,43 +14,46 @@ function weeksAndDaysFromNow(weeks, days, date) {
 }
 function getMondayWeeksFromNow(weeks) {
     var today = new Date();
-    var day = today.getDay(),
-        diff = today.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
-    var monday = new Date(diff);
-    return weeksAndDaysFromNow(weeks, 0, monday) * 1000;
+    var day = today.getDay();
+    return weeksAndDaysFromNow(weeks, - day + (day === 0 ? -6 : 1)) * 1000 * 1000;
+}
+function getFridayWeeksFromNow(weeks) {
+    var today = new Date();
+    var day = today.getDay();
+    return weeksAndDaysFromNow(weeks, - day + 5) * 1000 * 1000;
 }
 
 var COMPLETED_DATE_RELEASE_1 = getMondayWeeksFromNow(-1);
 var DUE_DATE_RELEASE_1 = getMondayWeeksFromNow(-1);
-var DELIVERY_DATE_RELEASE_1 = getMondayWeeksFromNow(0);
+var DELIVERY_DATE_RELEASE_1 = getFridayWeeksFromNow(0);
 
 var COMPLETED_DATE_RELEASE_2 = getMondayWeeksFromNow(1);
 var DUE_DATE_RELEASE_2 = getMondayWeeksFromNow(1);
-var DELIVERY_DATE_RELEASE_2 = getMondayWeeksFromNow(2);
+var DELIVERY_DATE_RELEASE_2 = getFridayWeeksFromNow(2);
 
 var DUE_DATE_RELEASE_3 = getMondayWeeksFromNow(3);
-var DELIVERY_DATE_RELEASE_3 = getMondayWeeksFromNow(4);
+var DELIVERY_DATE_RELEASE_3 = getFridayWeeksFromNow(4);
 
 var RELEASE_FIELDS = ['name', 'due', 'completed', 'description'];
 
 var releases = [
     {
-        name: 'Release 3',
+        name: 'Release 1',
         due: DUE_DATE_RELEASE_1,
-        completed: null,
-        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_1).format('dd DD.MM.YYYY')
+        completed: COMPLETED_DATE_RELEASE_1,
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_1/1000).format('dd DD.MM.YYYY')
     },
     {
         name: 'Release 2',
         due: DUE_DATE_RELEASE_2,
         completed: COMPLETED_DATE_RELEASE_2,
-        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_2).format('dd DD.MM.YYYY')
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_2/1000).format('dd DD.MM.YYYY')
     },
     {
-        name: 'Release 1',
+        name: 'Release 3',
         due: DUE_DATE_RELEASE_3,
-        completed: COMPLETED_DATE_RELEASE_1,
-        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_3).format('dd DD.MM.YYYY')
+        completed: null,
+        description: 'Software Delivery: ' + moment(DELIVERY_DATE_RELEASE_3/1000).format('dd DD.MM.YYYY')
     }
 ];
 

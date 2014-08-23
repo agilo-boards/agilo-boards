@@ -12,7 +12,7 @@ describe('Backlog Navigation', function() {
     });
     
     it('displays desription, due date and completed date', function(){
-        var listOfReleases = [ 'Release 3', 'Release 2', 'Release 1' ];
+        var listOfReleases = [ 'Release 1', 'Release 2', 'Release 3' ];
         navBar.releases.assertOptions(listOfReleases);
 
         navBar.releases.selectOption('Release 2');
@@ -57,45 +57,45 @@ describe('Backlog', function() {
         sliceSprint3.assertStories({});
         
         backlog.assertSliceNotVisible('Sprint 1 (Release 2)');
-        backlog.assertSliceNotVisible('Sprint 2 (Release 1)');
+        backlog.assertSliceNotVisible('Sprint 2 (Release 2)');
     });
     
     it('filters sprints', function(){
         navBar.releases.selectOption('Release 2');
         
         backlog.assertSliceNotVisible('Sprint 1 (Release 2)');
-        backlog.assertSliceNotVisible('Sprint 2 (Release 1)');
+        backlog.assertSliceNotVisible('Sprint 2 (Release 2)');
         backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);
         backlog.getSlice('Remaining').assertStoryPointTotal(14);
         
         navBar.filterButton.click();
-        navBar.filterModal.assertSprints(['Sprint 1 (Release 2)', 'Sprint 2 (Release 1)', 'Sprint 3 (Release 2)']);
+        navBar.filterModal.assertSprints(['Sprint 1 (Release 2)', 'Sprint 2 (Release 2)', 'Sprint 3 (Release 2)']);
         navBar.filterModal.getSprint('Sprint 1 (Release 2)').assertNotSelected();
-        navBar.filterModal.getSprint('Sprint 2 (Release 1)').assertNotSelected();
+        navBar.filterModal.getSprint('Sprint 2 (Release 2)').assertNotSelected();
         navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         
         navBar.filterModal.showAll();
         
         backlog.getSlice('Sprint 1 (Release 2)').assertStoryPointTotal(5);
-        backlog.getSlice('Sprint 2 (Release 1)').assertStoryPointTotal(11);
+        backlog.getSlice('Sprint 2 (Release 2)').assertStoryPointTotal(11);
         backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);
         backlog.getSlice('Remaining').assertStoryPointTotal(14);
         
         navBar.filterButton.click();
         navBar.filterModal.getSprint('Sprint 1 (Release 2)').assertSelected();
-        navBar.filterModal.getSprint('Sprint 2 (Release 1)').assertSelected();
+        navBar.filterModal.getSprint('Sprint 2 (Release 2)').assertSelected();
         navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         
         navBar.filterModal.reset();
         
         backlog.assertSliceNotVisible('Sprint 1 (Release 2)');
-        backlog.assertSliceNotVisible('Sprint 2 (Release 1)');
+        backlog.assertSliceNotVisible('Sprint 2 (Release 2)');
         backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);
         backlog.getSlice('Remaining').assertStoryPointTotal(14);
         
         navBar.filterButton.click();
         navBar.filterModal.getSprint('Sprint 1 (Release 2)').assertNotSelected();
-        navBar.filterModal.getSprint('Sprint 2 (Release 1)').assertNotSelected();
+        navBar.filterModal.getSprint('Sprint 2 (Release 2)').assertNotSelected();
         navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
         navBar.filterModal.close();
         

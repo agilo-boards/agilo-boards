@@ -16,8 +16,8 @@
                     {{selectedRelease.description}}
                 </span>
                 <span class="hide-when-small nav-item">
-                    From <span id="dueDate">{{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}</span>
-                    until <span id="completedDate">{{(selectedRelease.completedDate | date:'EEE yyyy-MM-dd') || 'undefined'}}</span>
+                    Due: <span id="dueDate">{{selectedRelease.dueDate | date:'EEE yyyy-MM-dd'}}</span>
+                    / Completed: <span id="completedDate">{{(selectedRelease.completedDate | date:'EEE yyyy-MM-dd') || 'undefined'}}</span>
                 </span>
                 <span class="nav-item">
                     <a id="filterButton" data-toggle="modal" data-target="#modal-filter-sprint">

@@ -53,7 +53,7 @@ describe('Scrumboard', function() {
         doneStory.assertFullsize();
         
         navBar.sprints.selectOption('Sprint 1 (Release 2)');    
-        board.assertStories([], [], [1000, 1100, 1101, 1102, 1103, 1104]);
+        board.assertStories([], [], [1000, 1100]);
     });
     
     it('should persist compact mode when switching sprint and display the stories only in compact', function() {        

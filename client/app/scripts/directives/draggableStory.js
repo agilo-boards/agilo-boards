@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('draggable', function ($rootScope, ExperimentalService) {
+.directive('draggable', function ($rootScope) {
     return {
         restrict: 'A',
         link: function (scope, element) {
-            if (!ExperimentalService.isEnabled()) {
-                return;
-            }
             angular.element(element).attr('draggable', 'true');
 
             element.bind('dragstart', function () {
@@ -22,15 +19,12 @@ angular.module('scrumboards')
     };
 })
 
-.directive('dropable', function ($rootScope, ExperimentalService) {
+.directive('dropable', function ($rootScope) {
     return {
         restrict: 'A',
         scope: {
         },
         link: function (scope, element, attrs) {
-            if (!ExperimentalService.isEnabled()) {
-                return;
-            }
             var id = attrs.id;
             if (!attrs.id) {
                 id = 'dropable_' + Math.floor(Math.random()*100000);

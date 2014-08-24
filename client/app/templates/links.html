@@ -1,2 +1,2 @@
-<a href="{{ticket.getViewTicketUrl()}}" target="_blank"><span class="glyphicon glyphicon-new-window"></a> 
-<a href="{{ticket.getEditTicketUrl()}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode"></a>
+<a href="{{ticket.getViewTicketUrl()}}" target="_blank"><span class="glyphicon glyphicon-new-window" ng-click="$event.stopPropagation()"></a> 
+<a href="{{ticket.getEditTicketUrl()}}" target="_blank"><span class="glyphicon glyphicon-edit" ng-show="!compactMode" ng-click="$event.stopPropagation()"></a>

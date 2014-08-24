@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('task', function (ExperimentalService) {
+.directive('task', function () {
     return {
         restrict: 'E',
         templateUrl: 'templates/task.html',
@@ -10,9 +10,6 @@ angular.module('scrumboards')
             compactMode: '=',            
             fadedOut: '=',
             showOwnerImage: '@'
-        },
-        link: function($scope) {
-            $scope.experimental = ExperimentalService.isEnabled();
         },
         controller: function ($scope, $window, UpdateTicketService) {
             $scope.openTicket = function (ticket, event) {

@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="pull-right">
-        <span class="glyphicon glyphicon-plus link add-time compactMode" ng-click="changeTime(task, +0.5); $event.stopPropagation();" ng-hide="task.isOnGoing() || !experimental"></span>
+        <span class="glyphicon glyphicon-plus link add-time compactMode" ng-click="changeTime(task, +0.5); $event.stopPropagation();" ng-hide="task.isOnGoing()"></span>
         <progress-bar ticket="task" ng-show="compactMode"></progress-bar>
     </div>
     <div>

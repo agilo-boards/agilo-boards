@@ -1,59 +1,65 @@
 <keywords-filter></keywords-filter>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="navbar-header">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Scrumboard</a></li>
                 <li><a href="#/backlog">Backlog</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-right">
                 <div class="form-group">
                     <select id="sprints" class="form-control" ng-model="sprints.selectedSprint"
                             ng-options="sprint.name for sprint in sprints.allSprints" >
                     </select>
-                    <span class="nav-item">
-                        <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
-                    </span>
-                    <span class="nav-item">
-                        <a href="{{getDashboardUrl()}}" target="_blank">
-                            <span class="glyphicon glyphicon-stats"></span>
-                        </a>
-                    </span>
-                    <span class="nav-item">
-                        <a id="filterButton" data-toggle="modal" data-target="#modal-filter-keywords">
-                            <span class="glyphicon glyphicon-filter"></span>    
-                        </a>
-                    </span>
-                    <span class="hide-when-small nav-item">
-                        Done (with admin): {{allTimeDone}} h
-                    </span>
-                    <span class="hide-when-small nav-item">
-                        Remaining: {{allTimeRemaining}} h
-                    </span>
-                    <span ng-click="compactMode = !compactMode" class="link-pointer nav-item">
-                        <input id="compactMode" type="checkbox" ng-model="compactMode" ng-click="$event.stopPropagation()"></input> Compact Mode
-                    </span>                    
-                    <span class="link-pointer nav-item">
-                        <input id="ownerMode" type="checkbox" ng-model="ownerMode" ng-click="$event.stopPropagation()"></input>
-                        <span ng-click="ownerMode = !ownerMode">Filter by owner</span>
-                        &nbsp;
-                        <span class="dropdown" id="owners" ng-show="ownerMode">
-                          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                              {{selectedOwner || 'Select owner'}}
-                              <span class="caret"></span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation" ng-repeat="owner in owners | orderBy: 'toString()'">
-                                <a href role="menuitem" ng-click="$parent.selectedOwner = owner" id="owner-{{owner}}">
-                                    <owner-image owner="{{owner}}"></owner-image>
-                                    {{owner}}
-                                </a>
-                            </li>
-                          </ul>
-                        </span>
-                    </span>
                 </div>
             </form>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="link">
+                    <a class="glyphicon glyphicon-repeat" id="reloadButton" ng-click="reload()"></a>
+                </li>
+                <li class="link">
+                    <a href="{{getDashboardUrl()}}" target="_blank">
+                        <span class="glyphicon glyphicon-stats"></span>
+                    </a>
+                </li>
+                <li class="link">
+                    <a id="filterButton" data-toggle="modal" data-target="#modal-filter-keywords">
+                        <span class="glyphicon glyphicon-filter"></span>    
+                    </a>
+                </li>
+                <li ng-click="compactMode = !compactMode" class="link-pointer navbar-text">
+                    <input id="compactMode" type="checkbox" ng-model="compactMode" ng-click="$event.stopPropagation()"></input> Compact Mode
+                </li>                    
+                <li class="link-pointer navbar-text">
+                    <input id="ownerMode" type="checkbox" ng-model="ownerMode" ng-click="$event.stopPropagation()"></input>
+                    <span ng-click="ownerMode = !ownerMode">Filter by owner</span>
+                    &nbsp;
+                    <span class="dropdown" id="owners" ng-show="ownerMode">
+                      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style="margin: -15px 0px">
+                          {{selectedOwner || 'Select owner'}}
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation" ng-repeat="owner in owners | orderBy: 'toString()'">
+                            <a href role="menuitem" ng-click="$parent.selectedOwner = owner" id="owner-{{owner}}">
+                                <owner-image owner="{{owner}}"></owner-image>
+                                {{owner}}
+                            </a>
+                        </li>
+                      </ul>
+                    </span>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right hide-when-small">
+                <li class="navbar-text">
+                    Done (with admin): {{allTimeDone}} h
+                </li>
+                <li class="navbar-text">
+                    Remaining: {{allTimeRemaining}} h
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

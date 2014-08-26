@@ -43,7 +43,7 @@ describe('Scrumboard', function() {
         inprogressStory.time.assertToBeTrimmed('5 / 20 h');
         inprogressStory.storypoint.assertToBe('2');
         inprogressStory.assertCreateTaskLink();
-        inprogressStory.assertTasks(['#2002: Read intro', '#2003: Read chapter 1', '#2004: Read chapter 2']);
+        inprogressStory.assertTasks(['Read intro', 'Read chapter 1', 'Read chapter 2']);
         var taskReadIntro =inprogressStory.getTask(0);
         taskReadIntro.assertTitle(2002, 'Read intro');
         taskReadIntro.assertTime(0, 5);

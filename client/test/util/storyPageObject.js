@@ -18,7 +18,8 @@ util.inherits(Task, pageObjects.PageObject);
 
 Task.prototype.assertTitle = function (taskId, taskTitle, compactMode) {
     if (!compactMode) {
-        this.title.assertToBe('#'+taskId+': '+taskTitle);
+        this.title.assertToContain('#'+taskId);
+        this.title.assertToContain(taskTitle);
     } else {
         this.title.assertToBe(taskTitle);
     }

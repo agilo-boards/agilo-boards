@@ -477,6 +477,21 @@ module.exports = function (grunt) {
         'protractor:e2e'
     ]);
 
+    grunt.registerTask('test:e2eServed', [
+        'express:dev',
+        'clean:server',
+        'bowerInstall',
+        'concurrent:server',
+        'autoprefixer',
+        'connect:dist',
+        'protractor:e2e'
+    ]);
+
+    grunt.registerTask('test:all', [
+        'test:unit',
+        'test:e2eServed'
+    ]);
+
     grunt.registerTask('build', [
         'clean:dist',
         'bowerInstall',

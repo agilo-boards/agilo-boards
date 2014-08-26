@@ -80,6 +80,9 @@ util.inherits(Field, PageObject);
 Field.prototype.assertToBe = function (expectedText) {
     expect(this.elem.getText()).toEqual(this.prefix + expectedText + this.postfix);
 };
+Field.prototype.assertToContain = function (expectedText) {
+    expect(this.elem.getText()).toContain(expectedText);
+};
 Field.prototype.assertToBeTrimmed = function (expectedText) {
     var that = this;
     this.elem.getText().then(function (text) {

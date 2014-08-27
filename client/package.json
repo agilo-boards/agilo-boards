@@ -42,6 +42,6 @@
         "node": ">=0.10.0"
     },
     "scripts": {
-        "test": "grunt test:all"
+        "test": "grunt test:unit"
     }
 }

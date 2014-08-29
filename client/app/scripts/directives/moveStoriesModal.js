@@ -34,7 +34,7 @@ angular.module('scrumboards')
                 });
                 scope.$watch('moveStories.movedStories', function (newValue) {
                     if (newValue >= scope.moveStories.stories.length) {
-                        alert(scope.moveStories.movedStories+' stories successfully moved to sprint "'+scope.moveStories.selectedSprint.name+'".');
+                        console.log(scope.moveStories.movedStories+' stories successfully moved to sprint "'+scope.moveStories.selectedSprint.name+'".');
                         scope.$emit('reloadBoard');
                         scope.moveStories.movedStories = -1;
                     }

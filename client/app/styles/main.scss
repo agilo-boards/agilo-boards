@@ -173,7 +173,8 @@ div.error {
         vertical-align: middle;
         text-align: center;
         box-shadow: 5px 5px 2px #888888;
-        margin-right: 10px;
+        margin: 5px;
+        vertical-align: top;
         display: inline-block;
 
         &.postit-twolines {

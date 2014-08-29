@@ -16,7 +16,7 @@ angular.module('scrumboards')
                     if (text.length < maxLength_oneLine+3) {
                         separatorIndex = separatorIndex - 2;
                     }
-                    text = text.substr(0, separatorIndex)+'- '+text.substr(separatorIndex);
+                    text = text.substr(0, separatorIndex)+'-<br/>'+text.substr(separatorIndex);
                 }
                 element.addClass('postit-twolines');
             } else {

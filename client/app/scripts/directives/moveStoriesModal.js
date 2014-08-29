@@ -25,18 +25,26 @@ angular.module('scrumboards')
             });
             
             scope.moveStories = function() {
-                scope.moveStories.movedStories = 0;
+                scope.moveStories.movedTickets = 0;
+                scope.moveStories.amountOfTicketsToMove = 0;
                 scope.moveStories.stories.forEach(function(story) {
+                    scope.moveStories.amountOfTicketsToMove += 1 + story.tasks.length;
                     UpdateTicketService.switchSprint(story, scope.moveStories.selectedSprint.name, function() {
                         console.log('Moved story #'+story.id+' to sprint '+scope.moveStories.selectedSprint.name);
-                        scope.moveStories.movedStories++;
+                        scope.moveStories.movedTickets++;
+                    });
+                    story.tasks.forEach(function(task) {
+                        UpdateTicketService.switchSprint(task, scope.moveStories.selectedSprint.name, function() {
+                            console.log('Moved task #'+task.id+' to sprint '+scope.moveStories.selectedSprint.name);
+                            scope.moveStories.movedTickets++;
+                        });
                     });
                 });
-                scope.$watch('moveStories.movedStories', function (newValue) {
-                    if (newValue >= scope.moveStories.stories.length) {
-                        console.log(scope.moveStories.movedStories+' stories successfully moved to sprint "'+scope.moveStories.selectedSprint.name+'".');
+                scope.$watch('moveStories.movedTickets', function (newValue) {
+                    if (newValue >= scope.moveStories.amountOfTicketsToMove) {
+                        console.log(scope.moveStories.movedTickets+' tickets successfully moved to sprint '+scope.moveStories.selectedSprint.name+'.');
                         scope.$emit('reloadBoard');
-                        scope.moveStories.movedStories = -1;
+                        scope.moveStories.movedTickets = -1;
                     }
                 });
             };

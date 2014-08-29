@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="move-stories" ng-show="moveStories.stories.length > 0">
                     Select sprint the stories should be moved to:
-                    <select id="sprints" class="form-control" ng-model="moveStories.selectedSprint"
+                    <select class="sprints form-control" ng-model="moveStories.selectedSprint"
                             ng-options="sprint.name for sprint in moveStories.sprints" >
                     </select>
                     <p/>

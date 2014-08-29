@@ -125,7 +125,14 @@ div.error {
     }
     footer, div.footer, .story-card div.header {
         text-align: left;
-    }   
+    }
+    .progress {
+        font-size: 1.2em;
+        
+        .progress-bar {
+            line-height: 2em;
+        }
+    }
 }
 
 
@@ -246,7 +253,7 @@ story-with-tasks > div {
     position: relative;
     display: inline-block;
     text-align: center;
-    background-color: #b4b4b4;
+    background-color: #a0a0a0;
     width: 80px;
     height: 100%;
     margin-bottom: 0px;

@@ -30,6 +30,12 @@ angular.module('scrumboards')
             data: stories
         };
     }
+    
+    function addWeeks(date, weeks) {
+        var result = new Date(date);
+        result.setDate(date.getDate() + 7 * weeks);
+        return result;
+    }
 
     return {
         getSprints: AgiloService.getSprints,        
@@ -37,7 +43,7 @@ angular.module('scrumboards')
             return this.getSprints().then(function (result) {
                 var now = new Date();
                 var filteredSprints = result.data.filter(function(sprint) {
-                    return sprint.start <= now && now <= sprint.end;
+                    return addWeeks(sprint.start, -2) <= now && now <= addWeeks(sprint.end, 2);
                 });
                 return {
                     data: filteredSprints

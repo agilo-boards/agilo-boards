@@ -13,7 +13,7 @@ describe('Scrumboard', function() {
     });
     
     it('updates remaining time when selecting a different sprint', function(){
-        var listOfSprints = [ 'Sprint 1 (Release 2)', 'Sprint 2 (Release 2)', 'Sprint 1 (Release 3)'];
+        var listOfSprints = ['Sprint 5 (Release 1)', 'Sprint 1 (Release 2)', 'Sprint 2 (Release 2)', 'Sprint 3 (Release 2)', 'Sprint 1 (Release 3)'];
         navBar.sprints.assertOptions(listOfSprints);
         navBar.sprints.selectOption('Sprint 2 (Release 2)');
         navBar.timeDone.assertToBe(8);

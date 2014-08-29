@@ -35,7 +35,7 @@
             </span>
         </footer>
     </div>
-    <div class="postits">
+    <div class="postits" ng-class="{'fade-out': fadedOut}">
         <div class="postit" ng-repeat="postit in postits = (story.keywords | filter:isPostitDisplayed)" scale-to-fit="{{postit.value}}" ng-hide="(compactMode || backlogMode) && !postit.color" style="background-color: {{postit.color}}"></div>
     </div>
 </div>

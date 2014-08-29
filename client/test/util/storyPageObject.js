@@ -88,7 +88,7 @@ Story.prototype.assertFullsize = function () {
     expect(this.elem.getAttribute('class')).toMatch('block-fullsize');
 };
 Story.prototype.assertFadedout = function() {
-    expect(this.storyCard.getAttribute('class')).toContain('fade-out');
+    expect(element(by.xpath('//div[@story-id='+this.storyId+']')).getAttribute('class')).toContain('fade-out');
 };
 Story.prototype.assertNotFadedout = function() {
     expect(this.storyCard.getAttribute('class')).toNotContain('fade-out');

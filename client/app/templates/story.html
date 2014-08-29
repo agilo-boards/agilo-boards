@@ -1,5 +1,5 @@
-<div draggable story-id="{{story.id}}">
-    <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'compact-mode': compactMode, 'closed': story.isClosed && backlogMode, 'fade-out': fadedOut}">
+<div draggable story-id="{{story.id}}" ng-class="{'fade-out': fadedOut}">
+    <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'compact-mode': compactMode, 'closed': story.isClosed && backlogMode}">
         <header ng-hide="compactMode" class="header">
             <span ng-show="backlogMode" class="pull-center">{{story.detailStatus}}</span>
             <span ng-show="backlogMode && story.isClosed" class="pull-center">/ Story is {{story.status}}</span>
@@ -35,7 +35,7 @@
             </span>
         </footer>
     </div>
-    <div class="postits" ng-class="{'fade-out': fadedOut}">
+    <div class="postits">
         <div class="postit" ng-repeat="postit in postits = (story.keywords | filter:isPostitDisplayed)" scale-to-fit="{{postit.value}}" ng-hide="(compactMode || backlogMode) && !postit.color" style="background-color: {{postit.color}}"></div>
     </div>
 </div>

@@ -6,8 +6,7 @@ angular.module('scrumboards')
         restrict: 'E',
         templateUrl: 'templates/backlogSlice.html',
         scope: {
-            sliceName: '@',
-            sliceValue: '@',
+            sprint: '=',
             storiesByProject: '=',
             showOutOfScope: '='
         },
@@ -37,7 +36,7 @@ angular.module('scrumboards')
             };
             
             $scope.isMatchingSprint = function(story) {
-                return story.sprint === $scope.sliceValue;
+                return story.sprint === $scope.sprint.value;
             };            
         }
     };

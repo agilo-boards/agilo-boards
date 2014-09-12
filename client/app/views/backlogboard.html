@@ -42,11 +42,11 @@
 
 <div class="board" id="backlogboard">
     <backlog-slice ng-repeat="sprint in sprints | filter:{milestone: selectedRelease.name}| orderBy:'start'" ng-show="sprint.selected"
-                   slice-name="{{sprint.name}}" slice-value="{{sprint.name}}" 
+                   sprint="sprint" 
                    stories-by-project="projects" show-out-of-scope="showOutOfScope">
     </backlog-slice>
     <br/>
-    <backlog-slice slice-name="Remaining" slice-value="" 
+    <backlog-slice slice-name="Remaining" sprint="{ name: 'Remaining', value: '', hideRemove: true }"
                    stories-by-project="projects" show-out-of-scope="showOutOfScope">
     </backlog-slice>
 </div>

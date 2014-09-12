@@ -44,6 +44,12 @@ angular.module('scrumboards')
                 $('.no-stories.drag-hide').removeClass('drag-hide');
             }
             
+            function setDragAreaEntered(elem) {
+                var enteredSlice = $(elem).closest('.slice');
+                $('.drag-area-entered').removeClass('drag-area-entered');
+                enteredSlice.addClass('drag-area-entered');
+            }
+            
             function hasDraggedOverChanged(ticketId, isInUpperHalf) {
                 var prevTicketId = localStorage.getItem('draggedOverStoryId');
                 var prevHalf = localStorage.getItem('draggedOverInUpperHalf') === 'true';
@@ -82,6 +88,7 @@ angular.module('scrumboards')
                                 $(draggedOverStory).before(placeholderHtml);
                             }
                         }
+                        setDragAreaEntered(draggedOverStory);
                     }
                 }
                 e.preventDefault();
@@ -98,8 +105,7 @@ angular.module('scrumboards')
                     noStories.addClass('drag-hide');
                 }
                 
-                $('.drag-area-entered').removeClass('drag-area-entered');
-                angular.element(e.target).addClass('drag-area-entered');
+                setDragAreaEntered(e.target);
             });
             
             element.bind('dragleave', function () {

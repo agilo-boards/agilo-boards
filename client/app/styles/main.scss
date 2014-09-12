@@ -347,8 +347,8 @@ story-with-tasks > div {
     min-width: 100%;
     min-height: 6em;
     
-    &.slice-collapsed.drag-area-entered {
-        background-color: #f0e2e2;
+    &.drag-area-entered {
+        background-color: #fafafa;
     }
  
     h2 {

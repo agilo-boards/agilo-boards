@@ -6,9 +6,21 @@ var pageObjects = require('./generalPageObjects.js');
 function Slice(sliceName) {
     var elem = element(by.xpath('//*[@slice-name="'+sliceName+'"]'));
     this.sliceName = sliceName;
+    this.removeButton = elem.element(by.className('slice-remove'));
+    this.collapseButton = elem.element(by.className('slice-collapse'));
+    this.expandButton = elem.element(by.className('slice-expand'));
     pageObjects.PageObject.call(this, elem);
 }
 util.inherits(Slice, pageObjects.PageObject);
+
+Slice.prototype.assertCollapsed = function () {
+    expect(this.elem.getAttribute('class')).toContain('slice-collapsed');
+    expect(this.elem.all(by.className('col-project')).get(0).isDisplayed()).toBeFalsy();
+};
+Slice.prototype.assertNotCollapsed = function () {
+    expect(this.elem.getAttribute('class')).toContain('slice-collapsed');
+    expect(this.elem.all(by.className('col-project')).get(0).isDisplayed()).toBeTruthy();
+};
 
 Slice.prototype.assertStoryPointTotal = function (totalSP) {
     expect(this.elem.element(by.className('slice-name')).getText()).toEqual((this.sliceName || 'Remaining')+' ('+totalSP+' SP)');

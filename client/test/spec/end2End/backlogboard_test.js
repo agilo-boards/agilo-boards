@@ -101,6 +101,27 @@ describe('Backlog', function() {
         
     });
     
+    it('hides sprints by button click', function(){
+        backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);        
+        backlog.getSlice('Sprint 3 (Release 2)').removeButton.click();
+        backlog.assertSliceNotVisible('Sprint 3 (Release 2)');
+        
+        navBar.filterButton.click();
+        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
+        navBar.filterModal.showAll();        
+        backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);     
+        
+    });
+    
+    it('collapses sprints by button click', function(){
+        var slice = backlog.getSlice('Sprint 3 (Release 2)');
+        slice.assertNotCollapsed();     
+        slice.collapseButton.click();
+        slice.assertCollapsed();
+        slice.expandButton.click();
+        slice.assertNotCollapsed();
+    });
+    
     it('should out of scope stories only when selected', function() {
         navBar.releases.selectOption('Release 2');
         navBar.filterButton.click();        

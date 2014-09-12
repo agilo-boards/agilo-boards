@@ -345,6 +345,11 @@ story-with-tasks > div {
     display: inline-block;
     white-space: nowrap;
     min-width: 100%;
+    min-height: 6em;
+    
+    &.slice-collapsed.drag-area-entered {
+        background-color: #f0e2e2;
+    }
  
     h2 {
         padding-left: 15px;

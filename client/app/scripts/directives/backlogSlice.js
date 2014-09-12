@@ -12,6 +12,17 @@ angular.module('scrumboards')
             showOutOfScope: '='
         },
         controller: function($scope) {
+            function getFullWidth() {
+                return $(window).width()-50;
+            }
+            function setFullWidth() {
+                $('.full-width').css('width', getFullWidth()+'px');
+            }
+            $scope.$on('$viewContentLoaded', setFullWidth);
+
+            window.onresize = setFullWidth;
+            $scope.fullWidth = getFullWidth();
+            
             $scope.sumStoryPoints = function() {
                 var total = 0;
                 function calculateSum(story) {

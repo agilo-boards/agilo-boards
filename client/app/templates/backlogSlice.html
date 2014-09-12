@@ -1,18 +1,22 @@
-<div class="row slice" sprint="{{sliceValue}}" dropable>
+<div class="row slice" sprint="{{sliceValue}}" dropable ng-click="sliceCollapsed=!sliceCollapsed" ng-class="{'slice-collapsed': sliceCollapsed}">
     <span fixed>
-        <h2 class="slice-name" style="display: inline-block">
+        <h2 class="slice-name full-width" style="display: inline-block; width: {{fullWidth}}px">
             {{sliceName}}
             <small class="story-points">({{sumStoryPoints()}} SP)</small>
+            <a ng-hide="sliceCollapsed" class="pull-right"><small class="glyphicon glyphicon-minus slice-collapse" data-toggle="tooltip" data-placement="right" title="Collapse Sprint"></small></a>
+            <a ng-show="sliceCollapsed" class="pull-right"><small class="glyphicon glyphicon-plus slice-unfold" data-toggle="tooltip" data-placement="right" title="Unfold Sprint"></small></a>
         </h2>
         <br/>
     </span>
-    <div ng-repeat="(project, stories) in storiesByProject" class="col-project ticket-group" ticket-group="{{project}}">
-        <div class="centered project-title">{{project}}</div>
-        <story ng-repeat="story in currentStories = (stories | filter:isMatchingSprint | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" 
-               story="story" backlog-mode="true"
-               ng-show="story.inScope || showOutOfScope"
-               assigned-ticket-group="{{project}}">
-        </story>
-        <div class="information-text no-stories" ng-show="currentStories.length == 0">No stories</div>
+    <div ng-hide="sliceCollapsed">
+        <div ng-repeat="(project, stories) in storiesByProject" class="col-project ticket-group" ticket-group="{{project}}">
+            <div class="centered project-title">{{project}}</div>
+            <story ng-repeat="story in currentStories = (stories | filter:isMatchingSprint | orderBy:['seqNumber','id'] | emptyToEnd:'seqNumber')" 
+                   story="story" backlog-mode="true"
+                   ng-show="story.inScope || showOutOfScope"
+                   assigned-ticket-group="{{project}}">
+            </story>
+            <div class="information-text no-stories" ng-show="currentStories.length == 0">No stories</div>
+        </div>
     </div>
 </div>

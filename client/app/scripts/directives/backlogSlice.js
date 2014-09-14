@@ -8,7 +8,14 @@ angular.module('scrumboards')
         scope: {
             sprint: '=',
             storiesByProject: '=',
-            showOutOfScope: '='
+            showOutOfScope: '=',
+        },
+        link: function (scope, element) {
+            element.attr('slice-name', scope.sprint.name);
+            scope.sliceValue = scope.sprint.value;
+            if (typeof(scope.sliceValue) === 'undefined') {
+                scope.sliceValue = scope.sprint.name;
+            }
         },
         controller: function($scope) {
             function getFullWidth() {
@@ -36,7 +43,7 @@ angular.module('scrumboards')
             };
             
             $scope.isMatchingSprint = function(story) {
-                return story.sprint === $scope.sprint.value;
+                return story.sprint === $scope.sliceValue;
             };            
         }
     };

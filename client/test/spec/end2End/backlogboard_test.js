@@ -107,7 +107,7 @@ describe('Backlog', function() {
         backlog.assertSliceNotVisible('Sprint 3 (Release 2)');
         
         navBar.filterButton.click();
-        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertSelected();
+        navBar.filterModal.getSprint('Sprint 3 (Release 2)').assertNotSelected();
         navBar.filterModal.showAll();        
         backlog.getSlice('Sprint 3 (Release 2)').assertStoryPointTotal(0);     
         

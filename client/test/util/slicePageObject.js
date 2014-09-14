@@ -14,11 +14,11 @@ function Slice(sliceName) {
 util.inherits(Slice, pageObjects.PageObject);
 
 Slice.prototype.assertCollapsed = function () {
-    expect(this.elem.getAttribute('class')).toContain('slice-collapsed');
+    expect(this.elem.element(by.className('slice')).getAttribute('class')).toContain('slice-collapsed');
     expect(this.elem.all(by.className('col-project')).get(0).isDisplayed()).toBeFalsy();
 };
 Slice.prototype.assertNotCollapsed = function () {
-    expect(this.elem.getAttribute('class')).toContain('slice-collapsed');
+    expect(this.elem.element(by.className('slice')).getAttribute('class')).toNotContain('slice-collapsed');
     expect(this.elem.all(by.className('col-project')).get(0).isDisplayed()).toBeTruthy();
 };
 

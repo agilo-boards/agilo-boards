@@ -6,8 +6,7 @@ angular.module('scrumboards')
         restrict: 'E',
         templateUrl: 'templates/links.html',
         scope: {
-            ticket: '=',
-            compactMode: '='
+            ticket: '='
         }
     };
 });

@@ -19,7 +19,7 @@ function ScrumBoardNavigationPage(overridePath) {
     this.moveStoriesModal = new MoveStoriesModal(element(by.id('modal-move-stories')));
     this.timeDone = new pageObjects.Field(element(by.binding('allTimeDone')), 'Done (with admin): ', ' h');
     this.timeRemaining = new pageObjects.Field(element(by.binding('allTimeRemaining')), 'Remaining: ', ' h');
-    this.compactMode = new pageObjects.Checkbox(element(by.id('compactMode')));
+    this.hideUnknownKeywords = new pageObjects.Checkbox(element(by.id('hideUnknownKeywords')));
     this.ownerMode = new pageObjects.Checkbox(element(by.id('ownerMode')));
     this.owners = new pageObjects.Dropdown('owners');
 }

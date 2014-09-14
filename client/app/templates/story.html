@@ -1,11 +1,13 @@
 <div draggable story-id="{{story.id}}" ng-class="{'fade-out': fadedOut}">
     <a href="{{story.getViewTicketUrl()}}" target="_blank">
-        <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'compact-mode': compactMode, 'closed': story.isClosed && backlogMode}">
-            <header ng-hide="compactMode" class="header">
+        <div class="story-card" ng-click="openTicket(story, $event)" ng-class="{'closed': story.isClosed && backlogMode}">
+            <header class="header">
                 <span ng-show="backlogMode" class="pull-center">{{story.detailStatus}}</span>
                 <span ng-show="backlogMode && story.isClosed" class="pull-center">/ Story is {{story.status}}</span>
                 <span class="project" ng-hide="backlogMode">{{story.project}}</span>
-                <span class="pull-right release" ng-hide="backlogMode">{{story.release}}</span>
+                <span class="story-point pull-right" ng-hide="backlogMode">
+                    {{story.storyPoints || '-'}} SP
+                </span>
                 <span class="glyphicon glyphicon-thumbs-down out-of-scope pull-right" ng-show="backlogMode && !story.inScope" data-toggle="tooltip" data-placement="right" title="Out of scope"></span>
                 <span class="glyphicon glyphicon-asterisk has-tasks pull-right" ng-show="backlogMode && story.hasTasks" data-toggle="tooltip" data-placement="right" title="The story has tasks and might be already planned."></span>
             </header>
@@ -17,8 +19,8 @@
                     <span class="story-number" ng-click="$event.stopPropagation()">
                         #{{story.id}}
                     </span>
-                    <links ticket="story" compact-mode="compactMode"></links>
-                    <span class="glyphicon glyphicon-ok link" ng-show="!compactMode && !backlogMode && isStoryClosable(story) && experimental" ng-click="closeTicket(story)"></span>
+                    <links ticket="story"></links>
+                    <span class="glyphicon glyphicon-ok link" ng-show="!backlogMode && isStoryClosable(story) && experimental" ng-click="closeTicket(story)"></span>
                     <br/>
                     <span class="story-title">{{story.title}}</span>
 
@@ -28,7 +30,7 @@
                 <div class="pull-right" ng-hide="backlogMode">
                     <progress-bar ticket="story"></progress-bar>
                 </div>
-                <span class="story-point" class="pull-left">
+                <span class="story-point pull-left" ng-show="backlogMode">
                     {{story.storyPoints || '-'}} SP
                 </span>
                 <span ng-show="backlogMode" class="pull-right seq-number">
@@ -38,6 +40,6 @@
         </div>
     </a>
     <div class="postits">
-        <div class="postit" ng-repeat="postit in postits = (story.keywords | filter:isPostitDisplayed)" scale-to-fit="{{postit.value}}" ng-hide="(compactMode || backlogMode) && !postit.color" style="background-color: {{postit.color}}"></div>
+        <div class="postit" ng-repeat="postit in postits = (story.keywords | filter:isPostitDisplayed)" scale-to-fit="{{postit.value}}" style="background-color: {{postit.color}}"></div>
     </div>
 </div>

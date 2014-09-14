@@ -25,7 +25,7 @@
                         <span class="glyphicon glyphicon-stats"></span>
                     </a>
                 </li>
-                <li class="link" data-toggle="tooltip" data-placement="left" title="Filter by keyowrds">
+                <li class="link" data-toggle="tooltip" data-placement="left" title="Filter by keywords">
                     <a id="filterButton" data-toggle="modal" data-target="#modal-filter-keywords">
                         <span class="glyphicon glyphicon-filter"></span>    
                     </a>
@@ -35,8 +35,8 @@
                         <span class="glyphicon glyphicon-share-alt"></span>
                     </a>
                 </li>
-                <li ng-click="compactMode = !compactMode" class="link-pointer navbar-text">
-                    <input id="compactMode" type="checkbox" ng-model="compactMode" ng-click="$event.stopPropagation()"></input> Compact Mode
+                <li ng-click="hideUnknownKeywords = !hideUnknownKeywords" class="link-pointer navbar-text">
+                    <input id="hideUnknownKeywords" type="checkbox" ng-model="hideUnknownKeywords" ng-click="$event.stopPropagation()"></input> Hide unknown keywords
                 </li>                    
                 <li class="link-pointer navbar-text">
                     <input id="ownerMode" type="checkbox" ng-model="ownerMode" ng-click="$event.stopPropagation()"></input>
@@ -92,7 +92,7 @@
             <h2>Done</h2>
 			<span id="col-done">
                 <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{isClosed: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="whole-story-{{story.id}}">
-                    <story story="story" compact-mode="compactMode" faded-out="fadedOutStory(story)">
+                    <story story="story" hide-unknown-keywords="hideUnknownKeywords" faded-out="fadedOutStory(story)">
                     </story>
                 </div>
                 <div class="information-text" ng-show="doneStories.length == 0">No stories</div>

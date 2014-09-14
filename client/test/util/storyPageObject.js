@@ -6,32 +6,19 @@ var pageObjects = require('./generalPageObjects.js');
 function Task(elem) {
     pageObjects.PageObject.call(this, elem);
     this.title = new pageObjects.Field(elem.element(by.className('task-title')));
-    this.timeDone = new pageObjects.Field(elem.element(by.className('task-time-done')), 'Done: ', ' h');
-    this.timeRemaining = new pageObjects.Field(elem.element(by.className('task-time-remaining')), 'Remaining: ', ' h');
-    this.title = new pageObjects.Field(elem.element(by.className('task-title')));
-    this.timeCompact = new pageObjects.Field(elem.element(by.className('progress')));
+    this.time = new pageObjects.Field(elem.element(by.className('progress')));
     this.ownerImage = elem.element(by.tagName('img'));
     
     this.addTimeBtn = new pageObjects.Button(elem.element(by.className('add-time')));
 }
 util.inherits(Task, pageObjects.PageObject);
 
-Task.prototype.assertTitle = function (taskId, taskTitle, compactMode) {
-    if (!compactMode) {
-        this.title.assertToContain('#'+taskId);
-        this.title.assertToContain(taskTitle);
-    } else {
-        this.title.assertToBe(taskTitle);
-    }
+Task.prototype.assertTitle = function (taskTitle) {
+    this.title.assertToBe(taskTitle);
 };
 
-Task.prototype.assertTime = function (timeDone, timeRemaining, compactMode) {
-    if (!compactMode) {
-        this.timeDone.assertToBe(timeDone);
-        this.timeRemaining.assertToBe(timeRemaining);
-    } else {
-        this.timeCompact.assertToStartWith(timeDone + ' / '+ (timeRemaining+timeDone) + ' h');
-    }
+Task.prototype.assertTime = function (timeDone, timeRemaining) {
+        this.time.assertToStartWith(timeDone + ' / '+ (timeRemaining+timeDone) + ' h');
 };
 Task.prototype.assertOwnerImage = function (owner) {
     expect(this.ownerImage.getAttribute('src')).toContain('images/team/'+owner+'.jpg');
@@ -46,20 +33,6 @@ Task.prototype.assertNotFadedout = function() {
     expect(this.elem.getAttribute('class')).toNotContain('fade-out');
 };
 
-Task.prototype.assertNotCompactMode = function () {
-    this.timeDone.assertVisible();
-    this.timeRemaining.assertVisible();
-    this.title.assertVisible();
-    this.timeCompact.assertNotVisible();
-};
-
-Task.prototype.assertCompactMode = function () {
-    this.timeDone.assertNotVisible();
-    this.timeRemaining.assertNotVisible();
-    this.title.assertVisible();
-    this.timeCompact.assertVisible();
-};
-
 function Story(storyId, prefix) {
     var elem = element(by.id((prefix || 'whole-story-')+storyId));
     pageObjects.PageObject.call(this, elem);
@@ -68,10 +41,9 @@ function Story(storyId, prefix) {
     this.storyId = storyId;
     var header = this.storyCard.element(by.tagName('header'));
     this.project = new pageObjects.Field(header.element(by.className('project')));
-    this.release = new pageObjects.Field(header.element(by.className('release')));
     
     var footer = this.storyCard.element(by.tagName('footer'));
-    this.storypoint = new pageObjects.Field(footer.element(by.className('story-point')), '', ' SP');
+    this.storypoint = new pageObjects.Field(header.element(by.className('story-point')), '', ' SP');
     this.time = new pageObjects.Field(footer.element(by.className('progress')));
     
     this.title = new pageObjects.Field(this.storyCard.element(by.className('story-title')));
@@ -96,23 +68,6 @@ Story.prototype.assertNotFadedout = function() {
 Story.prototype.assertCreateTaskLink = function() {
     var createTaskLink = this.elem.element(by.xpath('.//a[contains(@class, "task-creation-link")]'));
     expect(createTaskLink.getAttribute('href')).toContain('agilo/eorders/newticket?src='+this.storyId);
-};
-Story.prototype.assertCompactMode = function() {
-    this.project.assertNotVisible();
-    this.release.assertNotVisible();
-    this.assertStoryNumber();
-    this.title.assertVisible();
-    this.time.assertVisible();
-    this.storypoint.assertVisible();
-};
-Story.prototype.assertNotCompactMode = function() {
-    this.project.assertVisible();
-    this.release.assertVisible();
-    this.assertStoryNumber();
-    this.title.assertVisible();
-    this.time.assertVisible();
-    this.storypoint.assertVisible();
-    this.assertCreateTaskLink();
 };
 Story.prototype.assertToBeClosed = function () {
     expect(this.elem.element(by.className('story-card')).getAttribute('class')).toContain('closed');

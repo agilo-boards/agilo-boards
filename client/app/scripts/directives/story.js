@@ -7,7 +7,7 @@ angular.module('scrumboards')
         templateUrl: 'templates/story.html',
         scope: {
             backlogMode: '@',
-            compactMode: '=',            
+            hideUnknownKeywords: '=',            
             fadedOut: '=',
             story: '=',
         },
@@ -26,7 +26,7 @@ angular.module('scrumboards')
                 });
             };
             $scope.isPostitDisplayed = function(postit) {
-                return !$scope.compactMode || postit.color; 
+                return (!$scope.hideUnknownKeywords && !$scope.backlogMode) || postit.color; 
             };
         }
     };

@@ -103,19 +103,11 @@ div.error {
         margin-bottom: 0.8em;
     }
     
-    .story-point {
-        padding: 3px;
-        border-radius: 3px;
-    }
-    
     .glyphicon {
         font-size: 1.5em;
     }
     .backlog-btns .glyphicon {
         font-size: 1.8em;
-    }
-    &.compact-mode .centered {
-        margin-bottom: 25px;
     }
     
     div.story-center:after{
@@ -123,8 +115,8 @@ div.error {
         content: "";
         display: block;
     }
-    footer, div.footer, .story-card div.header {
-        text-align: left;
+    footer, header {
+        color: #9d9d51;
     }
     .progress {
         font-size: 1.2em;
@@ -154,10 +146,11 @@ div.error {
 
 .postits {
     position: relative;
-    left: 50px;
-    top: -2em;
-    min-height: 1.4em;
-    width: 65%;
+    left: 15px;
+    top: -2.5em;
+    min-height: 3em;
+    margin-bottom: -1.8em;
+    width: 75%;
 
 
     .postit {
@@ -230,15 +223,6 @@ story-with-tasks > div {
         width: 60px;
         min-height: 60px;        
         margin: 0.2em 0.8em 0.2em 0em;
-    }
-    .task-title {
-        font-weight: bold;
-    }
-    
-    &.compact-mode {
-        .task-title {
-            font-weight: normal;
-        }
     }
     
     .glyphicon {

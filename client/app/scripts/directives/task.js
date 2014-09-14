@@ -6,8 +6,7 @@ angular.module('scrumboards')
         restrict: 'E',
         templateUrl: 'templates/task.html',
         scope: {
-            task: '=',
-            compactMode: '=',            
+            task: '=',            
             fadedOut: '=',
             showOwnerImage: '@'
         },

@@ -44,7 +44,7 @@ angular.module('scrumboards')
         }, function (error) {
             $('#messageContainer').append('<div class="error">' + error + '</div>');
         });        
-        Synchronizer.syncToLocalStorage($scope, 'compactMode', { isBoolean: true });
+        Synchronizer.syncToLocalStorage($scope, 'hideUnknownKeywords', { isBoolean: true });
         Synchronizer.syncToLocalStorage($scope, 'ownerMode', { isBoolean: true });
         var ScrumboardCtrl = this;
         Synchronizer.syncToLocalStorage($scope, 'selectedOwner', { callback: function (value) {

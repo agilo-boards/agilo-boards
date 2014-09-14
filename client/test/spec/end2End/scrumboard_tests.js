@@ -32,7 +32,6 @@ describe('Scrumboard', function() {
         
         var todoStory = board.findStory(1006);
         todoStory.project.assertToBe('Client Scrumboard');
-        todoStory.release.assertToBe('Release 2');
         todoStory.assertStoryNumber();
         todoStory.title.assertToBe('Drag and drop for Scrum Board');
         todoStory.time.assertToBeTrimmed('0 h');
@@ -48,7 +47,7 @@ describe('Scrumboard', function() {
         inprogressStory.assertCreateTaskLink();
         inprogressStory.assertTasks(['Read intro', 'Read chapter 1', 'Read chapter 2']);
         var taskReadIntro =inprogressStory.getTask(0);
-        taskReadIntro.assertTitle(2002, 'Read intro');
+        taskReadIntro.assertTitle('Read intro');
         taskReadIntro.assertTime(0, 5);
         
         
@@ -59,36 +58,21 @@ describe('Scrumboard', function() {
         board.assertStories([], [], [1000, 1100]);
     });
     
-    it('should persist compact mode when switching sprint and display the stories only in compact', function() {        
-        browser.get('http://127.0.0.1:8091/#/scrumboard');
-        
+    it('should persist hiding of unknown keywords and hide the keywords accordingly', function() {
         navBar.sprints.selectOption('Sprint 1 (Release 2)');
-        navBar.compactMode.assertNotSelected();
-        navBar.compactMode.toggle();
-        navBar.compactMode.assertSelected();
+        navBar.hideUnknownKeywords.assertNotSelected();
+        navBar.hideUnknownKeywords.toggle();
+        navBar.hideUnknownKeywords.assertSelected();
         
         navBar.sprints.selectOption('Sprint 2 (Release 2)');
-        navBar.compactMode.assertSelected();
+        navBar.hideUnknownKeywords.assertSelected();
         
         var story = board.findStory(1006);
-        story.assertCompactMode();
         story.assertPostits(['import']);
         
-        board.findStory(1003).assertCompactMode();
-        board.findStory(1001).assertCompactMode();
-        var taskReadIntro = board.findStory(1004).getTask(0);
-        taskReadIntro.assertTitle(2002, 'Read intro', true);
-        taskReadIntro.assertTime(0, 5, true);
-        taskReadIntro.assertCompactMode();
-        
-        navBar.compactMode.toggle();
-        navBar.compactMode.assertNotSelected();
-        board.findStory(1006).assertNotCompactMode();
+        navBar.hideUnknownKeywords.toggle();
+        navBar.hideUnknownKeywords.assertNotSelected();
         story.assertPostits(['usabil', 'import']);
-        
-        taskReadIntro.assertTitle(2002, 'Read intro');
-        taskReadIntro.assertTime(0, 5);
-        taskReadIntro.assertNotCompactMode();
     });
     
     it('should persist owner mode and the selected owner when switching sprints and fade out any story related to a different person than the owner', function() {

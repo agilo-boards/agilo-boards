@@ -12,13 +12,6 @@ angular.module('scrumboards')
             showOwnerImage: '@'
         },
         controller: function ($scope, $window, UpdateTicketService) {
-            $scope.openTicket = function (ticket, event) {
-                var url = ticket.getViewTicketUrl();
-                if (event.shiftKey) {
-                    url = ticket.getEditTicketUrl();
-                }
-                $window.open(url);
-            };
             $scope.changeTime = function(task, difference) {
                 UpdateTicketService.changeTime(task, difference, function() {
                     $scope.$emit('reloadBoard');

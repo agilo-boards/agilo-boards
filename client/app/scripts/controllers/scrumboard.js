@@ -15,7 +15,7 @@ angular.module('scrumboards')
                 $scope.allTimeRemaining = TimeHelper.sumTimeRemaining($scope.stories);
                 $scope.owners = ObjToArrayConverter.convert(collectOwners($scope.stories));
             }, function (error) {
-                $('#messageContainer').append('<div class="error">' + error + '</div>');
+                $('#messageContainer').append('<div class="error">Unable to load stories. ' + error + '</div>');
             });
         });
         sprints.then(function (sprints) {
@@ -42,7 +42,7 @@ angular.module('scrumboards')
                 }
             });
         }, function (error) {
-            $('#messageContainer').append('<div class="error">' + error + '</div>');
+            $('#messageContainer').append('<div class="error">Unable to load sprints. ' + error + '</div>');
         });        
         Synchronizer.syncToLocalStorage($scope, 'hideUnknownKeywords', { isBoolean: true });
         Synchronizer.syncToLocalStorage($scope, 'ownerMode', { isBoolean: true });

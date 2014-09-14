@@ -6,24 +6,39 @@
                 <h4 class="modal-title">Move Stories to next Sprint</h4>
             </div>
             <div class="modal-body">
-                <div class="move-stories" ng-show="moveStories.stories.length > 0">
-                    Select sprint the stories should be moved to:
-                    <select id="move-stories-sprints" class="sprints form-control" ng-model="moveStories.selectedSprint"
-                            ng-options="sprint.name for sprint in moveStories.sprints" >
+                <div class="move-stories" ng-show="moveState.stories.length > 0">
+                    All the following stories are not yet finished and will be move including their closed tasks to the next sprint. It's assumed that opened tasks are moved automatically when moving the story.
+                    
+                    <h4>Next Sprint</h4>
+                    <select id="move-stories-sprints" class="sprints form-control" ng-model="moveState.selectedSprint"
+                            ng-options="sprint.name for sprint in sprints.allSprints | filter: isSprintSameMilestoneButNotSelected" ng-disabled="moveState.started">
                     </select>
                     <p/>
-                    Stories to be moved:
+                    <h4>Stories to be moved</h4>
                     <ul>
-                        <li ng-repeat="story in moveStories.stories">#{{story.id}} {{story.title}}</li>
+                        <li ng-repeat="story in moveState.stories">
+                            <span id="ticket-to-move-{{story.id}}">#{{story.id}} {{story.title}}</span>
+                            <ul>
+                                <li ng-repeat="task in story.tasks | filter: isTaskClosed">
+                                    <span id="ticket-to-move-{{task.id}}">#{{task.id}} {{task.title}}</span>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
-                <div class="no-stories" ng-hide="moveStories.stories.length > 0">
+                <div class="no-stories" ng-hide="moveState.stories.length > 0">
                     No stories to move.
+                </div>
+                <div class="progress" ng-show="moveState.started" style="width: 100%">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{moveState.count}}" aria-valuemin="0" aria-valuemax="{{moveState.max}}" style="width: {{moveState.count/moveState.max*100}}%;">
+                  </div>
+                </div>
+                <div id="move-stories-messages">
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="closeButton" type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button id="moveButton" type="button" class="btn btn-default pull-right" ng-click="moveStories()" data-dismiss="modal">Move stories</button>
+                <button id="closeButton" type="button" class="btn btn-default btn-primary pull-right" data-dismiss="modal" ng-show="moveState.started || moveState.stories.length === 0">Close</button>
+                <button id="moveButton" type="button" class="btn btn-default btn-primary pull-right" ng-click="moveStories()" ng-hide="moveState.started || moveState.stories.length === 0">Move stories</button>
             </div>
         </div>
     </div>

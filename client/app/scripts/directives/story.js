@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('story', function ($rootScope, UpdateTicketService, ExperimentalService) {
+.directive('story', function ($rootScope, UpdateTicketService, ExperimentalService, MessageService) {
     return {
         restrict: 'E',
         templateUrl: 'templates/story.html',
@@ -23,6 +23,8 @@ angular.module('scrumboards')
             $scope.closeTicket = function (ticket) {
                 UpdateTicketService.closeTicket(ticket, function() {
                     $scope.$emit('reloadBoard');
+                }, function (error) {
+                    $('#messageContainer').append(MessageService.error(error, 'Unable to close the story.', 'Make sure you are logged in to modify the ticket.'));
                 });
             };
             $scope.isPostitDisplayed = function(postit) {

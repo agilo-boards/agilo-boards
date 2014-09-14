@@ -1,4 +1,4 @@
-<div class="progress" ng-class="{'progress-striped': ticket.isOnGoing()}">
+<div class="progress ticket-progress" ng-class="{'progress-striped': ticket.isOnGoing()}">
     <span ng-hide="timeRemaining === 0">
         {{timeDone || 0}} / {{ticket.totalTime()}} h
     </span>

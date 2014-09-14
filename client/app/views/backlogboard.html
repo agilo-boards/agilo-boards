@@ -41,6 +41,8 @@
 </nav>
 
 <div class="board" id="backlogboard">
+    <div id="messageContainer"></div>
+    
     <backlog-slice ng-repeat="sprint in sprints | filter:{milestone: selectedRelease.name}| orderBy:'start'" ng-show="sprint.selected"
                    sprint="sprint" 
                    stories-by-project="projects" show-out-of-scope="showOutOfScope">

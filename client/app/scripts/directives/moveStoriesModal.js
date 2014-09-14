@@ -1,53 +1,63 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('moveStoriesModal', function (UpdateTicketService) {
+.directive('moveStoriesModal', function (UpdateTicketService, MessageService) {
     return {
         restrict: 'E',
         templateUrl: 'templates/moveStoriesModal.html',
-        link: function (scope) {
+        controller: function($scope) {
+            $scope.switchSprint = function(ticket) {
+                var selectedSprint = $scope.moveState.selectedSprint.name;
+                UpdateTicketService.switchSprint(ticket, selectedSprint, function() {
+                    $('#ticket-to-move-'+ticket.id).append('<span class="success"> (Moved)</span>');
+                    $scope.moveState.count++;
+                }, function() {
+                    $('#ticket-to-move-'+ticket.id).append('<span class="error"> (Failed)</span>');
+                    $('#move-stories-messages').append(MessageService.error(null, 'Failed: ', 'Failed to move ticket <a href="'+ticket.getViewTicketUrl()+'">#'+ticket.id+'</a>'));
+                });
+            };
+            $scope.isStoryOpenOrInProgress = function(story) {
+                return story.isInProgress || story.isToDo;
+            };
+            $scope.isTaskClosed = function(task) {
+                return task.isClosed();
+            };
+            $scope.isSprintSameMilestoneButNotSelected = function(sprint) {
+                return sprint.milestone === $scope.sprints.selectedSprint.milestone && sprint !== $scope.sprints.selectedSprint;
+            };
             
-            scope.moveStories = {};
-            scope.$watch('stories', function(stories) {
-                if (stories && !scope.moveStories.stories) {
-                    scope.moveStories.stories = stories.filter(function(story) {
-                        return story.isInProgress || story.isToDo;
-                    });
-                }
-            });
-            scope.$watch('sprints.selectedSprint', function(selectedSprint) {
-                if (selectedSprint && !scope.moveStories.selectedSprint) {
-                    scope.moveStories.sprints = scope.sprints.allSprints.filter(function(sprint) {
-                        return sprint.milestone === selectedSprint.milestone && sprint !== selectedSprint;
-                    });
-                    scope.moveStories.selectedSprint = scope.moveStories.sprints[scope.moveStories.sprints.length-1];
-                }
-            });
-            
-            scope.moveStories = function() {
-                scope.moveStories.movedTickets = 0;
-                scope.moveStories.amountOfTicketsToMove = 0;
-                scope.moveStories.stories.forEach(function(story) {
-                    scope.moveStories.amountOfTicketsToMove += 1 + story.tasks.length;
-                    UpdateTicketService.switchSprint(story, scope.moveStories.selectedSprint.name, function() {
-                        console.log('Moved story #'+story.id+' to sprint '+scope.moveStories.selectedSprint.name);
-                        scope.moveStories.movedTickets++;
-                    });
-                    story.tasks.forEach(function(task) {
-                        UpdateTicketService.switchSprint(task, scope.moveStories.selectedSprint.name, function() {
-                            console.log('Moved task #'+task.id+' to sprint '+scope.moveStories.selectedSprint.name);
-                            scope.moveStories.movedTickets++;
-                        });
+            $scope.moveStories = function() {
+                $scope.moveState.count = 0;
+                $scope.moveState.started = true;
+                var max = 0;
+                $scope.moveState.stories.forEach(function(story) {
+                    max += 1 + story.tasks.filter($scope.isTaskClosed).length;
+                    $scope.switchSprint(story);
+                    story.tasks.filter($scope.isTaskClosed).forEach(function(task) {
+                        $scope.switchSprint(task);
                     });
                 });
-                scope.$watch('moveStories.movedTickets', function (newValue) {
-                    if (newValue >= scope.moveStories.amountOfTicketsToMove) {
-                        console.log(scope.moveStories.movedTickets+' tickets successfully moved to sprint '+scope.moveStories.selectedSprint.name+'.');
-                        scope.$emit('reloadBoard');
-                        scope.moveStories.movedTickets = -1;
+                $scope.moveState.max = max;
+                $scope.$watch('moveState.count', function (newValue) {
+                    if (newValue >= $scope.moveState.max) {
+                        $('#move-stories-messages').append(MessageService.success(null, 'Successully finished:', $scope.moveState.count+' tickets successfully moved to sprint '+$scope.moveState.selectedSprint.name+'.'));
+                        $scope.$emit('reloadBoard');
                     }
                 });
             };
+        },
+        link: function(scope) {
+            function load(){
+                scope.moveState = {
+                    stories: scope.stories.filter(scope.isStoryOpenOrInProgress)
+                };
+                
+                var sprints = scope.sprints.allSprints.filter(scope.isSprintSameMilestoneButNotSelected);
+                scope.moveState.selectedSprint = sprints[sprints.length-1];
+                scope.$digest();
+            }
+            
+            $('#modal-move-stories').on('show.bs.modal', load);
         }
     };
 });

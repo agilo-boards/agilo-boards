@@ -174,6 +174,7 @@ describe('Scrumboard', function() {
         navBar.moveStoriesModal.sprints.assertSelected('Sprint 3 (Release 2)');
         navBar.moveStoriesModal.assertStories(['#1003', '#1004', '#1005', '#1006', '#1007']);
         navBar.moveStoriesModal.move();
+        navBar.moveStoriesModal.close();
         
         board.assertStories([], [], [1001, 1002]);
         

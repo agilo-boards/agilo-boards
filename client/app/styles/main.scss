@@ -45,12 +45,11 @@ a {
     color: #333333;
     white-space: nowrap;
 }
-div.error {
-    margin: 20px;
-    padding: 10px;
-    border: 1px solid #9f0404;
-    background-color: #e5a7a7;
-    border-radius: 5px;
+span.error {
+    color: #9f0404;
+}
+span.success {
+    color: #208d14;
 }
 
 .drag-placeholder {
@@ -106,8 +105,9 @@ div.error {
     .glyphicon {
         font-size: 1.5em;
     }
-    .backlog-btns .glyphicon {
+    header>.glyphicon {
         font-size: 1.8em;
+        color: #000;
     }
     
     div.story-center:after{
@@ -235,7 +235,7 @@ story-with-tasks > div {
     color: #000;
 }
 
-.progress {
+.ticket-progress {
     position: relative;
     display: inline-block;
     text-align: center;

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-    .controller('BacklogboardCtrl', function ($scope, $filter, $location, $window, DataService, UpdateTicketService, Synchronizer) {
+    .controller('BacklogboardCtrl', function ($scope, $filter, $location, $window, DataService, UpdateTicketService, Synchronizer, MessageService) {
         $scope.nextSprintStories = {};
         $scope.readyToImplementStories = {};
         $scope.remainingStories = {};
@@ -90,6 +90,8 @@ angular.module('scrumboards')
             var seqNumber = determineSeqNumber(story, draggedOver);
             UpdateTicketService.switchSprintAndSeqNumber(story, sprint, seqNumber, function () {
                 $scope.$emit('reloadBoard');
+            }, function (error) {
+                $('#messageContainer').append(MessageService.error(error, 'Unable to modify ticket.', 'Make sure you are logged in to modify tickets.'));
             });
 		});
     });

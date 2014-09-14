@@ -20,6 +20,10 @@ angular.module('scrumboards.models')
     Task.prototype.totalTime = function () {
         return this.timeDone+this.timeRemaining;
     };
+    
+    Task.prototype.isClosed = function () {
+        return this.timeRemaining === 0;
+    };
 
     Task.prototype.isOnGoing = function () {
         return this.timeRemaining === null;

@@ -8,7 +8,7 @@ function MoveStoriesModal(elem) {
     pageObjects.PageObject.call(this, elem);
     this.sprints = new pageObjects.Select('move-stories-sprints');
     this.moveButton = this.elem.element(by.id('moveButton'));
-    this.closeButton = this.elem.element(by.id('closeButton'));
+    this.closeButton = this.elem.element(by.className('close'));
 }
 util.inherits(MoveStoriesModal, pageObjects.PageObject);
 MoveStoriesModal.prototype.assertStories = function (stories) {

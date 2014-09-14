@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards')
-.directive('task', function () {
+.directive('task', function (MessageService) {
     return {
         restrict: 'E',
         templateUrl: 'templates/task.html',
@@ -14,6 +14,8 @@ angular.module('scrumboards')
             $scope.changeTime = function(task, difference, event) {
                 UpdateTicketService.changeTime(task, difference, function() {
                     $scope.$emit('reloadBoard');
+                }, function (error) {
+                    $('#messageContainer').append(MessageService.error(error, 'Unable to update ticket.', 'Make sure you are logged in to modify the ticket.'));
                 });
                 event.preventDefault();
                 event.stopPropagation();

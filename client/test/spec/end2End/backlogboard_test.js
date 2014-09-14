@@ -41,6 +41,9 @@ describe('Backlog', function() {
         browser.driver.get('http://127.0.0.1:3000/agilo/eorders/reset');
         browser.get('http://127.0.0.1:8091/#/backlog?experimental');
     });
+    afterEach(function() {
+        browser.driver.get('http://127.0.0.1:3000/agilo/eorders/reset');
+    });
     
     it('shows stories associated with sprints', function(){
         navBar.releases.selectOption('Release 2');

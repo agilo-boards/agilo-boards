@@ -11,6 +11,9 @@ describe('Scrumboard', function() {
         browser.driver.get('http://127.0.0.1:3000/agilo/eorders/reset');
         browser.get('http://127.0.0.1:8091/#/scrumboard?experimental');
     });
+    afterEach(function() {
+        browser.driver.get('http://127.0.0.1:3000/agilo/eorders/reset');
+    });
     
     it('updates remaining time when selecting a different sprint', function(){
         var listOfSprints = ['Sprint 5 (Release 1)', 'Sprint 1 (Release 2)', 'Sprint 2 (Release 2)', 'Sprint 3 (Release 2)', 'Sprint 1 (Release 3)'];

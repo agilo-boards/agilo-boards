@@ -12,10 +12,12 @@ angular.module('scrumboards')
             showOwnerImage: '@'
         },
         controller: function ($scope, $window, UpdateTicketService) {
-            $scope.changeTime = function(task, difference) {
+            $scope.changeTime = function(task, difference, event) {
                 UpdateTicketService.changeTime(task, difference, function() {
                     $scope.$emit('reloadBoard');
                 });
+                event.preventDefault();
+                event.stopPropagation();
             };
         }
     };

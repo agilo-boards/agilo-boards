@@ -12,8 +12,9 @@ angular.module('scrumboards')
         },
         link: function (scope, element) {
             element.attr('slice-name', scope.sprint.name);
-            scope.sliceValue = scope.sprint.value;
-            if (typeof(scope.sliceValue) === 'undefined') {
+            if (scope.sprint.hasOwnProperty('value')) {
+                scope.sliceValue = scope.sprint.value;
+            } else {
                 scope.sliceValue = scope.sprint.name;
             }
         },
@@ -44,7 +45,13 @@ angular.module('scrumboards')
             
             $scope.isMatchingSprint = function(story) {
                 return story.sprint === $scope.sliceValue;
-            };            
+            };    
+            
+            $scope.isOnlyOutScopeStories = function(stories) {
+                return stories.every(function(story) {
+                    return !story.inScope;
+                });
+            };
         }
     };
 });

@@ -18,6 +18,7 @@
                    assigned-ticket-group="{{project}}">
             </story>
             <div class="information-text no-stories" ng-show="currentStories.length == 0">No stories</div>
+            <div class="information-text no-stories" ng-show="!showOutOfScope && currentStories.length>0 && isOnlyOutScopeStories(currentStories)">No stories in scope</div>
         </div>
     </div>
 </div>

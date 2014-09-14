@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="move-stories" ng-show="moveStories.stories.length > 0">
                     Select sprint the stories should be moved to:
-                    <select class="sprints form-control" ng-model="moveStories.selectedSprint"
+                    <select id="move-stories-sprints" class="sprints form-control" ng-model="moveStories.selectedSprint"
                             ng-options="sprint.name for sprint in moveStories.sprints" >
                     </select>
                     <p/>
@@ -23,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <button id="closeButton" type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button id="resetButton" type="button" class="btn btn-default pull-right" ng-click="moveStories()" data-dismiss="modal">Move stories</button>
+                <button id="moveButton" type="button" class="btn btn-default pull-right" ng-click="moveStories()" data-dismiss="modal">Move stories</button>
             </div>
         </div>
     </div>

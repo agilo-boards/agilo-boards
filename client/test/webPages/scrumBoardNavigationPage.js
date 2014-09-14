@@ -3,7 +3,8 @@
 var BaseWebPage = require('./baseWebPage.js'), 
     util = require('util'),
     pageObjects = require('../util/pageObjects.js'),
-    KeywordFilter = require('./keywordFilterPageObject.js');
+    KeywordFilter = require('./keywordFilterPageObject.js'),
+    MoveStoriesModal = require('./moveStoriesPageObject.js');
 
 
 function ScrumBoardNavigationPage(overridePath) {
@@ -13,6 +14,9 @@ function ScrumBoardNavigationPage(overridePath) {
     this.reloadButton = element(by.id('reloadButton'));
     this.filterButton = element(by.id('filterButton'));
     this.filterModal = new KeywordFilter(element(by.id('modal-filter-keywords')));
+    
+    this.moveStoriesButton = element(by.id('moveStoriesButton'));
+    this.moveStoriesModal = new MoveStoriesModal(element(by.id('modal-move-stories')));
     this.timeDone = new pageObjects.Field(element(by.binding('allTimeDone')), 'Done (with admin): ', ' h');
     this.timeRemaining = new pageObjects.Field(element(by.binding('allTimeRemaining')), 'Remaining: ', ' h');
     this.compactMode = new pageObjects.Checkbox(element(by.id('compactMode')));
@@ -27,6 +31,9 @@ ScrumBoardNavigationPage.prototype.reload = function () {
 };
 ScrumBoardNavigationPage.prototype.filter = function () {
     this.filterButton.click();
+};
+ScrumBoardNavigationPage.prototype.moveStories = function () {
+    this.moveStoriesButton.click();
 };
 
 

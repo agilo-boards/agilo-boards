@@ -177,4 +177,25 @@ describe('Scrumboard', function() {
         storyWithMultipleOwners.getTask(0).assertOwnerImage('amy');
         storyWithMultipleOwners.getTask(1).assertOwnerImage('face');
     });
+    
+    it('moves all stories with state todo and in progess to next sprint', function() {
+        navBar.sprints.selectOption('Sprint 2 (Release 2)');
+        board.assertStories([1005, 1006, 1007], [1003, 1004], [1001, 1002]);
+        
+        navBar.moveStories();
+        navBar.moveStoriesModal.sprints.assertOptions(['Sprint 1 (Release 2)', 'Sprint 3 (Release 2)']);
+        navBar.moveStoriesModal.sprints.assertSelected('Sprint 3 (Release 2)');
+        navBar.moveStoriesModal.assertStories(['#1003', '#1004', '#1005', '#1006', '#1007']);
+        navBar.moveStoriesModal.move();
+        
+        board.assertStories([], [], [1001, 1002]);
+        
+        navBar.sprints.selectOption('Sprint 3 (Release 2)');        
+        board.assertStories([1005, 1006, 1007], [1003, 1004], []);
+        
+        
+        navBar.sprints.selectOption('Sprint 1 (Release 2)');  
+        navBar.moveStories();
+        navBar.moveStoriesModal.assertNoStoriesToMove();
+    });
 });

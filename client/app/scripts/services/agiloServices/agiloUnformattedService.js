@@ -29,6 +29,9 @@ angular.module('scrumboards.agiloServices')
             },
             getStoriesByRelease: function(params) {
                 return getHttpResponse(AGILO_REPORTS.storiesByRelease+'?format=tab', 'Unable to load Stories from release', params);
+            },
+            getAdminProjectRatioByRelease: function(params) {
+                return getHttpResponse(AGILO_REPORTS.adminProjectRatioByRelease+'?max=100&format=tab', 'Unable to load Admin to Project ratio from release', params);
             }
         };
     });

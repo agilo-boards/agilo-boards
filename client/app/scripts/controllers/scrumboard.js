@@ -17,6 +17,12 @@ angular.module('scrumboards')
             }, function (error) {
                 $('#messageContainer').append('<div class="error">Unable to load stories. ' + error + '</div>');
             });
+            var adminProjectRatio = DataService.getAdminProjectRatioByRelease(selectedSprint.milestone);
+            adminProjectRatio.then(function (result) {
+            	$scope.adminPercentage = result.admin;
+            }, function (error) {
+                $('#messageContainer').append('<div class="error">' + error + '</div>');
+            });
         });
         sprints.then(function (sprints) {
             $scope.sprints.allSprints = sprints.data;

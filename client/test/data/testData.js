@@ -23,6 +23,10 @@ angular.module('scrumboards')
                 '\n2001	task	Read intro	Release 1.3	assigned	ba			2		Sprint 2	education	1004' +
                 '\n2002	task	Read chapter 1	Release 1.3	assigned	ba			10		Sprint 2	education	1004' +
                 '\n2003	task	Read chapter 2	Release 1.3	assigned	ba			8		Sprint 2	education	1004' +
-                '\n2004	task	Create new AngularJS project using Yoman	Release 1.3	closed	amy			2	0	Sprint 2	agiloBoards 1001'
+                '\n2004	task	Create new AngularJS project using Yoman	Release 1.3	closed	amy			2	0	Sprint 2	agiloBoards 1001',
+                
+            ADMIN_VS_PROJECT_RATION_RELEASE_2015_03: 'work_done	share' +
+            	'\nadmin 	1244.0	57.5%' +
+            	'\nprojects 	920.5	42.5%'
         };
     });

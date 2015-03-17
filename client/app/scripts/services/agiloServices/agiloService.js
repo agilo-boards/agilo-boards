@@ -49,7 +49,8 @@ angular.module('scrumboards.agiloServices')
                 timeRemaining: parseFloatOrNull,
                 timeDone: parseFloatOrZero,
                 storyPoints: parseFloatOrNull,
-                numberOfTasks: parseFloatOrNull
+                numberOfTasks: parseFloatOrNull,
+                seqNumber: parseFloatOrNull
             });
         },
         getReleases: function () {

@@ -103,13 +103,13 @@ angular.module('scrumboards')
         };
         
         $scope.orderByProjectSequence = function (story) {
-        	if (!story.seqNumber) {
-        		return Number.MAX_VALUE;
-        	}
-        	return story.seqNumber;
+            if (!story.seqNumber) {
+                return Number.MAX_VALUE;
+            }
+            return story.seqNumber;
         };
         
-        $scope.isNotFilteredByKeyword = function(story) {
+        $scope.isNotFilteredByKeyword = function (story) {
             return !story.containsAnyFilteredKeywordTypes($scope.keywordTypes);
         };
     });

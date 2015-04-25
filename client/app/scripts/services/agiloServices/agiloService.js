@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scrumboards.agiloServices')
-.service('AgiloService', function (AgiloUnformattedService, KeywordParser, TsvToJsonConverter, AGILO_REPORT_MAPPING_SPRINTS, AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, AGILO_REPORT_MAPPING_RELEASES, AGILO_REPORT_MAPPING_STORIES_BY_RELEASE) {
+.service('AgiloService', function (AgiloUnformattedService, KeywordParser, TsvToJsonConverter, AGILO_REPORT_MAPPING_SPRINTS, AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, AGILO_REPORT_MAPPING_RELEASES, AGILO_REPORT_MAPPING_STORIES_BY_RELEASE, AGILO_REPORT_MAPPING_ADMIN_PROJECT_RATIO_BY_RELEASE) {
     function parseKeywords(keywords) {
         return KeywordParser.parse(keywords);
     }
@@ -49,7 +49,8 @@ angular.module('scrumboards.agiloServices')
                 timeRemaining: parseFloatOrNull,
                 timeDone: parseFloatOrZero,
                 storyPoints: parseFloatOrNull,
-                numberOfTasks: parseFloatOrNull
+                numberOfTasks: parseFloatOrNull,
+                seqNumber: parseFloatOrNull
             });
         },
         getReleases: function () {
@@ -63,6 +64,11 @@ angular.module('scrumboards.agiloServices')
                 keywords: parseKeywords,
                 storyPoints: parseFloatOrNull,
                 seqNumber: parseFloatOrNull                
+            });
+        },
+        getAdminProjectRatioByRelease: function (selectedRelease) {
+            return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getAdminProjectRatioByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_MAPPING_ADMIN_PROJECT_RATIO_BY_RELEASE, {
+            	work_done: parseFloatOrNull            
             });
         }
     };

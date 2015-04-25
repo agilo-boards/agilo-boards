@@ -65,6 +65,9 @@
                 <li class="navbar-text">
                     Remaining: {{allTimeRemaining}} h
                 </li>
+                <li class="navbar-text">
+                    Admin work: {{adminPercentage}}
+                </li>
             </ul>
         </div>
     </div>
@@ -77,7 +80,7 @@
         <div class="col-md-5 swimlane" id="todo">
             <h2>To Do</h2>
 			<span id="col-todo">
-				<story-with-tasks ng-repeat="story in todoStories = (stories | filter:{isToDo: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword">
+				<story-with-tasks ng-repeat="story in todoStories = (stories | filter:{isToDo: true} | orderBy:[orderBySelectedOwner, orderByProjectSequence]) | filter:isNotFilteredByKeyword">
 				</story-with-tasks>
                 <div class="information-text" ng-show="todoStories.length == 0">No stories</div>
 			</span>
@@ -85,7 +88,7 @@
         <div class="col-md-5 swimlane" id="inprogress">
             <h2>In Progress</h2>
 			<span id="col-inprogress">
-                <story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{isInProgress: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword">
+                <story-with-tasks ng-repeat="story in inprogressStories = (stories | filter:{isInProgress: true} | orderBy:[orderBySelectedOwner, orderByProjectSequence]) | filter:isNotFilteredByKeyword">
                 </story-with-tasks>
                 <div class="information-text" ng-show="inprogressStories.length == 0">No stories</div>
             </span>
@@ -93,7 +96,7 @@
         <div class="col-md-2 swimlane" id="done">
             <h2>Done</h2>
 			<span id="col-done">
-                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{isClosed: true} | orderBy:orderBySelectedOwner) | filter:isNotFilteredByKeyword" id="whole-story-{{story.id}}">
+                <div class="block-fullsize" ng-repeat="story in doneStories = (stories | filter:{isClosed: true} | orderBy:[orderBySelectedOwner, orderByProjectSequence]) | filter:isNotFilteredByKeyword" id="whole-story-{{story.id}}">
                     <story story="story" hide-unknown-keywords="hideUnknownKeywords" faded-out="fadedOutStory(story)">
                     </story>
                 </div>

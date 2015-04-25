@@ -15,6 +15,7 @@ describe('Service: Data Service', function () {
 
         httpBackend.whenGET('http://localhost:3000/agilo/eorders/report/104?format=tab').respond(TestData.SPRINTS);
         httpBackend.whenGET('http://localhost:3000/agilo/eorders/report/103?max=500&format=tab&SPRINT=Sprint+2').respond(TestData.STORIES_AND_TASKS_SPRINT_2);
+        httpBackend.whenGET('http://localhost:3000/agilo/eorders/report/122?max=100&format=tab&MILESTONE=Release%2B2015-03').respond(TestData.ADMIN_VS_PROJECT_RATION_RELEASE_2015_03);
     }));
 
     describe('Get all sprints', function () {
@@ -34,6 +35,16 @@ describe('Service: Data Service', function () {
                 expect(result.data[1004].tasks.length).toBe(3);
                 expect(result.data[1007]).toBeDefined();
             });
+            httpBackend.flush();
+        });
+    });
+    
+    describe('Get admin vs. project ratio', function () {
+        it('should map the ratio correctly', function () {
+        	agilo.getAdminProjectRatioByRelease('Release+2015-03').then(function (result) {
+        		expect(result.admin).toBe('57.5%');
+        		expect(result.projects).toBe('42.5%');
+        	});
             httpBackend.flush();
         });
     });

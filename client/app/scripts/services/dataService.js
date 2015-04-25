@@ -58,6 +58,18 @@ angular.module('scrumboards')
         getStoriesByRelease: function (selectedRelease) {
             var stories = AgiloService.getStoriesByRelease(selectedRelease);
             return stories.then(groupStoriesByProject);
+        },
+        getAdminProjectRatioByRelease: function (selectedRelease) {
+        	var adminProjectRatio = AgiloService.getAdminProjectRatioByRelease(selectedRelease);
+        	return adminProjectRatio.then(function (result) {
+        		var ratio = {};
+        		var data = result.data;
+        		var dataLength = data.length;
+        		for (var i = 0; i < dataLength; i++) {
+        			ratio[data[i].category] = data[i].share;
+        		}
+        		return ratio;
+        	});
         }
     };
 });

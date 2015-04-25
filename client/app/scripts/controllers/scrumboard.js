@@ -17,6 +17,12 @@ angular.module('scrumboards')
             }, function (error) {
                 $('#messageContainer').append('<div class="error">Unable to load stories. ' + error + '</div>');
             });
+            var adminProjectRatio = DataService.getAdminProjectRatioByRelease(selectedSprint.milestone);
+            adminProjectRatio.then(function (result) {
+            	$scope.adminPercentage = result.admin;
+            }, function (error) {
+                $('#messageContainer').append('<div class="error">' + error + '</div>');
+            });
         });
         sprints.then(function (sprints) {
             $scope.sprints.allSprints = sprints.data;
@@ -96,7 +102,14 @@ angular.module('scrumboards')
             }
         };
         
-        $scope.isNotFilteredByKeyword = function(story) {
+        $scope.orderByProjectSequence = function (story) {
+            if (!story.seqNumber) {
+                return Number.MAX_VALUE;
+            }
+            return story.seqNumber;
+        };
+        
+        $scope.isNotFilteredByKeyword = function (story) {
             return !story.containsAnyFilteredKeywordTypes($scope.keywordTypes);
         };
     });

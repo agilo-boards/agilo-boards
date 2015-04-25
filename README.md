@@ -5,13 +5,13 @@ Agilo Boards extends Agilo with customized scrum boards for daily standups and b
 ##### Scrumboard
 Using the Scrumboard of Agilo Boards a daily standup can be held in a distributed team. In a larger team the team member talking can be selected to highlight the stories he is assigned to.
 <p align="center">
-![alt text](/screenshots/scrum-board.png "Screenshort of the scrumboard" =550px)
+    <img src="/screenshots/scrum-board.png" width="550" alt="Screenshort of the scrumboard" border="1"/>
 </p>
 
 ##### Backlog Board
 The backlog board is used to prioritize stroies during the backlog grooming. The priority of the stories can be changed by drag and drop.
 <p align="center">
-![alt text](/screenshots/backlog-board.png "Screenshort of the backlog board" =550px)
+    <img src="/screenshots/backlog-board.png" width="550" alt="Screenshort of the backlog board" border="1"/>
 </p>
 
 ##### Getting started

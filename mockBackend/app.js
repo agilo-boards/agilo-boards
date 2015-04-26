@@ -39,6 +39,11 @@ app.get('/agilo/eorders/report/108', function (req, res) {
     res.send(agiloData.getReleasesAsInReport108());
 });
 
+// Admin work ratio
+app.get('/agilo/eorders/report/122', function (req, res) {
+    res.send(agiloData.getAdminRatioAsInReport122());
+});
+
 // Stories per Release
 app.get('/agilo/eorders/report/109', function (req, res) {
     var url_parts = url.parse(req.url, true);

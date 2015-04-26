@@ -619,6 +619,12 @@ module.exports.getStoriesAsInReport109 = function (release) {
     return asTsv(getStoriesForRelease(release), STORY_FIELDS_FOR_BACKLOG);
 };
 
+module.exports.getAdminRatioAsInReport122 = function () {
+    return 'work_done	share' +
+            	'\nadmin 	1244.0	57.5%' +
+            	'\nprojects 	920.5	42.5%';
+};
+
 var mappedProperties = {
     'statedetail': 'Detail Status',
     'work_done': 'Work done',

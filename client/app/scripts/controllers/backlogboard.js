@@ -21,15 +21,18 @@ angular.module('scrumboards')
             }, function (error) {
                 $('#messageContainer').append('<div class="error">' + error + '</div>');
             });
+            
+            var sprintPromise = DataService.getSprintsByRelease($scope.selectedRelease.name);
+            sprintPromise.then(function (sprints) {
+                $scope.sprints = sprints.data;
+                $scope.$emit('sprintsLoaded');
+            });
         });
+        
         $scope.reload = function () {
             $scope.$emit('reloadBoard');
         };
-        var sprintPromise = DataService.getSprints();
-        sprintPromise.then(function (sprints) {
-            $scope.sprints = sprints.data;
-            $scope.$emit('sprintsLoaded');
-        });
+
         var releasePromise = DataService.getReleases();
         $scope.$watch('selectedRelease', function (newValue, oldValue) {
             if (newValue !== oldValue) {

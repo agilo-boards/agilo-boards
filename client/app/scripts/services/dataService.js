@@ -50,6 +50,9 @@ angular.module('scrumboards')
                 };
             });
         },
+        getSprintsByRelease: function (selectedRelease) {
+            return AgiloService.getSprintsByRelease(selectedRelease);
+        },
         getStoriesBySprint: function (selectedSprint) {
             var storiesAndTasks = AgiloService.getStoriesBySprint(selectedSprint);
             return storiesAndTasks.then(groupTasksByStory);

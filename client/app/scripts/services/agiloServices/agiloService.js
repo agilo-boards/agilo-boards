@@ -43,6 +43,12 @@ angular.module('scrumboards.agiloServices')
                 end: parseDateFromUnixTimestamp
             });
         },
+        getSprintsByRelease : function (selectedRelease) {
+            return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getSprintsByRelease({ MILESTONE: selectedRelease }), AGILO_REPORT_MAPPING_SPRINTS, {
+                start: parseDateFromUnixTimestamp,
+                end: parseDateFromUnixTimestamp
+            });
+        },
         getStoriesBySprint: function (selectedSprint) {
             return TsvToJsonConverter.deferredConversion(AgiloUnformattedService.getStoriesBySprint({ SPRINT: selectedSprint }), AGILO_REPORT_MAPPING_STORIES_AND_TASKS_BY_SPRINT, {
                 keywords: parseKeywords,

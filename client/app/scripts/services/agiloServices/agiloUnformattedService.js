@@ -21,6 +21,9 @@ angular.module('scrumboards.agiloServices')
             getSprints: function(params) {
                 return getHttpResponse(AGILO_REPORTS.sprints+'?format=tab', 'Unable to load sprints', params);
             },
+            getSprintsByRelease: function(params) {
+                return getHttpResponse(AGILO_REPORTS.sprintsByRelease+'?format=tab', 'Unable to load sprints', params);
+            },
             getStoriesBySprint: function(params) {
                 return getHttpResponse(AGILO_REPORTS.storiesAndTasksBySprint+'?max=500&format=tab', 'Unable to load stories by sprint', params);
             },

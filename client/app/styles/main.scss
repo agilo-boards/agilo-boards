@@ -229,6 +229,12 @@ story-with-tasks > div {
         font-size: 1em;
     }
 }
+.closed-task {
+	opacity: 0.5;
+	background-color: #F2F2F7;
+	box-shadow: 0 0 0 1px #EDEDF4,
+        0 0 0 3px #D0D0F4;
+}
 .div-block {
     height: auto;
     overflow: hidden;

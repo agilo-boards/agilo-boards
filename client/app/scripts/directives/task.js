@@ -8,6 +8,7 @@ angular.module('scrumboards')
         scope: {
             task: '=',            
             fadedOut: '=',
+            closedTask: '=',
             showOwnerImage: '@'
         },
         controller: function ($scope, $window, UpdateTicketService) {

@@ -3,7 +3,7 @@
         <story story="story" hide-unknown-keywords="hideUnknownKeywords" faded-out="fadedOutStory(story)"></story>
     </div>
     <div class="block tasks" style="padding: 0px 10px 10px 10px">
-        <task ng-repeat="task in story.tasks | orderBy:'id'" task="task" show-owner-image="{{showOwnerImage(story)}}" faded-out="fadedOutTask(task, story)"></task>
+        <task ng-repeat="task in story.tasks | orderBy:'id'" task="task" show-owner-image="{{showOwnerImage(story)}}" faded-out="fadedOutTask(task, story)" closed-task="closedTask(task)"></task>
         <div ng-show="story.tasks.length == 0">There are currently no tasks.</div>
         <a class="task-creation-link" href="{{story.getNewTaskUrl()}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> Add task</a>
     </div>

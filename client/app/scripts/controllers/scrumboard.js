@@ -89,6 +89,10 @@ angular.module('scrumboards')
             }
             return notMatchingSelectedOwner(story);
         };
+        
+        $scope.closedTask = function (task) {
+            return task.status === 'closed';
+        };
 
         $scope.orderBySelectedOwner = function (story) {
             if ($scope.ownerMode && notMatchingSelectedOwner(story)) {

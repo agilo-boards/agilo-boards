@@ -1,5 +1,5 @@
 <a href="{{task.getViewTicketUrl()}}" target="_blank">
-    <div class="task-card" ng-class="{'fade-out': fadedOut}">
+    <div class="task-card" ng-class="{'fade-out': fadedOut, 'closed-task': closedTask}">
         <div class="pull-left" style="height: 100%">
             <div class="owner-image" ng-show="task.owner && showOwnerImage" data-toggle="tooltip" data-placement="top" title="{{task.owner}}">
                 <owner-image owner="{{task.owner}}"></owner-image>

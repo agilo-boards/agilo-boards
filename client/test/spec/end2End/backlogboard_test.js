@@ -18,17 +18,14 @@ describe('Backlog Navigation', function() {
         navBar.releases.selectOption('Release 2');
         navBar.description.assertToStartWith('Software Delivery: Fr ');
         navBar.dueDate.assertToStartWith('Mon ');
-        navBar.completedDate.assertToStartWith('Mon ');
 
         navBar.releases.selectOption('Release 3');
         navBar.description.assertToStartWith('Software Delivery: Fr ');
         navBar.dueDate.assertToStartWith('Mon ');
-        navBar.completedDate.assertToBe('undefined');
 
         navBar.releases.selectOption('Release 1');
         navBar.description.assertToStartWith('Software Delivery: Fr ');
         navBar.dueDate.assertToStartWith('Mon ');
-        navBar.completedDate.assertToStartWith('Mon ');
     });
 });
 

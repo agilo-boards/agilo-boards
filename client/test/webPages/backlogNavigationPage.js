@@ -11,7 +11,6 @@ function BacklogNavigationPage(overridePath) {
     this.reloadButton = element(by.id('reloadButton'));
     this.description = new pageObjects.Field(element(by.id('releaseDescription')));
     this.dueDate = new pageObjects.Field(element(by.id('dueDate')));
-    this.completedDate = new pageObjects.Field(element(by.id('completedDate')));
     this.filterButton = element(by.id('filterButton'));
     this.filterModal = new SprintFilter(element(by.id('modal-filter-sprint')));
     this.outOfScopeCheckbox = new pageObjects.Checkbox(element(by.id('showOutOfScope')));
